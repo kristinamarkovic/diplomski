@@ -17,4 +17,6 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class
         ]);
     }
+
+    //php artisan db:seed --class=UserSeeder
 }
