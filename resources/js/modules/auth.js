@@ -60,7 +60,6 @@ const actions = {
     .then(({ data }) => {
       commit('setUserData', data);
       commit('setLoginMessage', '');
-      console.log(data, 'data');
     })
     .catch(e => {
       if(e.response.data.error === 'Unauthorized') {
@@ -75,6 +74,7 @@ const actions = {
       .post('/auth/register', credentials)
       .then(({ data }) => {
         commit('setRegisterMessage', '');
+        console.log(data, 'data');
       })
       .catch(e => {
         if(e.response.data.error === 'Unauthorized') {

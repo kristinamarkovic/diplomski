@@ -2062,7 +2062,6 @@ var actions = {
       var data = _ref2.data;
       commit('setUserData', data);
       commit('setLoginMessage', '');
-      console.log(data, 'data');
     })["catch"](function (e) {
       if (e.response.data.error === 'Unauthorized') {
         commit('setLoginMessage', 'Wrong email or password, please try again');
@@ -2076,6 +2075,7 @@ var actions = {
     return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/auth/register', credentials).then(function (_ref4) {
       var data = _ref4.data;
       commit('setRegisterMessage', '');
+      console.log(data, 'data');
     })["catch"](function (e) {
       if (e.response.data.error === 'Unauthorized') {
         commit('setRegisterMessage', 'Wrong email or password, please try again');
