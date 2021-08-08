@@ -1,0 +1,11 @@
+@import 'settings/color';
+@import 'settings/inputs';
+@import 'settings/responsive';
+@import 'settings/texts';
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+label {
+    font-size: 12px !important;
+}
