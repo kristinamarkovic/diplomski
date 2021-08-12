@@ -72,41 +72,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _this.loader = true;
                 loginForm = {
                   email: _this.email,
                   password: _this.password
                 };
-                _context.next = 5;
+                _context.next = 4;
                 return _this.$store.dispatch('login', loginForm);
 
-              case 5:
+              case 4:
                 //SREDITI OVAJ FLOW SA FORMOM, napraviti komponentice za Input polja i styles i button polja
                 console.log(_this.getLoginMessage, 'loginMsg');
 
                 if (!(_this.getLoginMessage === '')) {
-                  _context.next = 9;
+                  _context.next = 8;
                   break;
                 }
 
-                _context.next = 9;
+                _context.next = 8;
                 return _this.$router.push('/dashboard');
 
-              case 9:
-                _context.next = 14;
+              case 8:
+                _context.next = 13;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 10:
+                _context.prev = 10;
                 _context.t0 = _context["catch"](0);
                 console.log(_context.t0);
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 11]]);
+        }, _callee, null, [[0, 10]]);
       }))();
     }
   }

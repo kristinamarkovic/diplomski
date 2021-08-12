@@ -4,12 +4,14 @@ import createPersistedState from "vuex-persistedstate";
 import Cookies from "js-cookie";
 
 import auth from '../modules/auth';
+import income from '../modules/income';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
-        auth,
+      auth,
+      income
     },
     state: {},
     mutations: {

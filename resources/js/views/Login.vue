@@ -28,7 +28,6 @@ export default {
     methods: {
         async loginUser () {
         try {
-            this.loader = true;
             let loginForm = {
               email: this.email,
               password: this.password
