@@ -22,8 +22,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -59,34 +67,84 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   created: function created() {
     this.year = moment().format();
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['getCurrentYear', 'getInsertedYear'])), {}, {
+  computed: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['getCurrentYear', 'getInsertedYear', 'user'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapMutations)(['setCurrentYear'])), {}, {
     currentYear: {
       get: function get() {
         return this.getCurrentYear ? this.getCurrentYear : moment(new Date()).format();
       },
       set: function set(val) {
         console.log(val, 'vals');
-        this.$store.commit('setCurrentYear', moment(val).year());
-        console.log(this.insertedYear, 'insertedYear');
-        console.log(moment(val).year(), 'what');
-
-        if (this.currentYear == this.insertedYear) {
-          console.log(this.insertedYear, 'USLO');
-          console.log(this.currentYear, 'USLO');
-          this.$store.commit('setIsCurrentYear', true);
-        } else {
-          this.$store.commit('setIsCurrentYear', false);
-        }
+        this.$store.commit('setCurrentYear', moment(val).year()); // let data = {
+        //     user: this.user.user.id,
+        //     year: moment(val).year()
+        // }
+        // this.$store.commit('getUserYearIncomeData', data);
+        // console.log(this.insertedYear, 'insertedYear');
+        // console.log(moment(val).year(), 'what')
+        // if(this.currentYear == this.insertedYear) {
+        //     console.log(this.insertedYear, 'USLO');
+        //     console.log(this.currentYear, 'USLO');
+        //     this.$store.commit('setIsCurrentYear', true)
+        // }
+        // else {
+        //     this.$store.commit('setIsCurrentYear', false)
+        // }
       }
     },
     insertedYear: {
       get: function get() {
         return this.getInsertedYear;
       }
+    },
+    getYearIncomeData: function getYearIncomeData() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var form;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                form = {
+                  user: _this.user.user.id,
+                  year: _this.currentYear
+                };
+                _context.prev = 1;
+                _context.next = 4;
+                return _this.$store.dispatch('getUserYearIncomeData', form);
+
+              case 4:
+                _context.next = 9;
+                break;
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](1);
+                console.log(_context.t0);
+
+              case 9:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 6]]);
+      }))();
     }
   }),
   components: {
-    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__.default
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  methods: {// getYearIncomeData() {
+    //     let form = {
+    //         user: this.user.user.id,
+    //         year: this.currentYear
+    //     }
+    //     try {
+    //             this.$store.dispatch('getUserYearIncomeData', form);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
   }
 });
 
@@ -147,19 +205,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _ConfirmationMessage_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ConfirmationMessage.vue */ "./resources/js/common/components/income/ConfirmationMessage.vue");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _ConfirmationMessage_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ConfirmationMessage.vue */ "./resources/js/common/components/income/ConfirmationMessage.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -230,13 +280,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       incomes: ''
     };
   },
-  created: function created() {
-    this.getIncomeData();
-  },
-  mounted: function mounted() {
-    this.getIncomeData();
-  },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['user', 'getInsertedMessage', 'getInsertedYear', 'getAverageMonthlyIncome', 'getYearlyBudget', 'getCurrentYear', 'getIsCurrentYear'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)(['user', 'getInsertedMessage', 'getInsertedYear', 'getAverageMonthlyIncome', 'getYearlyBudget', 'getCurrentYear', 'getIsCurrentYear'])), {}, {
     currentYear: {
       get: function get() {
         return this.getCurrentYear;
@@ -264,7 +308,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
           year: moment(this.year).format('YYYY'),
           user_id: this.user.user.id
         };
-        axios__WEBPACK_IMPORTED_MODULE_2___default().post('/auth/insert_income', incomeForm).then(function (_ref) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default().post('/auth/insert_income', incomeForm).then(function (_ref) {
           var data = _ref.data;
           console.log(data, 'data');
 
@@ -274,40 +318,18 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
           console.log(_this.error_msg);
         });
       }
-    },
-    getIncomeData: function getIncomeData() {
-      var _this2 = this;
+    } // async getIncomeData() {
+    //     try {
+    //         await this.$store.dispatch('getUserIncomeData', this.user.user.id);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // },
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return _this2.$store.dispatch('getUserIncomeData', _this2.user.user.id);
-
-              case 3:
-                _context.next = 8;
-                break;
-
-              case 5:
-                _context.prev = 5;
-                _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
-
-              case 8:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[0, 5]]);
-      }))();
-    }
   },
   components: {
-    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__.default,
-    ConfirmationMessage: _ConfirmationMessage_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__.default,
+    ConfirmationMessage: _ConfirmationMessage_vue__WEBPACK_IMPORTED_MODULE_2__.default
   }
 });
 

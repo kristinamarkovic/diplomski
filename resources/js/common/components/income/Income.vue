@@ -25,7 +25,7 @@
 
 
                 <div>
-                    {{  getInsertedMessage }} - is inserted
+                    {{ getInsertedMessage }} - is inserted
                     {{ getInsertedYear }} - year
                     {{ getAverageMonthlyIncome }} - averageMonthlyIncome
                     {{ getYearlyBudget }} - yearlyIncome
@@ -61,12 +61,6 @@ export default {
             DatePickerFormat: 'yyyy',
             incomes: '',
         }
-    },
-    created() {
-        this.getIncomeData();
-    },
-    mounted() {
-        this.getIncomeData();
     },
     computed: {
         ...mapGetters([
@@ -113,13 +107,13 @@ export default {
                 })
             }
         },
-        async getIncomeData() {
-                try {
-                    await this.$store.dispatch('getUserIncomeData', this.user.user.id);
-                } catch (e) {
-                    console.log(e);
-                }
-        },
+        // async getIncomeData() {
+        //     try {
+        //         await this.$store.dispatch('getUserIncomeData', this.user.user.id);
+        //     } catch (e) {
+        //         console.log(e);
+        //     }
+        // },
     },
     components: {
         Datepicker,

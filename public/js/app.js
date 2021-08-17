@@ -2203,57 +2203,106 @@ var mutations = {
 var actions = {
   // In practice, we often use ES2015 argument destructuring
   // to simplify the code a bit (especially when we need to call commit multiple times)
-  getUserIncomeData: function getUserIncomeData(_ref, request) {
+  // getUserIncomeData ({ commit }, request) {
+  //     return axios.get('/auth/get_income_of_user/' + request)
+  //     .then(({ data }) => {
+  //         console.log(data);
+  //         if(data.user_income.length > 0) {
+  //             //console.log(data.user_income[0].year)
+  //             //commit('isInserted', data.message);
+  //             commit('setInsertedYear', data.user_income[0].year);
+  //             //commit('averageMonthlyIncome', data.yearly_income.monthly_income);
+  //             commit('setYearlyBudget', data.user_income[0].budget);
+  //             //commit('setCurrentYear', moment().year())
+  //             if(this.currentYear == this.insertedYear) {
+  //                 commit('setIsCurrentYear', true)
+  //             }
+  //             else {
+  //                 commit('setIsCurrentYear', false)
+  //             }
+  //         }
+  //     })
+  //     .catch(e => {
+  //         console.log(e, 'error');
+  //     })
+  // },
+  //IDEJA KAKO OVO DA RESIMO NAJKRACOM MUKOM
+  //ostavicemo funkciju koja dohvata sve za korisnika i onda uraditi jedan filter prilikom ucitavanja
+  //gde cemo pitati za current year, ostaje flow. Ako ima vise godina unetih onda cu lepo raditi filter
+  //u js samo za tu godinu i to je to i cuvati u state i na osnovu toga uraditi filter commit('setUserdata', year);
+  getUserYearIncomeData: function getUserYearIncomeData(_ref, request) {
     var _this = this;
 
     var commit = _ref.commit;
-    return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth/get_income_of_user/' + request).then(function (_ref2) {
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/auth/get_income_of_user_year', request).then(function (_ref2) {
       var data = _ref2.data;
-      console.log(data);
+      console.log(data, 'sta je stiglo');
 
-      if (data.user_income.length > 0) {
-        //console.log(data.user_income[0].year)
-        //commit('isInserted', data.message);
-        commit('setInsertedYear', data.user_income[0].year); //commit('averageMonthlyIncome', data.yearly_income.monthly_income);
-
-        commit('setYearlyBudget', data.user_income[0].budget);
-        commit('setCurrentYear', moment().year());
+      if (data.user_income !== null) {
+        commit('setCurrentYear', data.user_income.year);
+        commit('setInsertedYear', data.user_income.year);
+        commit('setAverageMonthlyIncome', data.user_income.average_monthly_income);
+        commit('setYearlyBudget', data.user_income.budget);
 
         if (_this.currentYear == _this.insertedYear) {
-          console.log('OVde?');
           commit('setIsCurrentYear', true);
         } else {
           commit('setIsCurrentYear', false);
         }
-      }
+      } else if (data.user_income !== null && _this.currentYear != moment().year()) {
+        commit('setCurrentYear', _this.currentYear);
+      } else {
+        console.log(_this.currentYear, 'currentYear ELSE');
+        console.log(moment().year(), 'moment');
+        commit('setCurrentYear', moment().year());
+      } //imam problem sa setovanjem
+      // if(data.user_income.length > 0) {
+      //     //console.log(data.user_income[0].year)
+      //     //commit('isInserted', data.message);
+      //     commit('setInsertedYear', data.user_income[0].year);
+      //     //commit('averageMonthlyIncome', data.yearly_income.monthly_income);
+      //     commit('setYearlyBudget', data.user_income[0].budget);
+      //     commit('setCurrentYear', moment().year())
+      //     if(this.currentYear == this.insertedYear) {
+      //         commit('setIsCurrentYear', true)
+      //     }
+      //     else {
+      //         commit('setIsCurrentYear', false)
+      //     }
+      // }
+
     })["catch"](function (e) {
       console.log(e, 'error');
     });
   },
-  setInsertedYear: function setInsertedYear(_ref3, year) {
+  getCurrentYear: function getCurrentYear(_ref3, request) {
     var commit = _ref3.commit;
+    commit('setCurrentYear', request);
+  },
+  setInsertedYear: function setInsertedYear(_ref4, year) {
+    var commit = _ref4.commit;
     commit('setInsertedYear', year);
   },
-  setAverageMonthlyIncome: function setAverageMonthlyIncome(_ref4, income) {
-    var commit = _ref4.commit;
+  setAverageMonthlyIncome: function setAverageMonthlyIncome(_ref5, income) {
+    var commit = _ref5.commit;
     commit('setAverageMonthlyIncome', income);
   },
-  setYearlyBudget: function setYearlyBudget(_ref5, budget) {
-    var commit = _ref5.commit;
+  setYearlyBudget: function setYearlyBudget(_ref6, budget) {
+    var commit = _ref6.commit;
     commit('setYearlyBudget', budget);
   },
-  setInsertedMessage: function setInsertedMessage(_ref6, msg) {
-    var commit = _ref6.commit;
+  setInsertedMessage: function setInsertedMessage(_ref7, msg) {
+    var commit = _ref7.commit;
     commit('setInsertedMessage', msg);
   },
-  setCurrentYear: function setCurrentYear(_ref7) {
-    var commit = _ref7.commit,
-        year = _ref7.year;
-    commit('setCurrentYear', year);
-  },
-  setIsCurrentYear: function setIsCurrentYear(_ref8) {
+  setCurrentYear: function setCurrentYear(_ref8) {
     var commit = _ref8.commit,
         year = _ref8.year;
+    commit('setCurrentYear', year);
+  },
+  setIsCurrentYear: function setIsCurrentYear(_ref9) {
+    var commit = _ref9.commit,
+        year = _ref9.year;
     commit('setIsCurrentYear', year);
   }
 };

@@ -57,7 +57,32 @@ class IncomeController extends Controller
         } 
     }
 
+    public function getInfoUser(Request $request) {
+        $user_id = $request->user;
+        $year = $request->year;
 
+        try {
+            $user_income = Income::where([
+                ['user_id', '=',$user_id],
+                ['year', '=' , $year]
+            ])->first();
+            
+            if($user_income) {
+                $user_income['average_monthly_income'] = $this->getMonthlyIncome($user_income->budget);
+            }
+
+            return response()->json([
+                'user_income' => $user_income
+            ]);
+
+        }
+        catch(\Exception $ex) {
+            return response()->json([
+                'message' => $ex->getMessage(),
+                'status' => 500
+            ]);
+        }
+    }
     public function getInfo($id) {
         
         try {
@@ -93,6 +118,7 @@ class IncomeController extends Controller
             //         ['user_id', '=',$user_id]
             //     ])->first();
             // }
+            //morace ipak funkcija sa 2 parametra i difoltno u YearPicker komponenti
             //get user income for all years
             $user_income = Income::where('user_id', '=', $id)->get();
             //get average monthly income
@@ -102,8 +128,7 @@ class IncomeController extends Controller
                     $user_income[$i]['average_monthly_income'] = $this->getMonthlyIncome($user_income[$i]->budget);
                 }
                 return response()->json([
-                    'user_income' => $user_income,
-                    'message' => 'You have been already inserted income for '.$user_income->year.' year.'
+                    'user_income' => $user_income
                 ]);
             }
             // first() za jedan ispis iz baze

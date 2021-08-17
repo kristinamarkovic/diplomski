@@ -33,6 +33,10 @@ export default {
         ...mapGetters([
             'getCurrentYear',
             'getInsertedYear',
+            'user',
+        ]),
+        ...mapMutations([
+            'setCurrentYear'
         ]),
         currentYear: {
             get() {
@@ -41,27 +45,56 @@ export default {
             set(val) {
                 console.log(val, 'vals')
                 this.$store.commit('setCurrentYear', moment(val).year())
-                console.log(this.insertedYear, 'insertedYear');
-                console.log(moment(val).year(), 'what')
-                if(this.currentYear == this.insertedYear) {
-                    console.log(this.insertedYear, 'USLO');
-                    console.log(this.currentYear, 'USLO');
-                    this.$store.commit('setIsCurrentYear', true)
-                }
-                else {
-                    this.$store.commit('setIsCurrentYear', false)
-                }
+                // let data = {
+                //     user: this.user.user.id,
+                //     year: moment(val).year()
+                // }
+                // this.$store.commit('getUserYearIncomeData', data);
+                // console.log(this.insertedYear, 'insertedYear');
+                // console.log(moment(val).year(), 'what')
+                // if(this.currentYear == this.insertedYear) {
+                //     console.log(this.insertedYear, 'USLO');
+                //     console.log(this.currentYear, 'USLO');
+                //     this.$store.commit('setIsCurrentYear', true)
+                // }
+                // else {
+                //     this.$store.commit('setIsCurrentYear', false)
+                // }
             }
         },
         insertedYear: {
             get() {
                 return this.getInsertedYear
             }
-        }
+        },
+        async getYearIncomeData() {
+            let form = {
+                user: this.user.user.id,
+                year: this.currentYear
+            }
+            try {
+                await this.$store.dispatch('getUserYearIncomeData', form);
+            } catch (e) {
+                console.log(e);
+            }
+        },
     },
     components: {
         Datepicker
     },
+    methods: {
+        // getYearIncomeData() {
+        //     let form = {
+        //         user: this.user.user.id,
+        //         year: this.currentYear
+        //     }
+        //     try {
+        //             this.$store.dispatch('getUserYearIncomeData', form);
+        //     } catch (e) {
+        //         console.log(e);
+        //     }
+        // }
+    }
 }
 </script>
 

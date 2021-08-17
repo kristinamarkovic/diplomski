@@ -24,6 +24,7 @@ Route::group([
     Route::post('/insert_income', 'App\Http\Controllers\IncomeController@store');
     // Route::get('/get_income/{user_id}/{year}', 'App\Http\Controllers\IncomeController@show')->where(["id" => "\d+"]);
     Route::get('/get_income_of_user/{id}', 'App\Http\Controllers\IncomeController@getInfo');
+    Route::post('/get_income_of_user_year', 'App\Http\Controllers\IncomeController@getInfoUser');
 //    Route::post('/logout', [AuthController::class, 'logout']);
 //    Route::post('/refresh', [AuthController::class, 'refresh']);
 //    Route::get('/user-profile', [AuthController::class, 'userProfile']);
