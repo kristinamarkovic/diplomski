@@ -102,7 +102,8 @@ class IncomeController extends Controller
                     $user_income[$i]['average_monthly_income'] = $this->getMonthlyIncome($user_income[$i]->budget);
                 }
                 return response()->json([
-                    'user_income' => $user_income
+                    'user_income' => $user_income,
+                    'message' => 'You have been already inserted income for '.$user_income->year.' year.'
                 ]);
             }
             // first() za jedan ispis iz baze
