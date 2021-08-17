@@ -78,11 +78,10 @@ class IncomeController extends Controller
 
             
 
-            $user_income = Income::where('user_id', '=', $id)->get();
-
-            return response()->json([
-                'user_income' => $user_income
-            ]);
+            
+            // return response()->json([
+            //     'user_income' => $user_income
+            // ]);
             // if($user_income && count($user_income) > 1) {
             //     // $yearly_income = Income::where([
             //     //     ['user_id', '=',$user_id],
@@ -94,14 +93,18 @@ class IncomeController extends Controller
             //         ['user_id', '=',$user_id]
             //     ])->first();
             // }
-
+            //get user income for all years
+            $user_income = Income::where('user_id', '=', $id)->get();
             //get average monthly income
-                //$yearly_income['average_monthly_income'] = $this->getMonthlyIncome($yearly_income->budget);
-                // return response()->json([
-                //     'yearly_income' => $yearly_income,
-                //     'message' => 'You have been already inserted income for '.$yearly_income->year.' year.'
-                // ]);
-            
+            if($user_income) {
+                $count = count($user_income);
+                for($i = 0; $i < $count; $i++) {
+                    $user_income[$i]['average_monthly_income'] = $this->getMonthlyIncome($user_income[$i]->budget);
+                }
+                return response()->json([
+                    'user_income' => $user_income
+                ]);
+            }
             // first() za jedan ispis iz baze
             // get() za vise redova iz baze
         }

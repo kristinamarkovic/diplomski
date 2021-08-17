@@ -1,13 +1,17 @@
 <template>
   <div>
-    <header class="header" />
+    <header class="header">
+      
       <a class="nav-link" @click="logoutUser" v-if="isLogged">Logout</a>
+      <year-picker></year-picker>
+    </header>
     <slot />
   </div>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
+import YearPicker from '../common/components/forms/YearPicker.vue'
 export default {
   name: "AppLayoutDashboard",
   computed: {
@@ -16,13 +20,16 @@ export default {
       ]),
   },
   methods: {
-        async logoutUser () {
-            await this.$store.dispatch('logout');
-            if(this.$router.currentRoute.path !== '/') {
-              await this.$router.push('/');
-            }
-        }
-    }
+      async logoutUser () {
+          await this.$store.dispatch('logout');
+          if(this.$router.currentRoute.path !== '/') {
+            await this.$router.push('/');
+          }
+      }
+  },
+  components: {
+    YearPicker
+  }
 }
 </script>
 

@@ -5,14 +5,17 @@ const state = {
     insertedYear: "",
     averageMonthlyIncome: "",
     yearlyIncome: "",
-    currentYear: moment().year(moment().toDate())
+    currentYear: "",
+    isCurrentYear: "",
 };
 
 const getters = {
     getInsertedMessage: state => state.isInserted,
     getInsertedYear: state => state.insertedYear,
     getAverageMonthlyIncome: state => state.averageMonthlyIncome,
-    getYearlyBudget: state => state.yearlyIncome
+    getYearlyBudget: state => state.yearlyIncome,
+    getCurrentYear: state => state.currentYear,
+    getIsCurrentYear: state => state.isCurrentYear,
 };
 
 
@@ -28,6 +31,12 @@ const mutations = {
     },
     setYearlyBudget(state, budget) {
         state.yearlyIncome = budget;
+    },
+    setCurrentYear(state, year) {
+        state.currentYear = year;
+    },
+    setIsCurrentYear(state, bool) {
+        state.isCurrentYear = bool;
     }
 };
 
@@ -38,11 +47,22 @@ const actions = {
         return axios.get('/auth/get_income_of_user/' + request)
         .then(({ data }) => {
             console.log(data);
-            //console.log(data.user_income[0].year)
-            //commit('isInserted', data.message);
-            commit('setInsertedYear', data.user_income[0].year);
-            //commit('averageMonthlyIncome', data.yearly_income.monthly_income);
-            commit('setYearlyBudget', data.user_income[0].budget);
+            if(data.user_income.length > 0) {
+                //console.log(data.user_income[0].year)
+                //commit('isInserted', data.message);
+                commit('setInsertedYear', data.user_income[0].year);
+                //commit('averageMonthlyIncome', data.yearly_income.monthly_income);
+                commit('setYearlyBudget', data.user_income[0].budget);
+                commit('setCurrentYear', moment().year())
+
+                if(this.currentYear == this.insertedYear) {
+                    console.log('OVde?')
+                    commit('setIsCurrentYear', true)
+                }
+                else {
+                    commit('setIsCurrentYear', false)
+                }
+            }
         })
         .catch(e => {
             console.log(e, 'error');
@@ -60,6 +80,12 @@ const actions = {
     setInsertedMessage({commit}, msg) {
         commit('setInsertedMessage', msg);
     },
+    setCurrentYear({commit, year}) {
+        commit('setCurrentYear', year);
+    } ,
+    setIsCurrentYear({commit, year}) {
+        commit('setIsCurrentYear', year);
+    } 
 }
 
 export default {

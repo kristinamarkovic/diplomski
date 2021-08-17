@@ -62,11 +62,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Register',
-  data: {
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+  data: function data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    };
   },
   methods: {
     registerUser: function registerUser() {

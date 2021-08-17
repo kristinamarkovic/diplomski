@@ -24,11 +24,13 @@
 import {mapActions, mapGetters} from "vuex";
 export default {
   name: 'Register',
-  data: {
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+  data: () => {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
   },
   methods: {
      async registerUser () {

@@ -19,7 +19,8 @@ Route::group([
 ], function ($router) {
     Route::post('/login', 'App\Http\Controllers\AuthController@login');
     //bio je za register TestCoontroller koga treba izbrisati
-    Route::post('/register', 'App\Http\Controllers\AuthController@register');
+    //trebalo bi srediti ovo u AuthController za Register, ima bug neki
+    Route::post('/register', 'App\Http\Controllers\TestController@register');
     Route::post('/insert_income', 'App\Http\Controllers\IncomeController@store');
     // Route::get('/get_income/{user_id}/{year}', 'App\Http\Controllers\IncomeController@show')->where(["id" => "\d+"]);
     Route::get('/get_income_of_user/{id}', 'App\Http\Controllers\IncomeController@getInfo');

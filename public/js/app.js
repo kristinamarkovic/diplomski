@@ -2098,6 +2098,7 @@ var actions = {
     //   console.log('Error with logout: ', e);
     // })
     commit('clearUserData');
+    window.location.reload();
   },
   setLoginMessage: function setLoginMessage(_ref7, message) {
     var commit = _ref7.commit;
@@ -2156,7 +2157,8 @@ var state = {
   insertedYear: "",
   averageMonthlyIncome: "",
   yearlyIncome: "",
-  currentYear: moment().year(moment().toDate())
+  currentYear: "",
+  isCurrentYear: ""
 };
 var getters = {
   getInsertedMessage: function getInsertedMessage(state) {
@@ -2170,6 +2172,12 @@ var getters = {
   },
   getYearlyBudget: function getYearlyBudget(state) {
     return state.yearlyIncome;
+  },
+  getCurrentYear: function getCurrentYear(state) {
+    return state.currentYear;
+  },
+  getIsCurrentYear: function getIsCurrentYear(state) {
+    return state.isCurrentYear;
   }
 };
 var mutations = {
@@ -2184,21 +2192,40 @@ var mutations = {
   },
   setYearlyBudget: function setYearlyBudget(state, budget) {
     state.yearlyIncome = budget;
+  },
+  setCurrentYear: function setCurrentYear(state, year) {
+    state.currentYear = year;
+  },
+  setIsCurrentYear: function setIsCurrentYear(state, bool) {
+    state.isCurrentYear = bool;
   }
 };
 var actions = {
   // In practice, we often use ES2015 argument destructuring
   // to simplify the code a bit (especially when we need to call commit multiple times)
   getUserIncomeData: function getUserIncomeData(_ref, request) {
+    var _this = this;
+
     var commit = _ref.commit;
     return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth/get_income_of_user/' + request).then(function (_ref2) {
       var data = _ref2.data;
-      console.log(data); //console.log(data.user_income[0].year)
-      //commit('isInserted', data.message);
+      console.log(data);
 
-      commit('setInsertedYear', data.user_income[0].year); //commit('averageMonthlyIncome', data.yearly_income.monthly_income);
+      if (data.user_income.length > 0) {
+        //console.log(data.user_income[0].year)
+        //commit('isInserted', data.message);
+        commit('setInsertedYear', data.user_income[0].year); //commit('averageMonthlyIncome', data.yearly_income.monthly_income);
 
-      commit('setYearlyBudget', data.user_income[0].budget);
+        commit('setYearlyBudget', data.user_income[0].budget);
+        commit('setCurrentYear', moment().year());
+
+        if (_this.currentYear == _this.insertedYear) {
+          console.log('OVde?');
+          commit('setIsCurrentYear', true);
+        } else {
+          commit('setIsCurrentYear', false);
+        }
+      }
     })["catch"](function (e) {
       console.log(e, 'error');
     });
@@ -2218,6 +2245,16 @@ var actions = {
   setInsertedMessage: function setInsertedMessage(_ref6, msg) {
     var commit = _ref6.commit;
     commit('setInsertedMessage', msg);
+  },
+  setCurrentYear: function setCurrentYear(_ref7) {
+    var commit = _ref7.commit,
+        year = _ref7.year;
+    commit('setCurrentYear', year);
+  },
+  setIsCurrentYear: function setIsCurrentYear(_ref8) {
+    var commit = _ref8.commit,
+        year = _ref8.year;
+    commit('setIsCurrentYear', year);
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2329,20 +2366,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var vuex_persistedstate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-persistedstate */ "./node_modules/vuex-persistedstate/dist/vuex-persistedstate.es.js");
 /* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/dist/js.cookie.mjs");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modules/auth */ "./resources/js/modules/auth.js");
 /* harmony import */ var _modules_income__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../modules/income */ "./resources/js/modules/income.js");
+/* harmony import */ var vuex_extensions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex-extensions */ "./node_modules/vuex-extensions/lib/index.js");
 
 
 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_4__.default.use(vuex__WEBPACK_IMPORTED_MODULE_5__.default);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_5__.default.Store({
+
+vue__WEBPACK_IMPORTED_MODULE_5__.default.use(vuex__WEBPACK_IMPORTED_MODULE_6__.default); // export default createStore(Store, {
+//   modules: {
+//     auth,
+//     income
+//   },
+//   state: {},
+//   mutations: {
+//       // The only way to actually change state in a Vuex store is by committing a mutation. 
+//       // Vuex mutations are very similar to events: each mutation has a string type and a handler. 
+//       // The handler function is where we perform actual state modifications, and it will receive the state as the first argument:
+//       //da bi mogli da koristimo mutacije moramo ih pozvati u komponenti store.commit('doThat')
+//       // setUser(state, user) {
+//       //     state.user = user;
+//       // },
+//       // setToken(state, token) {
+//       // state.token = token;
+//       // },
+//       // It is best practice to always call mutations from our actions, 
+//       // but since our mutations can easily be traced, we are calling the mutations directly
+//   },
+//   actions: {},
+//   plugins: [
+//       createPersistedState({
+//         storage: {
+//           getItem: (key) => Cookies.get(key),
+//           // Please see https://github.com/js-cookie/js-cookie#json, on how to handle JSON.
+//           setItem: (key, value) =>
+//             Cookies.set(key, value, { expires: 3, secure: true }),
+//           removeItem: (key) => Cookies.remove(key),
+//         },
+//         paths: ['auth.user'] 
+//       }),
+//   ],
+// })
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_6__.default.Store({
   modules: {
     auth: _modules_auth__WEBPACK_IMPORTED_MODULE_2__.default,
     income: _modules_income__WEBPACK_IMPORTED_MODULE_3__.default
@@ -57269,6 +57342,186 @@ Vue.compile = compileToFunctions;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Vue);
 
+
+/***/ }),
+
+/***/ "./node_modules/vuex-extensions/lib/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/vuex-extensions/lib/index.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.createStore = void 0;
+
+var _util = __webpack_require__(/*! ./util */ "./node_modules/vuex-extensions/lib/util.js");
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var createStore = function createStore(vuexStoreClass) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var mixins = options.mixins || {}; // static module
+
+  injectModule(options, mixins);
+
+  if (!vuexStoreClass.prototype.reset) {
+    // dynamic module
+    var rawRegisterModule = vuexStoreClass.prototype.registerModule;
+
+    vuexStoreClass.prototype.registerModule = function (path, rawModule) {
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      injectModule(rawModule, mixins);
+      rawRegisterModule.call(this, path, rawModule, options);
+    }; // reset to original state
+
+
+    vuexStoreClass.prototype.reset = function (options) {
+      var originalState = getOriginalState(this._modules.root, (0, _util.deepCopy)(this._state.data), options);
+      this.replaceState((0, _util.deepCopy)(originalState));
+    };
+  }
+
+  var store = new vuexStoreClass(options);
+  return store;
+};
+
+exports.createStore = createStore;
+
+function injectModule(m, mixins) {
+  m._originalState = (0, _util.deepCopy)((typeof m.state === 'function' ? m.state() : m.state) || {});
+  var mutations = mixins.mutations,
+      actions = mixins.actions,
+      getters = mixins.getters;
+
+  if (mutations) {
+    m.mutations = _objectSpread(_objectSpread({}, mutations), m.mutations || {});
+  }
+
+  if (actions) {
+    m.actions = _objectSpread(_objectSpread({}, actions), m.actions || {});
+  }
+
+  if (getters) {
+    m.getters = _objectSpread(_objectSpread({}, getters), m.getters || {});
+  }
+
+  if (m.modules) {
+    Object.values(m.modules).forEach(function (subModule) {
+      injectModule(subModule, mixins);
+    });
+  }
+}
+
+function getOriginalState(module, moduleVueState) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var defaultReset = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+
+  if (options.self === undefined) {
+    options.self = defaultReset;
+  }
+
+  if (options.nested === undefined) {
+    options.nested = options.self;
+  }
+
+  var state = options.self ? module._rawModule._originalState : moduleVueState;
+  module.forEachChild(function (childModule, key) {
+    var nestOption = {};
+
+    if (options.modules && options.modules[key]) {
+      nestOption = _objectSpread({}, options.modules[key]);
+    }
+
+    state[key] = getOriginalState(childModule, moduleVueState[key], nestOption, options.nested);
+  });
+  return state;
+}
+
+/***/ }),
+
+/***/ "./node_modules/vuex-extensions/lib/util.js":
+/*!**************************************************!*\
+  !*** ./node_modules/vuex-extensions/lib/util.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.find = find;
+exports.deepCopy = deepCopy;
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+function find(list, f) {
+  return list.filter(f)[0];
+}
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+
+
+function deepCopy(obj) {
+  var cache = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+  // just return if obj is immutable value
+  if (obj === null || _typeof(obj) !== 'object') {
+    return obj;
+  } // if obj is hit, it is in circular structure
+
+
+  var hit = find(cache, function (c) {
+    return c.original === obj;
+  });
+
+  if (hit) {
+    return hit.copy;
+  }
+
+  var copy = Array.isArray(obj) ? [] : {}; // put the copy into cache at first
+  // because we want to refer it in recursive deepCopy
+
+  cache.push({
+    original: obj,
+    copy: copy
+  });
+  Object.keys(obj).forEach(function (key) {
+    copy[key] = deepCopy(obj[key], cache);
+  });
+  return copy;
+} // export const logger = {
+//   error: text => {
+//     if (process.env.NODE_ENV !== 'production') {
+//       console.error(`[vuex-ex] ${text}`)
+//     }
+//   }
+// }
 
 /***/ }),
 

@@ -14,7 +14,7 @@ const getters = {
   getLoginMessage: state => state.loginMessage,
   getRegisterMessage: state => state.registerMessage,
   getOnlineUsers: state => state.onlineUsers,
-  getGameStatus: state => state.gameStatus
+  getGameStatus: state => state.gameStatus,
 };
 
 const mutations = {
@@ -96,6 +96,7 @@ const actions = {
     //   console.log('Error with logout: ', e);
     // })
     commit('clearUserData');
+    window.location.reload();
   },
   setLoginMessage({commit}, message) {
     commit('setLoginMessage', message);

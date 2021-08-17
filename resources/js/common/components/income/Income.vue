@@ -1,35 +1,44 @@
 <template>
   <div>
-    <h1>Income Form</h1>
-    <div class="form">
-        <form>
-            <div class="form-group">
-                <label>Choose Year</label>
-                <datepicker
-                    type="year"
-                    v-model="year"
-                    :format="DatePickerFormat"
-                    minimum-view="year"
-                    calendar-button-icon
-                >
-                </datepicker>
-            </div>
-            <div class="form-group">
-                <label>Amount</label>
-                <input type="text" placeholder="Input Amount" v-model="budget"/>
-            </div>
-            <div class="form-group">
-                <button type="button" @click="insert">Insert</button>
-            </div>
+    <div class="income" v-if="!isCurrentYear">
+        <h1>Income Form</h1>
+        <div class="form">
+            <form>
+                <div class="form-group">
+                    <label>Choose Year</label>
+                    <datepicker
+                        type="year"
+                        v-model="year"
+                        :format="DatePickerFormat"
+                        minimum-view="year"
+                        calendar-button-icon
+                    >
+                    </datepicker>
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="text" placeholder="Input Amount" v-model="budget"/>
+                </div>
+                <div class="form-group">
+                    <button type="button" @click="insert">Insert</button>
+                </div>
 
 
-            <div>
-                {{  getInsertedMessage }} - is inserted
-                {{ getInsertedYear }} - year
-                {{ getAverageMonthlyIncome }} - averageMonthlyIncome
-                {{ getYearlyBudget }} - yearlyIncome
-            </div>
-        </form>
+                <div>
+                    {{  getInsertedMessage }} - is inserted
+                    {{ getInsertedYear }} - year
+                    {{ getAverageMonthlyIncome }} - averageMonthlyIncome
+                    {{ getYearlyBudget }} - yearlyIncome
+
+
+
+                    {{ currentYear }} - currentYear
+                </div>
+            </form>
+        </div>
+    </div>
+    <div v-else>
+        <confirmation-message></confirmation-message>
     </div>
   </div>
 </template>
@@ -38,6 +47,7 @@
 import Datepicker from 'vuejs-datepicker';
 import axios from 'axios';
 import {mapGetters, mapMutations, mapActions, mapState} from "vuex";
+import ConfirmationMessage from './ConfirmationMessage.vue';
 let moment = require("moment");
 
 export default {
@@ -52,6 +62,9 @@ export default {
             incomes: '',
         }
     },
+    created() {
+        this.getIncomeData();
+    },
     mounted() {
         this.getIncomeData();
     },
@@ -61,12 +74,19 @@ export default {
             'getInsertedMessage',
             'getInsertedYear',
             'getAverageMonthlyIncome',
-            'getYearlyBudget'
+            'getYearlyBudget',
+            'getCurrentYear',
+            'getIsCurrentYear',
         ]),
         currentYear: {
             get: function() {
-                return 2021
+                return this.getCurrentYear
             },
+        },
+        isCurrentYear: {
+            get: function() {
+               return this.getIsCurrentYear
+            }
         }
     },
     methods: {
@@ -85,6 +105,7 @@ export default {
                 .post('/auth/insert_income', incomeForm)
                 .then(({ data }) => {
                     console.log(data, 'data');
+                    this.getIncomeData();
                 })
                 .catch(e => {
                     this.error_msg = e.response.data.message;
@@ -99,17 +120,10 @@ export default {
                     console.log(e);
                 }
         },
-            // let id = this.user.user.id;
-            // axios.get('/auth/get_income_of_user/' + id)
-            // .then(({ data }) => {
-            //     console.log(data,'data');
-            // })
-            // .catch(e => {
-            //     console.log(e, 'error');
-            // })
     },
     components: {
-        Datepicker
+        Datepicker,
+        ConfirmationMessage
     }
 }
 </script>
