@@ -25,20 +25,16 @@
 
 
                 <div>
-                    {{  getInsertedMessage }} - is inserted
-                    {{ getInsertedYear }} - year
-                    {{ getAverageMonthlyIncome }} - averageMonthlyIncome
-                    {{ getYearlyBudget }} - yearlyIncome
-
-
-
-                    {{ currentYear }} - currentYear
+                    <p>Ovo je data koja je dosla od Usera jednog po ovoj godini: </p>
+                    {{ incomeData }}
                 </div>
             </form>
         </div>
     </div>
     <div v-else>
         <confirmation-message></confirmation-message>
+         <p>Ovo je data koja je dosla od Usera jednog po ovoj godini: </p>
+        {{ incomeData }}
     </div>
   </div>
 </template>
@@ -60,6 +56,7 @@ export default {
             error_msg: '',
             DatePickerFormat: 'yyyy',
             incomes: '',
+            validYear: null,
         }
     },
     created() {
@@ -71,34 +68,44 @@ export default {
     computed: {
         ...mapGetters([
             'user',
-            'getInsertedMessage',
-            'getInsertedYear',
-            'getAverageMonthlyIncome',
-            'getYearlyBudget',
-            'getCurrentYear',
             'getIsCurrentYear',
+            'getUserIncome',
+            'getAllData',
         ]),
-        currentYear: {
-            get: function() {
-                return this.getCurrentYear
-            },
-        },
         isCurrentYear: {
             get: function() {
                return this.getIsCurrentYear
             }
+        },
+        incomeData: {
+            get: function() {
+               return this.getUserIncome
+            }
         }
     },
     methods: {
-        insert() {
-            let valid = true;
+        validate() {
             if(this.budget == '' && this.year == '') {
                 valid = false;
             }
+            if(this.getAllData && this.year) {
+                this.validYear = this.getAllData.find(el => {
+                    if(el.year == moment(this.year).year()) {
+                        return el;
+                    }
+                })
+                console.log(this.validYear, 'validYear');
+                if(this.validYear !== undefined) {
+                    valid = false;
+                }
+            }
+        },
+        insert() {
+            let valid = this.validate();
             if(valid) {
                 let incomeForm = {
                     budget: this.budget,
-                    year: moment(this.year).format('YYYY'),
+                    year: moment(this.year).year(),
                     user_id: this.user.user.id
                 }
                 axios
@@ -111,6 +118,9 @@ export default {
                     this.error_msg = e.response.data.message;
                     console.log(this.error_msg);
                 })
+            }
+            else {
+                console.log("Nije dobra godina OVO na FE da se hendla kao validaciona poruka.")
             }
         },
         async getIncomeData() {

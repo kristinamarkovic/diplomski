@@ -2153,74 +2153,91 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var state = {
-  isInserted: "",
   insertedYear: "",
-  averageMonthlyIncome: "",
-  yearlyIncome: "",
   currentYear: "",
-  isCurrentYear: ""
+  isCurrentYear: "",
+  userIncome: null,
+  allData: null
 };
 var getters = {
-  getInsertedMessage: function getInsertedMessage(state) {
-    return state.isInserted;
-  },
   getInsertedYear: function getInsertedYear(state) {
     return state.insertedYear;
-  },
-  getAverageMonthlyIncome: function getAverageMonthlyIncome(state) {
-    return state.averageMonthlyIncome;
-  },
-  getYearlyBudget: function getYearlyBudget(state) {
-    return state.yearlyIncome;
   },
   getCurrentYear: function getCurrentYear(state) {
     return state.currentYear;
   },
   getIsCurrentYear: function getIsCurrentYear(state) {
     return state.isCurrentYear;
+  },
+  getUserIncome: function getUserIncome(state) {
+    return state.userIncome;
+  },
+  getAllData: function getAllData(state) {
+    return state.allData;
   }
 };
 var mutations = {
-  setInsertedMessage: function setInsertedMessage(state, msg) {
-    state.isInserted = msg;
-  },
   setInsertedYear: function setInsertedYear(state, year) {
     state.insertedYear = year;
-  },
-  setAverageMonthlyIncome: function setAverageMonthlyIncome(state, income) {
-    state.averageMonthlyIncome = income;
-  },
-  setYearlyBudget: function setYearlyBudget(state, budget) {
-    state.yearlyIncome = budget;
   },
   setCurrentYear: function setCurrentYear(state, year) {
     state.currentYear = year;
   },
   setIsCurrentYear: function setIsCurrentYear(state, bool) {
     state.isCurrentYear = bool;
+  },
+  setUserDataIncome: function setUserDataIncome(state, year) {
+    state.userIncome = null;
+    var data = null;
+
+    if (state.allData) {
+      data = state.allData.find(function (element) {
+        if (element.year == year) {
+          return element;
+        }
+      });
+
+      if (data) {
+        state.insertedYear = data.year;
+        state.userIncome = data;
+      }
+    }
+  },
+  setAllData: function setAllData(state, data) {
+    state.allData = data;
   }
 };
 var actions = {
   // In practice, we often use ES2015 argument destructuring
   // to simplify the code a bit (especially when we need to call commit multiple times)
+  //ovde su svi podaci bez filtera
   getUserIncomeData: function getUserIncomeData(_ref, request) {
     var _this = this;
 
     var commit = _ref.commit;
     return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth/get_income_of_user/' + request).then(function (_ref2) {
       var data = _ref2.data;
-      console.log(data);
+      console.log(data.user_income, 'dataUserIncomeDATAAAAAAA'); // OVDE DOHVATAS SVE PODATKE I TREBA DA SETUJES NEKI STATE IZ KOJEG CES DA UZMES KAD STIGNE GODINA
+
+      commit('setAllData', data.user_income);
 
       if (data.user_income.length > 0) {
-        //console.log(data.user_income[0].year)
-        //commit('isInserted', data.message);
-        commit('setInsertedYear', data.user_income[0].year); //commit('averageMonthlyIncome', data.yearly_income.monthly_income);
+        if (_this.currentYear == "") {
+          commit('setCurrentYear', moment().year());
+        }
 
-        commit('setYearlyBudget', data.user_income[0].budget);
-        commit('setCurrentYear', moment().year());
+        var usersBudget = data.user_income.find(function (element) {
+          if (element.year == moment(_this.currentYear).year()) {
+            return element;
+          }
+        }); //ovo za yearly budget i average brisemo sve jer cu ovamo da cuvam podatak u jednom objektu
+
+        console.log(usersBudget, 'usersBudget');
+        commit('setInsertedYear', usersBudget.year);
+        console.log(usersBudget.year, 'insertedYearrrrr');
+        commit('setUserDataIncome', usersBudget.year);
 
         if (_this.currentYear == _this.insertedYear) {
-          console.log('OVde?');
           commit('setIsCurrentYear', true);
         } else {
           commit('setIsCurrentYear', false);
@@ -2234,27 +2251,24 @@ var actions = {
     var commit = _ref3.commit;
     commit('setInsertedYear', year);
   },
-  setAverageMonthlyIncome: function setAverageMonthlyIncome(_ref4, income) {
+  //saljemo godinu
+  setUserDataIncome: function setUserDataIncome(_ref4, data) {
     var commit = _ref4.commit;
-    commit('setAverageMonthlyIncome', income);
+    commit('setUserDataIncome', data);
   },
-  setYearlyBudget: function setYearlyBudget(_ref5, budget) {
-    var commit = _ref5.commit;
-    commit('setYearlyBudget', budget);
-  },
-  setInsertedMessage: function setInsertedMessage(_ref6, msg) {
-    var commit = _ref6.commit;
-    commit('setInsertedMessage', msg);
-  },
-  setCurrentYear: function setCurrentYear(_ref7) {
-    var commit = _ref7.commit,
-        year = _ref7.year;
+  setCurrentYear: function setCurrentYear(_ref5) {
+    var commit = _ref5.commit,
+        year = _ref5.year;
     commit('setCurrentYear', year);
   },
-  setIsCurrentYear: function setIsCurrentYear(_ref8) {
-    var commit = _ref8.commit,
-        year = _ref8.year;
+  setIsCurrentYear: function setIsCurrentYear(_ref6) {
+    var commit = _ref6.commit,
+        year = _ref6.year;
     commit('setIsCurrentYear', year);
+  },
+  setAllData: function setAllData(_ref7, data) {
+    var commit = _ref7.commit;
+    commit('setAllData', data);
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({

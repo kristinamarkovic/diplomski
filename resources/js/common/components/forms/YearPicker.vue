@@ -36,16 +36,17 @@ export default {
         ]),
         currentYear: {
             get() {
-                return this.getCurrentYear ? this.getCurrentYear : moment(new Date()).format()
+                //ovde sam dodala ovo moment(new Date(this.getCurrentYear)).year() umesto this.getCurrentYear
+                //i sad mi radi lepo datum u DatePicker samo mi ne update-uje ovu poruku na confirmationmessage..tu je bug sad
+                //SAMO PORUKU CITAV OSTALI FLOW RADI, IMA NEGDE NEKI BUGIC
+                return this.getCurrentYear ? moment(new Date(this.getCurrentYear)).year() : moment(new Date()).format()
             },
             set(val) {
                 console.log(val, 'vals')
                 this.$store.commit('setCurrentYear', moment(val).year())
-                console.log(this.insertedYear, 'insertedYear');
-                console.log(moment(val).year(), 'what')
-                if(this.currentYear == this.insertedYear) {
-                    console.log(this.insertedYear, 'USLO');
-                    console.log(this.currentYear, 'USLO');
+                this.$store.commit('setUserDataIncome', moment(val).year());
+                console.log(this.getInsertedYear, 'insertedYear');
+                if(this.currentYear == this.getInsertedYear) {
                     this.$store.commit('setIsCurrentYear', true)
                 }
                 else {

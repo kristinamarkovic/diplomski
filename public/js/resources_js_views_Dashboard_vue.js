@@ -62,17 +62,18 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['getCurrentYear', 'getInsertedYear'])), {}, {
     currentYear: {
       get: function get() {
-        return this.getCurrentYear ? this.getCurrentYear : moment(new Date()).format();
+        //ovde sam dodala ovo moment(new Date(this.getCurrentYear)).year() umesto this.getCurrentYear
+        //i sad mi radi lepo datum u DatePicker samo mi ne update-uje ovu poruku na confirmationmessage..tu je bug sad
+        //SAMO PORUKU CITAV OSTALI FLOW RADI, IMA NEGDE NEKI BUGIC
+        return this.getCurrentYear ? moment(new Date(this.getCurrentYear)).year() : moment(new Date()).format();
       },
       set: function set(val) {
         console.log(val, 'vals');
         this.$store.commit('setCurrentYear', moment(val).year());
-        console.log(this.insertedYear, 'insertedYear');
-        console.log(moment(val).year(), 'what');
+        this.$store.commit('setUserDataIncome', moment(val).year());
+        console.log(this.getInsertedYear, 'insertedYear');
 
-        if (this.currentYear == this.insertedYear) {
-          console.log(this.insertedYear, 'USLO');
-          console.log(this.currentYear, 'USLO');
+        if (this.currentYear == this.getInsertedYear) {
           this.$store.commit('setIsCurrentYear', true);
         } else {
           this.$store.commit('setIsCurrentYear', false);
@@ -207,10 +208,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -227,7 +224,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       user_id: '',
       error_msg: '',
       DatePickerFormat: 'yyyy',
-      incomes: ''
+      incomes: '',
+      validYear: null
     };
   },
   created: function created() {
@@ -236,47 +234,65 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   mounted: function mounted() {
     this.getIncomeData();
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['user', 'getInsertedMessage', 'getInsertedYear', 'getAverageMonthlyIncome', 'getYearlyBudget', 'getCurrentYear', 'getIsCurrentYear'])), {}, {
-    currentYear: {
-      get: function get() {
-        return this.getCurrentYear;
-      }
-    },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['user', 'getIsCurrentYear', 'getUserIncome', 'getAllData'])), {}, {
     isCurrentYear: {
       get: function get() {
         return this.getIsCurrentYear;
       }
+    },
+    incomeData: {
+      get: function get() {
+        return this.getUserIncome;
+      }
     }
   }),
   methods: {
-    insert: function insert() {
+    validate: function validate() {
       var _this = this;
-
-      var valid = true;
 
       if (this.budget == '' && this.year == '') {
         valid = false;
       }
 
+      if (this.getAllData && this.year) {
+        this.validYear = this.getAllData.find(function (el) {
+          if (el.year == moment(_this.year).year()) {
+            return el;
+          }
+        });
+        console.log(this.validYear, 'validYear');
+
+        if (this.validYear !== undefined) {
+          valid = false;
+        }
+      }
+    },
+    insert: function insert() {
+      var _this2 = this;
+
+      var valid = this.validate();
+
       if (valid) {
         var incomeForm = {
           budget: this.budget,
-          year: moment(this.year).format('YYYY'),
+          year: moment(this.year).year(),
           user_id: this.user.user.id
         };
         axios__WEBPACK_IMPORTED_MODULE_2___default().post('/auth/insert_income', incomeForm).then(function (_ref) {
           var data = _ref.data;
           console.log(data, 'data');
 
-          _this.getIncomeData();
+          _this2.getIncomeData();
         })["catch"](function (e) {
-          _this.error_msg = e.response.data.message;
-          console.log(_this.error_msg);
+          _this2.error_msg = e.response.data.message;
+          console.log(_this2.error_msg);
         });
+      } else {
+        console.log("Nije dobra godina OVO na FE da se hendla kao validaciona poruka.");
       }
     },
     getIncomeData: function getIncomeData() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -285,7 +301,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _this2.$store.dispatch('getUserIncomeData', _this2.user.user.id);
+                return _this3.$store.dispatch('getUserIncomeData', _this3.user.user.id);
 
               case 3:
                 _context.next = 8;
@@ -1550,24 +1566,34 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", [
+                _c("p", [
+                  _vm._v(
+                    "Ovo je data koja je dosla od Usera jednog po ovoj godini: "
+                  )
+                ]),
                 _vm._v(
                   "\n                  " +
-                    _vm._s(_vm.getInsertedMessage) +
-                    " - is inserted\n                  " +
-                    _vm._s(_vm.getInsertedYear) +
-                    " - year\n                  " +
-                    _vm._s(_vm.getAverageMonthlyIncome) +
-                    " - averageMonthlyIncome\n                  " +
-                    _vm._s(_vm.getYearlyBudget) +
-                    " - yearlyIncome\n\n\n\n                  " +
-                    _vm._s(_vm.currentYear) +
-                    " - currentYear\n              "
+                    _vm._s(_vm.incomeData) +
+                    "\n              "
                 )
               ])
             ])
           ])
         ])
-      : _c("div", [_c("confirmation-message")], 1)
+      : _c(
+          "div",
+          [
+            _c("confirmation-message"),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                "Ovo je data koja je dosla od Usera jednog po ovoj godini: "
+              )
+            ]),
+            _vm._v("\n      " + _vm._s(_vm.incomeData) + "\n  ")
+          ],
+          1
+        )
   ])
 }
 var staticRenderFns = []

@@ -1,62 +1,83 @@
 import axios from "axios";
 
 const state = {
-    isInserted: "",
     insertedYear: "",
-    averageMonthlyIncome: "",
-    yearlyIncome: "",
     currentYear: "",
     isCurrentYear: "",
+    userIncome: null,
+    allData: null,
 };
 
 const getters = {
-    getInsertedMessage: state => state.isInserted,
     getInsertedYear: state => state.insertedYear,
-    getAverageMonthlyIncome: state => state.averageMonthlyIncome,
-    getYearlyBudget: state => state.yearlyIncome,
     getCurrentYear: state => state.currentYear,
     getIsCurrentYear: state => state.isCurrentYear,
+    getUserIncome: state => state.userIncome,
+    getAllData: state => state.allData,
 };
 
 
 const mutations = {
-    setInsertedMessage(state, msg) {
-        state.isInserted = msg;
-    },
     setInsertedYear(state, year) {
         state.insertedYear = year;
-    },
-    setAverageMonthlyIncome(state, income) {
-        state.averageMonthlyIncome = income;
-    },
-    setYearlyBudget(state, budget) {
-        state.yearlyIncome = budget;
     },
     setCurrentYear(state, year) {
         state.currentYear = year;
     },
     setIsCurrentYear(state, bool) {
         state.isCurrentYear = bool;
+    },
+    setUserDataIncome(state, year) {
+        state.userIncome = null;
+        let data = null;
+        if(state.allData) {
+            data = state.allData.find(element => {
+                if(element.year == year ) {
+                    return element;
+                }
+            })
+            if(data) {
+                state.insertedYear = data.year;
+                state.userIncome = data;
+            }
+        }
+    },
+
+    setAllData(state, data) {
+        state.allData = data;
     }
 };
 
 const actions = {
     // In practice, we often use ES2015 argument destructuring
     // to simplify the code a bit (especially when we need to call commit multiple times)
+    //ovde su svi podaci bez filtera
     getUserIncomeData ({ commit }, request) {
         return axios.get('/auth/get_income_of_user/' + request)
         .then(({ data }) => {
-            console.log(data);
+            console.log(data.user_income, 'dataUserIncomeDATAAAAAAA')
+            // OVDE DOHVATAS SVE PODATKE I TREBA DA SETUJES NEKI STATE IZ KOJEG CES DA UZMES KAD STIGNE GODINA
+            commit('setAllData', data.user_income);
+
             if(data.user_income.length > 0) {
-                //console.log(data.user_income[0].year)
-                //commit('isInserted', data.message);
-                commit('setInsertedYear', data.user_income[0].year);
-                //commit('averageMonthlyIncome', data.yearly_income.monthly_income);
-                commit('setYearlyBudget', data.user_income[0].budget);
-                commit('setCurrentYear', moment().year())
+                if(this.currentYear == "") {
+                    commit('setCurrentYear', moment().year())
+                }
+
+                
+                let usersBudget = data.user_income.find(element => {
+                    if(element.year == moment(this.currentYear).year()) {
+                        return element;
+                    }
+                })
+
+                //ovo za yearly budget i average brisemo sve jer cu ovamo da cuvam podatak u jednom objektu
+                console.log(usersBudget, 'usersBudget');
+                commit('setInsertedYear', usersBudget.year);
+                console.log(usersBudget.year, 'insertedYearrrrr');
+                commit('setUserDataIncome', usersBudget.year);
 
                 if(this.currentYear == this.insertedYear) {
-                    console.log('OVde?')
                     commit('setIsCurrentYear', true)
                 }
                 else {
@@ -71,21 +92,19 @@ const actions = {
     setInsertedYear({commit}, year) {
         commit('setInsertedYear', year);
     },
-    setAverageMonthlyIncome({commit}, income) {
-        commit('setAverageMonthlyIncome', income);
-    },
-    setYearlyBudget({commit}, budget) {
-        commit('setYearlyBudget', budget);
-    },
-    setInsertedMessage({commit}, msg) {
-        commit('setInsertedMessage', msg);
+    //saljemo godinu
+    setUserDataIncome({commit}, data) {
+        commit('setUserDataIncome', data);
     },
     setCurrentYear({commit, year}) {
         commit('setCurrentYear', year);
-    } ,
+    },
     setIsCurrentYear({commit, year}) {
         commit('setIsCurrentYear', year);
-    } 
+    },
+    setAllData({commit}, data) {
+        commit('setAllData', data);
+    }
 }
 
 export default {

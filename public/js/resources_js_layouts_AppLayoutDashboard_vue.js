@@ -62,17 +62,18 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['getCurrentYear', 'getInsertedYear'])), {}, {
     currentYear: {
       get: function get() {
-        return this.getCurrentYear ? this.getCurrentYear : moment(new Date()).format();
+        //ovde sam dodala ovo moment(new Date(this.getCurrentYear)).year() umesto this.getCurrentYear
+        //i sad mi radi lepo datum u DatePicker samo mi ne update-uje ovu poruku na confirmationmessage..tu je bug sad
+        //SAMO PORUKU CITAV OSTALI FLOW RADI, IMA NEGDE NEKI BUGIC
+        return this.getCurrentYear ? moment(new Date(this.getCurrentYear)).year() : moment(new Date()).format();
       },
       set: function set(val) {
         console.log(val, 'vals');
         this.$store.commit('setCurrentYear', moment(val).year());
-        console.log(this.insertedYear, 'insertedYear');
-        console.log(moment(val).year(), 'what');
+        this.$store.commit('setUserDataIncome', moment(val).year());
+        console.log(this.getInsertedYear, 'insertedYear');
 
-        if (this.currentYear == this.insertedYear) {
-          console.log(this.insertedYear, 'USLO');
-          console.log(this.currentYear, 'USLO');
+        if (this.currentYear == this.getInsertedYear) {
           this.$store.commit('setIsCurrentYear', true);
         } else {
           this.$store.commit('setIsCurrentYear', false);

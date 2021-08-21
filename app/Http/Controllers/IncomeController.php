@@ -103,7 +103,7 @@ class IncomeController extends Controller
                 }
                 return response()->json([
                     'user_income' => $user_income,
-                    'message' => 'You have been already inserted income for '.$user_income->year.' year.'
+                    // 'message' => 'You have been already inserted income for '.$user_income->year.' year.'
                 ]);
             }
             // first() za jedan ispis iz baze
