@@ -1,11 +1,46 @@
 @import 'settings/color';
 @import 'settings/inputs';
 @import 'settings/responsive';
-@import 'settings/texts';
+@import 'settings/spacing';
+@import 'settings/fonts';
+@import 'settings/reset';
+@import 'settings/layout';
+@import 'mixins/queries';
+@import '../js/views/scss/views';
 *, *::before, *::after {
     box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: $font-stack;
 }
-
 label {
     font-size: 12px !important;
+}
+
+.image-savings {
+    background-image: url('../images/picture_1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 80%;
+    height: 100%;
+}
+.image-savings-2 {
+    background-image: url('../images/picture_2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 400px;
+    background-position: top;
+}
+
+.logo .logo-image {
+    background-image: url('../images/logo_savings.png');
+    width: 78px;
+    height: 64px;
+    background-size: cover;
+    display: block;
+    position: absolute;
+    top: -18px;
+    left: 127px;
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>LOGIN</h1>
+    <h1>REGISTER</h1>
     <form @keyup.enter="registerUser">
       <input v-model="name" placeholder="Name" />
       <br />

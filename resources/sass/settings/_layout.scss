@@ -1,0 +1,12 @@
+@import '_color.scss';
+@import '_fonts.scss';
+.layout {
+    // height: 100vh;
+    width: 100%;
+    &.layout-dashboard {
+        background-color: $color-white;
+    }
+    &.layout-home {
+        background-color: $color-blue;
+    }
+}

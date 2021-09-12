@@ -52,28 +52,28 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   name: 'YearPicker',
   data: function data() {
     return {
-      DatePickerFormat: 'yyyy',
-      year: ''
+      DatePickerFormat: 'yyyy'
     };
   },
-  created: function created() {
-    this.year = moment().format();
+  methods: {
+    formatDate: function formatDate(date) {
+      return moment(new Date(date)).year();
+    },
+    formatYear: function formatYear(year) {
+      var formated = year.toString();
+      return formated.concat('-01-01');
+    }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['getCurrentYear', 'getInsertedYear'])), {}, {
     currentYear: {
       get: function get() {
-        //ovde sam dodala ovo moment(new Date(this.getCurrentYear)).year() umesto this.getCurrentYear
-        //i sad mi radi lepo datum u DatePicker samo mi ne update-uje ovu poruku na confirmationmessage..tu je bug sad
-        //SAMO PORUKU CITAV OSTALI FLOW RADI, IMA NEGDE NEKI BUGIC
-        return this.getCurrentYear ? moment(new Date(this.getCurrentYear)).year() : moment(new Date()).format();
+        return this.getCurrentYear ? this.formatYear(this.getCurrentYear) : moment(new Date()).format();
       },
       set: function set(val) {
-        console.log(val, 'vals');
-        this.$store.commit('setCurrentYear', moment(val).year());
-        this.$store.commit('setUserDataIncome', moment(val).year());
-        console.log(this.getInsertedYear, 'insertedYear');
+        this.$store.commit('setCurrentYear', this.formatDate(val));
+        this.$store.commit('setUserDataIncome', this.formatDate(val));
 
-        if (this.currentYear == this.getInsertedYear) {
+        if (this.formatDate(val) == this.getInsertedYear) {
           this.$store.commit('setIsCurrentYear', true);
         } else {
           this.$store.commit('setIsCurrentYear', false);
@@ -105,7 +105,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _forms_YearPicker_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../forms/YearPicker.vue */ "./resources/js/common/components/forms/YearPicker.vue");
-//
 //
 //
 //
@@ -153,8 +152,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _ConfirmationMessage_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ConfirmationMessage.vue */ "./resources/js/common/components/income/ConfirmationMessage.vue");
+/* harmony import */ var _forms_YearPicker_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../forms/YearPicker.vue */ "./resources/js/common/components/forms/YearPicker.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -206,8 +206,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
+
 
 
 
@@ -234,7 +233,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   mounted: function mounted() {
     this.getIncomeData();
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['user', 'getIsCurrentYear', 'getUserIncome', 'getAllData'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)(['user', 'getIsCurrentYear', 'getUserIncome', 'getAllData', 'getCurrentYear'])), {}, {
     isCurrentYear: {
       get: function get() {
         return this.getIsCurrentYear;
@@ -244,28 +243,37 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       get: function get() {
         return this.getUserIncome;
       }
+    },
+    yearData: {
+      get: function get() {
+        console.log(this.getCurrentYear);
+        return this.getCurrentYear;
+      }
     }
   }),
   methods: {
     validate: function validate() {
       var _this = this;
 
-      if (this.budget == '' && this.year == '') {
+      var valid = true;
+
+      if (this.budget == '' && this.yearData == '') {
         valid = false;
       }
 
       if (this.getAllData && this.year) {
         this.validYear = this.getAllData.find(function (el) {
-          if (el.year == moment(_this.year).year()) {
+          if (el.year == _this.yearData) {
             return el;
           }
         });
-        console.log(this.validYear, 'validYear');
 
         if (this.validYear !== undefined) {
           valid = false;
         }
       }
+
+      return valid;
     },
     insert: function insert() {
       var _this2 = this;
@@ -275,7 +283,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       if (valid) {
         var incomeForm = {
           budget: this.budget,
-          year: moment(this.year).year(),
+          year: this.yearData,
           user_id: this.user.user.id
         };
         axios__WEBPACK_IMPORTED_MODULE_2___default().post('/auth/insert_income', incomeForm).then(function (_ref) {
@@ -323,7 +331,8 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   },
   components: {
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_1__.default,
-    ConfirmationMessage: _ConfirmationMessage_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    ConfirmationMessage: _ConfirmationMessage_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    YearPicker: _forms_YearPicker_vue__WEBPACK_IMPORTED_MODULE_4__.default
   }
 });
 
@@ -1468,13 +1477,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("p", [
-      _vm._v("You have been already submitted income for this year.\n        "),
-      _c("button", { on: { click: _vm.changeYear } }, [_vm._v("Change year")])
-    ]),
-    _vm.showForm ? _c("div", [_c("year-picker")], 1) : _vm._e(),
+    _c("p", [_vm._v("You have been already submitted income for this year.")]),
     _vm._v(" "),
-    _c("p")
+    _c("button", { on: { click: _vm.changeYear } }, [_vm._v("Change year")]),
+    _vm._v(" "),
+    _vm.showForm ? _c("div", [_c("year-picker")], 1) : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -1507,30 +1514,7 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "form" }, [
             _c("form", [
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", [_vm._v("Choose Year")]),
-                  _vm._v(" "),
-                  _c("datepicker", {
-                    attrs: {
-                      type: "year",
-                      format: _vm.DatePickerFormat,
-                      "minimum-view": "year",
-                      "calendar-button-icon": ""
-                    },
-                    model: {
-                      value: _vm.year,
-                      callback: function($$v) {
-                        _vm.year = $$v
-                      },
-                      expression: "year"
-                    }
-                  })
-                ],
-                1
-              ),
+              _c("div", { staticClass: "form-group" }, [_c("year-picker")], 1),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("label", [_vm._v("Amount")]),

@@ -1,0 +1,13 @@
+//Responsive for 
+@import '../mixins/queries';
+.wrapper {
+    width: 100%;
+    @include media($from: "sm", $until: 900px, $and:"orientation: landscape"){
+        width: 50%;
+    }
+}
+
+
+// h1 {
+//     @include size(100px);
+// }

@@ -5,25 +5,23 @@
         <div class="form">
             <form>
                 <div class="form-group">
-                    <label>Choose Year</label>
-                    <datepicker
+                    <!-- <datepicker
                         type="year"
                         v-model="year"
                         :format="DatePickerFormat"
                         minimum-view="year"
                         calendar-button-icon
                     >
-                    </datepicker>
+                    </datepicker> -->
+                    <year-picker></year-picker>
                 </div>
-                <div class="form-group">
-                    <label>Amount</label>
-                    <input type="text" placeholder="Input Amount" v-model="budget"/>
-                </div>
-                <div class="form-group">
-                    <button type="button" @click="insert">Insert</button>
-                </div>
-
-
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="text" placeholder="Input Amount" v-model="budget"/>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" @click="insert">Insert</button>
+                    </div>
                 <div>
                     <p>Ovo je data koja je dosla od Usera jednog po ovoj godini: </p>
                     {{ incomeData }}
@@ -44,6 +42,7 @@ import Datepicker from 'vuejs-datepicker';
 import axios from 'axios';
 import {mapGetters, mapMutations, mapActions, mapState} from "vuex";
 import ConfirmationMessage from './ConfirmationMessage.vue';
+import YearPicker from '../forms/YearPicker.vue';
 let moment = require("moment");
 
 export default {
@@ -71,6 +70,7 @@ export default {
             'getIsCurrentYear',
             'getUserIncome',
             'getAllData',
+            'getCurrentYear'
         ]),
         isCurrentYear: {
             get: function() {
@@ -81,31 +81,39 @@ export default {
             get: function() {
                return this.getUserIncome
             }
+        },
+        yearData: {
+            get: function() {
+                console.log(this.getCurrentYear)
+               return this.getCurrentYear
+            }
         }
     },
     methods: {
         validate() {
-            if(this.budget == '' && this.year == '') {
+            let valid = true;
+            if(this.budget == '' && this.yearData == '') {
                 valid = false;
             }
             if(this.getAllData && this.year) {
                 this.validYear = this.getAllData.find(el => {
-                    if(el.year == moment(this.year).year()) {
+                    if(el.year == this.yearData) {
                         return el;
                     }
                 })
-                console.log(this.validYear, 'validYear');
                 if(this.validYear !== undefined) {
                     valid = false;
                 }
             }
+
+            return valid;
         },
         insert() {
             let valid = this.validate();
             if(valid) {
                 let incomeForm = {
                     budget: this.budget,
-                    year: moment(this.year).year(),
+                    year: this.yearData,
                     user_id: this.user.user.id
                 }
                 axios
@@ -124,16 +132,17 @@ export default {
             }
         },
         async getIncomeData() {
-                try {
-                    await this.$store.dispatch('getUserIncomeData', this.user.user.id);
-                } catch (e) {
-                    console.log(e);
-                }
+            try {
+                await this.$store.dispatch('getUserIncomeData', this.user.user.id);
+            } catch (e) {
+                console.log(e);
+            }
         },
     },
     components: {
         Datepicker,
-        ConfirmationMessage
+        ConfirmationMessage,
+        YearPicker
     }
 }
 </script>

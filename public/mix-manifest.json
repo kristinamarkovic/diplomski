@@ -1,4 +1,14 @@
 {
     "/js/app.js": "/js/app.js",
-    "/sass/app.css": "/sass/app.css"
+    "/sass/app.css": "/sass/app.css",
+    "/images/loader-coin.png": "/images/loader-coin.png",
+    "/images/loader-hand.png": "/images/loader-hand.png",
+    "/images/my_savings.ico": "/images/my_savings.ico",
+    "/images/picture_1.png": "/images/picture_1.png",
+    "/images/picture_2.png": "/images/picture_2.png",
+    "/images/picture_3.jpg": "/images/picture_3.jpg",
+    "/images/picture_4.png": "/images/picture_4.png",
+    "/images/picture_5.jpg": "/images/picture_5.jpg",
+    "/images/money_dollar.ico": "/images/money_dollar.ico",
+    "/images/logo_savings.png": "/images/logo_savings.png"
 }

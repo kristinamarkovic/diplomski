@@ -42,7 +42,6 @@ const mutations = {
             }
         }
     },
-
     setAllData(state, data) {
         state.allData = data;
     }
@@ -58,23 +57,16 @@ const actions = {
             console.log(data.user_income, 'dataUserIncomeDATAAAAAAA')
             // OVDE DOHVATAS SVE PODATKE I TREBA DA SETUJES NEKI STATE IZ KOJEG CES DA UZMES KAD STIGNE GODINA
             commit('setAllData', data.user_income);
-
             if(data.user_income.length > 0) {
                 if(this.currentYear == "") {
                     commit('setCurrentYear', moment().year())
                 }
-
-                
                 let usersBudget = data.user_income.find(element => {
                     if(element.year == moment(this.currentYear).year()) {
                         return element;
                     }
                 })
-
-                //ovo za yearly budget i average brisemo sve jer cu ovamo da cuvam podatak u jednom objektu
-                console.log(usersBudget, 'usersBudget');
                 commit('setInsertedYear', usersBudget.year);
-                console.log(usersBudget.year, 'insertedYearrrrr');
                 commit('setUserDataIncome', usersBudget.year);
 
                 if(this.currentYear == this.insertedYear) {
@@ -92,7 +84,6 @@ const actions = {
     setInsertedYear({commit}, year) {
         commit('setInsertedYear', year);
     },
-    //saljemo godinu
     setUserDataIncome({commit}, data) {
         commit('setUserDataIncome', data);
     },

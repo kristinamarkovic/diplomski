@@ -23,11 +23,16 @@ export default {
     data: () => {
         return {
             DatePickerFormat: 'yyyy',
-            year: '',
         }
     },
-    created() {
-        this.year = moment().format();
+    methods: {
+        formatDate(date) {
+            return moment(new Date(date)).year()
+        },
+        formatYear(year) {
+            let formated = year.toString();
+            return formated.concat('-01-01');
+        }
     },
     computed: {
         ...mapGetters([
@@ -36,17 +41,12 @@ export default {
         ]),
         currentYear: {
             get() {
-                //ovde sam dodala ovo moment(new Date(this.getCurrentYear)).year() umesto this.getCurrentYear
-                //i sad mi radi lepo datum u DatePicker samo mi ne update-uje ovu poruku na confirmationmessage..tu je bug sad
-                //SAMO PORUKU CITAV OSTALI FLOW RADI, IMA NEGDE NEKI BUGIC
-                return this.getCurrentYear ? moment(new Date(this.getCurrentYear)).year() : moment(new Date()).format()
+                return this.getCurrentYear ? this.formatYear(this.getCurrentYear) : moment(new Date()).format()
             },
             set(val) {
-                console.log(val, 'vals')
-                this.$store.commit('setCurrentYear', moment(val).year())
-                this.$store.commit('setUserDataIncome', moment(val).year());
-                console.log(this.getInsertedYear, 'insertedYear');
-                if(this.currentYear == this.getInsertedYear) {
+                this.$store.commit('setCurrentYear', this.formatDate(val))
+                this.$store.commit('setUserDataIncome', this.formatDate(val));
+                if(this.formatDate(val) == this.getInsertedYear) {
                     this.$store.commit('setIsCurrentYear', true)
                 }
                 else {

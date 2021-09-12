@@ -973,7 +973,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h1", [_vm._v("LOGIN")]),
+    _c("h1", [_vm._v("REGISTER")]),
     _vm._v(" "),
     _c(
       "form",

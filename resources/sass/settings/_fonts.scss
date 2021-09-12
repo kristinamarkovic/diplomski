@@ -1,0 +1,10 @@
+/* Fonts */
+$font-base: 16px;
+$font-base-line-height: 0.7 * $font-base;
+$font-stack: 'Kanit', sans-serif;
+
+
+@font-face {
+    font-family: 'Kanit-Regular';
+    src: url('/fonts/Kanit-Regular.ttf') format('truetype');
+}

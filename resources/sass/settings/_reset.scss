@@ -1,0 +1,165 @@
+@import '_color.scss';
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+    background: $color-white;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote {
+
+    &:before,
+    &:after {
+        content: '';
+    }
+}
+
+q {
+
+    &:before,
+    &:after {
+        content: '';
+    }
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.d-flex-column {
+    display: flex;
+    flex-direction: column;
+}
+.vdp-datepicker__calendar {
+    width: 244.8px !important;
+    height: auto;
+    border-radius: 7px !important;
+    border: 1px solid $color-input-border !important;
+    box-shadow: 1px 1px 2px $color-separator;
+    // font-family: $font-stack;
+    font-size: 11px;
+    font-weight: bold;
+
+    .cell {
+        line-height: 30px !important;
+        height: 30px !important;
+    }
+    .cell.day {
+        width: 34px;
+        height: 34px;
+        white-space: nowrap;
+        &:hover {
+            background: $color-btn-primary !important;
+            color: $color-white;
+            border: 1px solid $color-btn-primary;
+            border-radius: 7px;
+        }
+    }
+    .cell.day.blank {
+        &:hover {
+            background: none !important;
+            color: $color-white;
+            border: 1px solid $color-white;
+            border-radius: 7px;
+        }
+    }
+    .day-header {
+        padding-top: 5px;
+        &:hover {
+            color: $color-black;
+            border: 1px solid $color-white;
+        }
+    }
+    .cell.selected {
+        color: $color-btn-primary;
+        background: none !important;
+
+    }
+}
+
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.nav a {
+    font-weight: bold;
+    color: $color-white;
+    padding-left: 20px;
+    text-decoration: none;
+}
+.nav a.router-link-exact-active {
+    color: #42b983;
+}
+.logo {
+    position: relative;
+    .logo-text {
+        background: #1e5799; /* Old browsers */
+        background: #fefcea; /* Old browsers */
+        background: #f1da36; /* Old browsers */
+        background: #ffbd49; /* Old browsers */
+        background: #ffbd49; /* Old browsers */
+        background: -moz-linear-gradient(45deg, #ffbd49 30%, #fefcea 81%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(45deg, #ffbd49 30%,#fefcea 81%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(45deg, #ffbd49 30%,#fefcea 81%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        // font-size: 70px;
+        font-size: 55px;
+        font-weight: bold;
+        // line-height: 30px;
+    }
+    width: 50%;
+}
+.links {
+    display: flex;
+    justify-content: flex-end;
+}
+.header {
+    // display: flex;
+    // justify-content: flex-end;
+    padding: 20px;
+}
+//Text helpers
+.text-center {
+    text-align: center;
+}
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+.font-normal {
+    font-weight: normal;
+}
+
+

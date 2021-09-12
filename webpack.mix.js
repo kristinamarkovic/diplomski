@@ -5,7 +5,7 @@ mix.webpackConfig({
         extensions: ['.js', '.vue'],
         alias: {
             '@': __dirname + '/resources'
-        }
+        },
     }
 });
 
@@ -22,4 +22,5 @@ mix.webpackConfig({
  */
 
 mix.js('resources/js/app.js', 'public/js').vue({ version: 2 })
-    .sass('resources/sass/app.scss', 'public/sass');
+    .sass('resources/sass/app.scss', 'public/sass')
+    .copyDirectory('resources/images', 'public/images');

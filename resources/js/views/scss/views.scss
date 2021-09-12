@@ -1,0 +1,38 @@
+@import '../../../sass/settings/fonts';
+@import '../../../sass/settings/color';
+//Home Page
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .left-side {
+        display: block;
+        float: left;
+        padding: 20px;
+    }
+    .right-side {
+        
+    }
+}
+.title {
+    color: $color-white;
+    font-size: 35px;
+    text-indent: 3rem;
+}
+.main-text {
+    color: $color-white;
+    padding-top: 25px;
+    //padding-left: 20px;
+    line-height: 25px;
+    font-size: 20px;
+    &::first-letter {
+        color: $color-gold;
+        font-weight: bold;
+        float: left;
+        padding-right: 8px;
+        margin-top: -3px;
+        font-size: 55px;
+        line-height: 52px;
+        
+    }
+}

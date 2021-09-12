@@ -1,11 +1,10 @@
 <template>
   <div>
-      <p>You have been already submitted income for this year.
+      <p>You have been already submitted income for this year.</p>
           <button @click="changeYear">Change year</button>
           <div v-if="showForm">
             <year-picker></year-picker>
           </div>
-      </p>
   </div>
 </template>
 

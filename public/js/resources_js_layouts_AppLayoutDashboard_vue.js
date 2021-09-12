@@ -52,28 +52,28 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   name: 'YearPicker',
   data: function data() {
     return {
-      DatePickerFormat: 'yyyy',
-      year: ''
+      DatePickerFormat: 'yyyy'
     };
   },
-  created: function created() {
-    this.year = moment().format();
+  methods: {
+    formatDate: function formatDate(date) {
+      return moment(new Date(date)).year();
+    },
+    formatYear: function formatYear(year) {
+      var formated = year.toString();
+      return formated.concat('-01-01');
+    }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['getCurrentYear', 'getInsertedYear'])), {}, {
     currentYear: {
       get: function get() {
-        //ovde sam dodala ovo moment(new Date(this.getCurrentYear)).year() umesto this.getCurrentYear
-        //i sad mi radi lepo datum u DatePicker samo mi ne update-uje ovu poruku na confirmationmessage..tu je bug sad
-        //SAMO PORUKU CITAV OSTALI FLOW RADI, IMA NEGDE NEKI BUGIC
-        return this.getCurrentYear ? moment(new Date(this.getCurrentYear)).year() : moment(new Date()).format();
+        return this.getCurrentYear ? this.formatYear(this.getCurrentYear) : moment(new Date()).format();
       },
       set: function set(val) {
-        console.log(val, 'vals');
-        this.$store.commit('setCurrentYear', moment(val).year());
-        this.$store.commit('setUserDataIncome', moment(val).year());
-        console.log(this.getInsertedYear, 'insertedYear');
+        this.$store.commit('setCurrentYear', this.formatDate(val));
+        this.$store.commit('setUserDataIncome', this.formatDate(val));
 
-        if (this.currentYear == this.getInsertedYear) {
+        if (this.formatDate(val) == this.getInsertedYear) {
           this.$store.commit('setIsCurrentYear', true);
         } else {
           this.$store.commit('setIsCurrentYear', false);
@@ -120,6 +120,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -1207,30 +1208,33 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "header",
-        { staticClass: "header" },
-        [
-          _vm.isLogged
-            ? _c(
-                "a",
-                { staticClass: "nav-link", on: { click: _vm.logoutUser } },
-                [_vm._v("Logout")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c("year-picker")
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _vm._t("default")
-    ],
-    2
-  )
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "layout layout-dashobard" },
+      [
+        _c(
+          "header",
+          { staticClass: "header" },
+          [
+            _vm.isLogged
+              ? _c(
+                  "a",
+                  { staticClass: "nav-link", on: { click: _vm.logoutUser } },
+                  [_vm._v("Logout")]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c("year-picker")
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._t("default")
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

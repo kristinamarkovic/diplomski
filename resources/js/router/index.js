@@ -36,7 +36,7 @@ const routes = [
         name: "Register",
         component: () => import('@/js/views/Register.vue'),
         meta: {
-            layout: 'AppLayoutDashboard'
+            layout: 'AppLayoutHome'
         }
     },
 ]

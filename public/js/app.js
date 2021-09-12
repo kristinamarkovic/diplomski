@@ -1880,6 +1880,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var defaultLayout = 'AppLayoutDefault';
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "AppLayout",
@@ -2230,11 +2232,8 @@ var actions = {
           if (element.year == moment(_this.currentYear).year()) {
             return element;
           }
-        }); //ovo za yearly budget i average brisemo sve jer cu ovamo da cuvam podatak u jednom objektu
-
-        console.log(usersBudget, 'usersBudget');
+        });
         commit('setInsertedYear', usersBudget.year);
-        console.log(usersBudget.year, 'insertedYearrrrr');
         commit('setUserDataIncome', usersBudget.year);
 
         if (_this.currentYear == _this.insertedYear) {
@@ -2251,7 +2250,6 @@ var actions = {
     var commit = _ref3.commit;
     commit('setInsertedYear', year);
   },
-  //saljemo godinu
   setUserDataIncome: function setUserDataIncome(_ref4, data) {
     var commit = _ref4.commit;
     commit('setUserDataIncome', data);
@@ -2344,7 +2342,7 @@ var routes = [{
     return __webpack_require__.e(/*! import() */ "resources_js_views_Register_vue").then(__webpack_require__.bind(__webpack_require__, /*! @/js/views/Register.vue */ "./resources/js/views/Register.vue"));
   },
   meta: {
-    layout: 'AppLayoutDashboard'
+    layout: 'AppLayoutHome'
   }
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__.default({
@@ -2484,11 +2482,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/getUrl.js */ "./node_modules/css-loader/dist/runtime/getUrl.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _images_picture_1_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../images/picture_1.png */ "./resources/images/picture_1.png");
+/* harmony import */ var _images_picture_2_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../images/picture_2.png */ "./resources/images/picture_2.png");
+/* harmony import */ var _images_logo_savings_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../images/logo_savings.png */ "./resources/images/logo_savings.png");
 // Imports
 
+
+
+
+
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_images_picture_1_png__WEBPACK_IMPORTED_MODULE_2__.default);
+var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_images_picture_2_png__WEBPACK_IMPORTED_MODULE_3__.default);
+var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_images_logo_savings_png__WEBPACK_IMPORTED_MODULE_4__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "label {\n  font-size: 12px;\n}\n*, *::before, *::after {\n  box-sizing: inherit;\n}\nlabel {\n  font-size: 12px !important;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n.wrapper {\n  width: 100%;\n}\n@media (min-width: 576px) and (max-width: 899px) and (orientation: landscape) {\n.wrapper {\n    width: 50%;\n}\n}\n.w-100 {\n  width: 100%;\n}\n.w-70 {\n  width: 70%;\n}\n.w-60 {\n  width: 60%;\n}\n.w-50 {\n  width: 50%;\n}\n.w-40 {\n  width: 40%;\n}\n.w-30 {\n  width: 30%;\n}\n.p-t-10 {\n  padding-top: 10px;\n}\n\n/* Fonts */\n@font-face {\n  font-family: \"Kanit-Regular\";\n  src: url(\"/fonts/Kanit-Regular.ttf\") format(\"truetype\");\n}\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n/* HTML5 display-role reset for older browsers */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n}\nbody {\n  line-height: 1;\n  background: #fff;\n}\nol,\nul {\n  list-style: none;\n}\nblockquote,\nq {\n  quotes: none;\n}\nblockquote:before, blockquote:after {\n  content: \"\";\n}\nq:before, q:after {\n  content: \"\";\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n.d-flex-column {\n  display: flex;\n  flex-direction: column;\n}\n.vdp-datepicker__calendar {\n  width: 244.8px !important;\n  height: auto;\n  border-radius: 7px !important;\n  border: 1px solid #DBDBDB !important;\n  box-shadow: 1px 1px 2px #E3E3E3;\n  font-size: 11px;\n  font-weight: bold;\n}\n.vdp-datepicker__calendar .cell {\n  line-height: 30px !important;\n  height: 30px !important;\n}\n.vdp-datepicker__calendar .cell.day {\n  width: 34px;\n  height: 34px;\n  white-space: nowrap;\n}\n.vdp-datepicker__calendar .cell.day:hover {\n  background: #0E62FB !important;\n  color: #fff;\n  border: 1px solid #0E62FB;\n  border-radius: 7px;\n}\n.vdp-datepicker__calendar .cell.day.blank:hover {\n  background: none !important;\n  color: #fff;\n  border: 1px solid #fff;\n  border-radius: 7px;\n}\n.vdp-datepicker__calendar .day-header {\n  padding-top: 5px;\n}\n.vdp-datepicker__calendar .day-header:hover {\n  color: #000;\n  border: 1px solid #fff;\n}\n.vdp-datepicker__calendar .cell.selected {\n  color: #0E62FB;\n  background: none !important;\n}\n.nav {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n}\n.nav a {\n  font-weight: bold;\n  color: #fff;\n  padding-left: 20px;\n  text-decoration: none;\n}\n.nav a.router-link-exact-active {\n  color: #42b983;\n}\n.logo {\n  position: relative;\n  width: 50%;\n}\n.logo .logo-text {\n  background: #1e5799;\n  /* Old browsers */\n  background: #fefcea;\n  /* Old browsers */\n  background: #f1da36;\n  /* Old browsers */\n  background: #ffbd49;\n  /* Old browsers */\n  background: #ffbd49;\n  /* Old browsers */\n  /* FF3.6-15 */\n  /* Chrome10-25,Safari5.1-6 */\n  background: linear-gradient(45deg, #ffbd49 30%, #fefcea 81%);\n  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-size: 55px;\n  font-weight: bold;\n}\n.links {\n  display: flex;\n  justify-content: flex-end;\n}\n.header {\n  padding: 20px;\n}\n.text-center {\n  text-align: center;\n}\n.text-left {\n  text-align: left;\n}\n.text-right {\n  text-align: right;\n}\n.font-bold {\n  font-weight: bold;\n}\n.font-normal {\n  font-weight: normal;\n}\n\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n/* Fonts */\n@font-face {\n  font-family: \"Kanit-Regular\";\n  src: url(\"/fonts/Kanit-Regular.ttf\") format(\"truetype\");\n}\n.layout {\n  width: 100%;\n}\n.layout.layout-dashboard {\n  background-color: #fff;\n}\n.layout.layout-home {\n  background-color: #4f7790;\n}\n\n/* Fonts */\n@font-face {\n  font-family: \"Kanit-Regular\";\n  src: url(\"/fonts/Kanit-Regular.ttf\") format(\"truetype\");\n}\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n.wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n.wrapper .left-side {\n  display: block;\n  float: left;\n  padding: 20px;\n}\n.title {\n  color: #fff;\n  font-size: 35px;\n  text-indent: 3rem;\n}\n.main-text {\n  color: #fff;\n  padding-top: 25px;\n  line-height: 25px;\n  font-size: 20px;\n}\n.main-text::first-letter {\n  color: #FFBD49;\n  font-weight: bold;\n  float: left;\n  padding-right: 8px;\n  margin-top: -3px;\n  font-size: 55px;\n  line-height: 52px;\n}\n*, *::before, *::after {\n  box-sizing: inherit;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-family: \"Kanit\", sans-serif;\n}\nlabel {\n  font-size: 12px !important;\n}\n.image-savings {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  width: 80%;\n  height: 100%;\n}\n.image-savings-2 {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  width: 100%;\n  height: 400px;\n  background-position: top;\n}\n.logo .logo-image {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  width: 78px;\n  height: 64px;\n  background-size: cover;\n  display: block;\n  position: absolute;\n  top: -18px;\n  left: 127px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2568,6 +2578,95 @@ module.exports = function (cssWithMappingToString) {
 
   return list;
 };
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/getUrl.js":
+/*!********************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/getUrl.js ***!
+  \********************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function (url, options) {
+  if (!options) {
+    // eslint-disable-next-line no-param-reassign
+    options = {};
+  } // eslint-disable-next-line no-underscore-dangle, no-param-reassign
+
+
+  url = url && url.__esModule ? url.default : url;
+
+  if (typeof url !== "string") {
+    return url;
+  } // If url is already wrapped in quotes, remove them
+
+
+  if (/^['"].*['"]$/.test(url)) {
+    // eslint-disable-next-line no-param-reassign
+    url = url.slice(1, -1);
+  }
+
+  if (options.hash) {
+    // eslint-disable-next-line no-param-reassign
+    url += options.hash;
+  } // Should url be wrapped?
+  // See https://drafts.csswg.org/css-values-3/#urls
+
+
+  if (/["'() \t\n]/.test(url) || options.needQuotes) {
+    return "\"".concat(url.replace(/"/g, '\\"').replace(/\n/g, "\\n"), "\"");
+  }
+
+  return url;
+};
+
+/***/ }),
+
+/***/ "./resources/images/logo_savings.png":
+/*!*******************************************!*\
+  !*** ./resources/images/logo_savings.png ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/logo_savings.png?d798d90a4b25e1701703654995fadda8");
+
+/***/ }),
+
+/***/ "./resources/images/picture_1.png":
+/*!****************************************!*\
+  !*** ./resources/images/picture_1.png ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/picture_1.png?d0a3c64c1525c6b4fbced48ec247eb8e");
+
+/***/ }),
+
+/***/ "./resources/images/picture_2.png":
+/*!****************************************!*\
+  !*** ./resources/images/picture_2.png ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/picture_2.png?329517fc0f2fffdf55b94e5ea0df8c23");
 
 /***/ }),
 
@@ -42089,7 +42188,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(_vm.layout, { tag: "component" }, [_vm._t("default")], 2)
+  return _c(
+    "div",
+    [_c(_vm.layout, { tag: "component" }, [_vm._t("default")], 2)],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

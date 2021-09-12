@@ -1,11 +1,12 @@
 <template>
   <div>
-    <header class="header">
-      
-      <a class="nav-link" @click="logoutUser" v-if="isLogged">Logout</a>
-      <year-picker></year-picker>
-    </header>
-    <slot />
+    <div class="layout layout-dashobard">
+      <header class="header">
+        <a class="nav-link" @click="logoutUser" v-if="isLogged">Logout</a>
+        <year-picker></year-picker>
+      </header>
+      <slot />
+    </div>
   </div>
 </template>
 

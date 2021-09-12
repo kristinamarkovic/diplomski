@@ -6,7 +6,8 @@
     <title>Debico</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
+    <!--ico -->
+    <link rel="icon" href="{{ asset('images/my_savings.ico') }}">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
