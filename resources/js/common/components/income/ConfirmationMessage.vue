@@ -1,10 +1,17 @@
 <template>
   <div>
-      <p>You have been already submitted income for this year.</p>
-          <button @click="changeYear">Change year</button>
-          <div v-if="showForm">
-            <year-picker></year-picker>
-          </div>
+      <div class="message-income">
+        <form class="form w-40">
+        <div class="form-group p-0">
+            <p class="message-income-paragraph">You have been already submitted income for this year.</p>
+                <button @click="changeYear" type="button" class="form-button">Change year</button>
+            <div v-show="showForm" class="m-t-40">
+                <label class="form-label">Year</label>
+                <year-picker></year-picker>
+            </div>
+        </div>
+        </form>
+      </div>
   </div>
 </template>
 
@@ -28,7 +35,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

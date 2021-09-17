@@ -15,6 +15,93 @@
 /*User*/
 /* Message */
 /* Tables */
+/* Colors */
+/* Colors Greys */
+/* Specificity */
+/* Icons */
+/* Buttons*/
+/* Shadows*/
+/* BIG Backgrounds */
+/*LoginSystemAdmin , Login*/
+/*sidebar*/
+/*Bp Header*/
+/*AdminDashboard*/
+/*Login*/
+/*Systemadmin1*/
+/*Audit Trail*/
+/*User*/
+/* Message */
+/* Tables */
+.form {
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 7px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-style: none;
+  border-left-width: 4px;
+  border-left-color: #007AB5;
+  box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);
+}
+.form .form-title h2 {
+  font-size: 18px;
+  color: #474747;
+  text-align: left;
+  padding-bottom: 15px;
+}
+.form .form-group {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.form .form-group .form-input {
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1px solid #dedede;
+  text-align: left;
+}
+.form .form-group .form-input:hover {
+  border: 1px solid #3a57ee;
+}
+.form .form-group .form-input:focus {
+  outline: none !important;
+  box-shadow: 0px 2px 2px 0px rgba(58, 87, 238, 0.5);
+}
+.form .form-group .form-label {
+  font-size: 14px;
+  color: #474747 !important;
+  margin-bottom: 5px;
+}
+.form .form-group .form-button {
+  font-size: 14px;
+  text-align: center;
+  padding: 5px 15px;
+  border-radius: 5px;
+  float: right;
+  color: #fff;
+  background-color: #3a57ee;
+  font-weight: bold;
+  transition: all 0.3s ease-in;
+}
+.form .form-group .form-button:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+.form .form-group .quick-link {
+  color: #3a57ee;
+  font-size: 12px;
+  float: right;
+  text-align: right;
+  padding: 5px;
+  margin-top: 15px;
+}
+.form .form-group .quick-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .wrapper {
   width: 100%;
 }
@@ -48,8 +135,28 @@
   width: 30%;
 }
 
+.p-0 {
+  padding: 0 !important;
+}
+
 .p-t-10 {
   padding-top: 10px;
+}
+
+.p-t-150 {
+  padding-top: 150px;
+}
+
+.m-0 {
+  margin: 0 !important;
+}
+
+.m-t-40 {
+  margin-top: 40px;
+}
+
+.m-b-20 {
+  margin-bottom: 20px;
 }
 
 /* Fonts */
@@ -87,6 +194,7 @@ menu,
 nav,
 section {
   display: block;
+  box-sizing: border-box;
 }
 
 body {
@@ -117,19 +225,47 @@ table {
   border-spacing: 0;
 }
 
+.d-block {
+  display: block;
+}
+
+.d-flex {
+  display: flex;
+}
+
 .d-flex-column {
   display: flex;
   flex-direction: column;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.position-relative {
+  position: relative;
+}
+
 .vdp-datepicker__calendar {
-  width: 244.8px !important;
+  width: 180px !important;
   height: auto;
   border-radius: 7px !important;
   border: 1px solid #DBDBDB !important;
   box-shadow: 1px 1px 2px #E3E3E3;
-  font-size: 11px;
-  font-weight: bold;
+  font-size: 12px;
+  font-weight: normal;
+}
+.vdp-datepicker__calendar header .prev:after {
+  border: 4px solid transparent !important;
+  border-right: 6px solid #3a57ee !important;
+}
+.vdp-datepicker__calendar header .next:after {
+  border: 4px solid transparent !important;
+  border-left: 6px solid #3a57ee !important;
 }
 .vdp-datepicker__calendar .cell {
   line-height: 30px !important;
@@ -178,7 +314,11 @@ table {
 }
 
 .nav a.router-link-exact-active {
-  color: #42b983;
+  background-color: #3a57ee;
+}
+.nav a.router-link-exact-active:hover {
+  background-color: rgba(58, 87, 238, 0.9);
+  opacity: 1;
 }
 
 .logo {
@@ -186,29 +326,39 @@ table {
   width: 50%;
 }
 .logo .logo-text {
-  background: #1e5799;
-  /* Old browsers */
-  background: #fefcea;
-  /* Old browsers */
-  background: #f1da36;
-  /* Old browsers */
-  background: #ffbd49;
-  /* Old browsers */
-  background: #ffbd49;
-  /* Old browsers */
-  /* FF3.6-15 */
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(45deg, #ffbd49 30%, #fefcea 81%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: 55px;
+  color: #fff;
+  font-size: 40px;
   font-weight: bold;
 }
 
 .links {
   display: flex;
   justify-content: flex-end;
+}
+.links .link-nav {
+  padding: 0 5px;
+  min-width: 112px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 7px;
+  color: #fff;
+  font-size: 14px;
+  transition: all 0.3s ease-in;
+  font-weight: bold;
+  margin-right: 10px;
+  text-align: center;
+}
+.links .link-nav.button-signup {
+  background-color: #f26d21;
+  padding: 0 16px;
+}
+.links .link-nav.button-signup:hover {
+  background-color: rgba(242, 109, 33, 0.9);
+  opacity: 1;
+}
+.links .link-nav:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
 
 .header {
@@ -263,8 +413,28 @@ table {
 .layout.layout-dashboard {
   background-color: #fff;
 }
+.layout.layout-dashboard .header .user-image {
+  width: 50px;
+  height: 50px;
+}
 .layout.layout-home {
-  background-color: #4f7790;
+  background-image: linear-gradient(135deg, #6a82ff 42%, #fff 0%) !important;
+  background-repeat: no-repeat;
+}
+.layout .button.button-start {
+  background: #3a57ee;
+  color: #fff;
+  padding: 12px;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 15px;
+  display: block;
+  margin: 30px auto;
+  transition: 0.3s all ease-in;
+}
+.layout .button.button-start:hover {
+  cursor: pointer;
+  background: #576ddd;
 }
 
 /* Fonts */
@@ -302,23 +472,50 @@ table {
 .title {
   color: #fff;
   font-size: 35px;
-  text-indent: 3rem;
+  line-height: 1.5em;
+  padding-left: 30px;
+}
+.title.wrapper-title::after {
+  content: "";
+  width: 50px;
+  display: block;
+  height: 15px;
+  border-top: 6px solid #ffffff;
 }
 
 .main-text {
   color: #fff;
   padding-top: 25px;
   line-height: 25px;
+  padding-left: 50px;
   font-size: 20px;
 }
-.main-text::first-letter {
+.main-text span.main-text {
   color: #FFBD49;
   font-weight: bold;
-  float: left;
-  padding-right: 8px;
-  margin-top: -3px;
   font-size: 55px;
-  line-height: 52px;
+}
+.main-text.main-text-home {
+  padding-left: 70px;
+  font-size: 15px;
+}
+
+.main-dashboard {
+  margin-left: 105px;
+}
+.main-dashboard .message-income {
+  height: 250px;
+}
+.main-dashboard .message-income .form {
+  height: 100%;
+}
+.main-dashboard .message-income .form .form-button {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+.main-dashboard .message-income-paragraph {
+  font-size: 14px;
+  color: #474747;
 }
 
 *, *::before, *::after {
@@ -327,10 +524,6 @@ table {
   padding: 0;
   border: 0;
   font-family: "Kanit", sans-serif;
-}
-
-label {
-  font-size: 12px !important;
 }
 
 .image-savings {
@@ -342,21 +535,52 @@ label {
 }
 
 .image-savings-2 {
+  background-image: url(/images/picture_4.png?4e5a9390ec7e43e10ef16a863c2ef9bf);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 80%;
+  height: 400px;
+  background-position: top;
+  transform: rotate(-7deg);
+}
+
+.image-savings-4 {
   background-image: url(/images/picture_2.png?329517fc0f2fffdf55b94e5ea0df8c23);
   background-size: contain;
   background-repeat: no-repeat;
-  width: 100%;
+  background-position: bottom;
+  width: 90%;
   height: 400px;
-  background-position: top;
 }
 
 .logo .logo-image {
   background-image: url(/images/logo_savings.png?d798d90a4b25e1701703654995fadda8);
-  width: 78px;
+  width: 73px;
   height: 64px;
   background-size: cover;
   display: block;
   position: absolute;
-  top: -18px;
-  left: 127px;
+  top: -26px;
+  left: 86px;
+}
+
+.input-datepicker {
+  box-sizing: border-box;
+  width: 180px;
+  height: 25px;
+  border-radius: 3px;
+  padding-left: 10px;
+  background-image: url(/images/calendar.png?1ff1b52e1acffb6d099c848fd85c7f5d);
+  background-position: 95% 50%;
+  background-repeat: no-repeat;
+  color: #348fd9;
+  font-weight: bold;
+  border: 1px solid #dedede;
+  font-size: 16px;
+}
+.input-datepicker:hover {
+  cursor: pointer;
+}
+.input-datepicker:focus-visible {
+  outline: none;
 }

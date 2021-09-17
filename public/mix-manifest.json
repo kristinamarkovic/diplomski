@@ -1,14 +1,25 @@
 {
     "/js/app.js": "/js/app.js",
-    "/sass/app.css": "/sass/app.css",
+    "/images/account_login.png": "/images/account_login.png",
+    "/images/account_register.png": "/images/account_register.png",
+    "/images/budget_monthly.png": "/images/budget_monthly.png",
+    "/images/budget_yearly.png": "/images/budget_yearly.png",
+    "/images/business-report.png": "/images/business-report.png",
+    "/images/calendar.png": "/images/calendar.png",
+    "/images/dashboard.png": "/images/dashboard.png",
     "/images/loader-coin.png": "/images/loader-coin.png",
     "/images/loader-hand.png": "/images/loader-hand.png",
+    "/images/logo_savings.png": "/images/logo_savings.png",
+    "/images/money_dollar.ico": "/images/money_dollar.ico",
     "/images/my_savings.ico": "/images/my_savings.ico",
     "/images/picture_1.png": "/images/picture_1.png",
     "/images/picture_2.png": "/images/picture_2.png",
     "/images/picture_3.jpg": "/images/picture_3.jpg",
     "/images/picture_4.png": "/images/picture_4.png",
     "/images/picture_5.jpg": "/images/picture_5.jpg",
-    "/images/money_dollar.ico": "/images/money_dollar.ico",
-    "/images/logo_savings.png": "/images/logo_savings.png"
+    "/images/summary.png": "/images/summary.png",
+    "/images/user.png": "/images/user.png",
+    "/sass/app.css": "/sass/app.css",
+    "/images/picture_6.jpg": "/images/picture_6.jpg",
+    "/images/user_account.png": "/images/user_account.png"
 }

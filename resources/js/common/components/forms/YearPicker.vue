@@ -1,14 +1,16 @@
 <template>
   <div>
-      <label>Current Year</label>
-      <datepicker
-        type="year"
-        v-model="currentYear"
-        :format="DatePickerFormat"
-        minimum-view="year"
-        calendar-button-icon
-    >
-    </datepicker>
+      <div class="year-picker">
+        <datepicker
+            type="year"
+            v-model="currentYear"
+            :format="DatePickerFormat"
+            minimum-view="year"
+            calendar-button-icon
+            inputClass="input-datepicker" 
+        >
+        </datepicker>
+    </div>
   </div>
 </template>
 
@@ -66,6 +68,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
 </style>

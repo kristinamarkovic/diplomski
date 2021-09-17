@@ -54,10 +54,15 @@ export default {
   .loader__coin {
     animation: flip .5s ease-in-out infinite alternate-reverse both;
   }
-  //  boja za formu i onu sliku sa pozadinom #4666FF
+  // boja za formu i onu sliku sa pozadinom #4666FF
 }
 .header {
-  background: inherit;
-  padding-bottom: 50px;
+  //background: inherit;
+  box-shadow: 0 0 7px rgb(0 0 0 / 10%);
+  background-color: #6a82ff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
 }
 </style>

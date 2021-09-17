@@ -44,6 +44,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -115,6 +117,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ConfirmationMessage',
@@ -167,6 +176,23 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -350,6 +376,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _common_components_income_Income_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/components/income/Income.vue */ "./resources/js/common/components/income/Income.vue");
+//
 //
 //
 //
@@ -1429,29 +1456,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("label", [_vm._v("Current Year")]),
-      _vm._v(" "),
-      _c("datepicker", {
-        attrs: {
-          type: "year",
-          format: _vm.DatePickerFormat,
-          "minimum-view": "year",
-          "calendar-button-icon": ""
-        },
-        model: {
-          value: _vm.currentYear,
-          callback: function($$v) {
-            _vm.currentYear = $$v
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "year-picker" },
+      [
+        _c("datepicker", {
+          attrs: {
+            type: "year",
+            format: _vm.DatePickerFormat,
+            "minimum-view": "year",
+            "calendar-button-icon": "",
+            inputClass: "input-datepicker"
           },
-          expression: "currentYear"
-        }
-      })
-    ],
-    1
-  )
+          model: {
+            value: _vm.currentYear,
+            callback: function($$v) {
+              _vm.currentYear = $$v
+            },
+            expression: "currentYear"
+          }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -1477,11 +1506,46 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("p", [_vm._v("You have been already submitted income for this year.")]),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.changeYear } }, [_vm._v("Change year")]),
-    _vm._v(" "),
-    _vm.showForm ? _c("div", [_c("year-picker")], 1) : _vm._e()
+    _c("div", { staticClass: "message-income" }, [
+      _c("form", { staticClass: "form w-40" }, [
+        _c("div", { staticClass: "form-group p-0" }, [
+          _c("p", { staticClass: "message-income-paragraph" }, [
+            _vm._v("You have been already submitted income for this year.")
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "form-button",
+              attrs: { type: "button" },
+              on: { click: _vm.changeYear }
+            },
+            [_vm._v("Change year")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.showForm,
+                  expression: "showForm"
+                }
+              ],
+              staticClass: "m-t-40"
+            },
+            [
+              _c("label", { staticClass: "form-label" }, [_vm._v("Year")]),
+              _vm._v(" "),
+              _c("year-picker")
+            ],
+            1
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -1508,79 +1572,99 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    !_vm.isCurrentYear
-      ? _c("div", { staticClass: "income" }, [
-          _c("h1", [_vm._v("Income Form")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form" }, [
-            _c("form", [
-              _c("div", { staticClass: "form-group" }, [_c("year-picker")], 1),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Amount")]),
+    _c("div", { staticClass: "income" }, [
+      _c("div", { staticClass: "wrapper p-t-150" }, [
+        _c("div", { staticClass: "left-side w-40" }, [
+          !_vm.isCurrentYear
+            ? _c("form", { staticClass: "form w-50 m-b-20" }, [
+                _vm._m(0),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.budget,
-                      expression: "budget"
-                    }
-                  ],
-                  attrs: { type: "text", placeholder: "Input Amount" },
-                  domProps: { value: _vm.budget },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.budget = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
                 _c(
-                  "button",
-                  { attrs: { type: "button" }, on: { click: _vm.insert } },
-                  [_vm._v("Insert")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("p", [
-                  _vm._v(
-                    "Ovo je data koja je dosla od Usera jednog po ovoj godini: "
-                  )
+                  "div",
+                  { staticClass: "form-group d-flex-column" },
+                  [
+                    _c("label", { staticClass: "form-label" }, [
+                      _vm._v("Year")
+                    ]),
+                    _vm._v(" "),
+                    _c("year-picker")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group d-flex-column" }, [
+                  _c("label", { staticClass: "form-label" }, [
+                    _vm._v("Amount")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.budget,
+                        expression: "budget"
+                      }
+                    ],
+                    staticClass: "form-input",
+                    attrs: { placeholder: "Input Amount" },
+                    domProps: { value: _vm.budget },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.budget = $event.target.value
+                      }
+                    }
+                  })
                 ]),
-                _vm._v(
-                  "\n                  " +
-                    _vm._s(_vm.incomeData) +
-                    "\n              "
-                )
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "form-button",
+                      attrs: { type: "button" },
+                      on: { click: _vm.insert }
+                    },
+                    [_vm._v("Insert")]
+                  )
+                ])
               ])
-            ])
-          ])
-        ])
-      : _c(
-          "div",
-          [
-            _c("confirmation-message"),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "Ovo je data koja je dosla od Usera jednog po ovoj godini: "
+            : _c(
+                "div",
+                [
+                  _c("confirmation-message"),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "Ovo je data koja je dosla od Usera jednog po ovoj godini: "
+                    )
+                  ]),
+                  _vm._v(
+                    "\n                      " +
+                      _vm._s(_vm.incomeData) +
+                      "\n              "
+                  )
+                ],
+                1
               )
-            ]),
-            _vm._v("\n      " + _vm._s(_vm.incomeData) + "\n  ")
-          ],
-          1
-        )
+        ])
+      ])
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-title" }, [
+      _c("h2", [_vm._v("Enter Yearly Income")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -1603,11 +1687,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [_c("h1", [_vm._v("Jeeej evo dashboard-a")]), _vm._v(" "), _c("income")],
-    1
-  )
+  return _c("div", [
+    _c("div", { staticClass: "main-dashboard" }, [_c("income")], 1)
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

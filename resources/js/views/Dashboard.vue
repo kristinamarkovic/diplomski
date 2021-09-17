@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>Jeeej evo dashboard-a</h1>
-    <income></income>
+    <div class="main-dashboard">
+      <income></income>
+    </div>
   </div>
 </template>
 
@@ -14,7 +15,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>

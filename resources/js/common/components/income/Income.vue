@@ -1,39 +1,56 @@
 <template>
   <div>
-    <div class="income" v-if="!isCurrentYear">
-        <h1>Income Form</h1>
+    <div class="income">
+        <div class="wrapper p-t-150">
+            <div class="left-side w-40">
+                <form class="form w-50 m-b-20" v-if="!isCurrentYear">
+                <div class="form-title">
+                    <h2>Enter Yearly Income</h2>
+                </div>
+                <div class="form-group d-flex-column">
+                    <label class="form-label">Year</label>
+                    <year-picker></year-picker>
+                </div>
+                <div class="form-group d-flex-column">
+                    <label class="form-label">Amount</label>
+                    <input v-model="budget" class="form-input" placeholder="Input Amount" />
+                </div>
+                <div class="form-group">
+                <button type="button" class="form-button" @click="insert">Insert</button>
+                </div>
+                </form>
+                <div v-else>
+                        <confirmation-message></confirmation-message>
+                        <p>Ovo je data koja je dosla od Usera jednog po ovoj godini: </p>
+                        {{ incomeData }}
+                </div>
+            </div>
+        </div>
+        <!-- <h1>Income Form</h1>
         <div class="form">
             <form>
                 <div class="form-group">
-                    <!-- <datepicker
-                        type="year"
-                        v-model="year"
-                        :format="DatePickerFormat"
-                        minimum-view="year"
-                        calendar-button-icon
-                    >
-                    </datepicker> -->
                     <year-picker></year-picker>
                 </div>
-                    <div class="form-group">
-                        <label>Amount</label>
-                        <input type="text" placeholder="Input Amount" v-model="budget"/>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" @click="insert">Insert</button>
-                    </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="text" placeholder="Input Amount" v-model="budget"/>
+                </div>
+                <div class="form-group">
+                    <button type="button" @click="insert">Insert</button>
+                </div>
                 <div>
                     <p>Ovo je data koja je dosla od Usera jednog po ovoj godini: </p>
                     {{ incomeData }}
                 </div>
             </form>
-        </div>
+        </div> -->
     </div>
-    <div v-else>
+    <!-- <div v-else>
         <confirmation-message></confirmation-message>
          <p>Ovo je data koja je dosla od Usera jednog po ovoj godini: </p>
         {{ incomeData }}
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -85,7 +102,7 @@ export default {
         yearData: {
             get: function() {
                 console.log(this.getCurrentYear)
-               return this.getCurrentYear
+                return this.getCurrentYear
             }
         }
     },

@@ -5,8 +5,51 @@
     width: 100%;
     &.layout-dashboard {
         background-color: $color-white;
+
+        .header {
+            .user-image {
+                width: 50px;
+                height: 50px;
+            }
+        }
     }
     &.layout-home {
-        background-color: $color-blue;
+        // background-color: $color-blue;
+        // background-color: $color-blue;
+        // background: #00b7ea; /* Old browsers */
+        // background: -moz-linear-gradient(left, #00b7ea 0%, #009ec3 100%); /* FF3.6-15 */
+        // background: -webkit-linear-gradient(left, #00b7ea 0%,#009ec3 100%); /* Chrome10-25,Safari5.1-6 */
+        // background: linear-gradient(to right, #00b7ea 0%,#009ec3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ * */
+        // background: #348fd9; /* Old browsers */
+        // background: -moz-linear-gradient(left, #348fd9 50%, #006e96 50%); /* FF3.6-15 */
+        // background: -webkit-linear-gradient(left, #348fd9 0%,#006e96 100%); /* Chrome10-25,Safari5.1-6 */
+        // background: linear-gradient(to right, #348fd9 0%,#006e96 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        // background: #348fd9; /* Old browsers */
+        // background: -moz-linear-gradient(left, #348fd9 0%, #006e96 96%, #006e96 99%);
+        // background: -webkit-linear-gradient(left, #348fd9 0%,#006e96 96%,#006e96 99%); 
+        // background: linear-gradient(to right, #348fd9 0%,#006e96 96%,#006e96 99%); 
+
+
+        background-image: linear-gradient(135deg ,#6a82ff 42%,#fff 0%)!important;
+        //background-image: linear-gradient(140deg ,#fff 42%,#6a82ff 0%)!important;
+        background-repeat: no-repeat;
+    }
+
+    .button {
+        &.button-start {
+            background: #3a57ee;
+            color: $color-white;
+            padding: 12px;
+            border-radius: 7px;
+            text-align: center;
+            font-size: 15px;
+            display: block;
+            margin: 30px auto;
+            transition: 0.3s all ease-in;
+            &:hover {
+                cursor: pointer;
+                background: #576ddd;
+            }
+        }
     }
 }

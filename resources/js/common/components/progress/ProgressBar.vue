@@ -17,26 +17,59 @@
                 <span>Review Summary</span>
             </li>
         </ul>
-        <div class="progressbar-content">
-            <section id="register">
-                <h3>City Config</h3>
-                <p>…</p>
+        <div class="progressbar-content p-t-10">
+            <section id="register" class="d-flex">
+                <img src="images/account_register.png" alt="Girl in a jacket"/>
             </section>
-            <section id="login">
-                <h3>City Config</h3>
-                <p>…</p>
+            <section id="login" class="d-flex">
+                <img src="images/account_login.png" alt="Girl in a jacket"/>
             </section>
-            <section id="yearly_income">
-                <h3>City Config</h3>
-                <p>…</p>
+            <section id="yearly_income" class="d-flex">
+                <img src="images/budget_yearly.png" alt="Girl in a jacket"/>
             </section>
-            <section id="monthly_expenses">
-                <h3>City Config</h3>
-                <p>…</p>
+            <section id="monthly_expenses" class="d-flex">
+                <img src="images/budget_monthly.png" alt="Girl in a jacket"/>
             </section>
-            <section id="summary">
-                <h3>City Config</h3>
-                <p>…</p>
+            <section id="summary" class="d-flex">
+                <img src="images/business-report.png" alt="Girl in a jacket"/>
+            </section>
+        </div>
+        <div class="progressbar-text">
+            <section class="d-flex">
+                <p class="main-text">Dorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </section>
+            <section class="d-flex">
+                <p class="main-text">Eorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </section>
+            <section class="d-flex">
+                <p class="main-text">Borem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </section>
+            <section class="d-flex">
+                <p class="main-text">Iorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </section>
+            <section class="d-flex">
+                <p class="main-text">Corem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est <span class="main-text">o</span>.
+                </p>
             </section>
         </div>
     </div>
@@ -70,27 +103,53 @@ export default {
 .container {
     display: flex;
     width: 100%;
-    margin: 50px auto; 
+    margin: 0 auto; 
     .progressbar {
-        padding-left: 15px;
+        padding-left: 20px;
         counter-reset: step;
         display: flex;
         flex-direction: column;
-        height: 800px;
-        width: 40%;
+        height: 100%;
+        width: 5%;
     }
     .progressbar-content {
-        width: 60%;
+        width: 35%;
         padding-top: 15px;
         section {
-            //padding-top: 10px;
-            height: 160px;
+            padding: 25px;
+            height: 300px;
+            img {
+                height: 170px;
+                width: 170px;
+                margin: 30px auto;
+            }
+        }
+    }
+
+    .progressbar-text {
+        width: 55%;
+        section {
+            padding: 25px;
+            margin-bottom: 25px;
+            height: 300px;
+            background-color: #ffffff;
+            border-radius: 7px;
+            overflow: hidden;
+            border-style: none;
+            border-left-width: 4px;
+            border-left-color: #007AB5;
+            margin-right: 0px!important;
+            margin-left: 0px!important;
+            box-shadow: 0px 2px 18px 0px rgb(0 0 0 / 30%);
+            .main-text {
+                color: #474747;
+            }
         }
     }
     .progressbar li {
         list-style-type: none;
         width: 32px;
-        height: 20%;
+        height: 300px;
         float: left;
         font-size: 12px;
         position: relative;
@@ -100,7 +159,7 @@ export default {
             position: absolute;
             left: 45px;
             width: 300px;
-            bottom: 130px;
+            bottom: 275px;
             font-size: 18px;
             font-weight: bold;
         }
@@ -121,14 +180,13 @@ export default {
         z-index: 2;
     }
     .progressbar li:after {
-        //   width: 100%;
-        //   height: 2px;
         width: 2px;
         height: 100%;
         content: "";
         position: absolute;
         background-color: #7d7d7d;
-        top: -126px;
+        // top: -126px;
+        bottom: 300px;
         left: 50%;
         z-index: 1;
     }

@@ -7,9 +7,9 @@
         <span class="logo-image"></span>
       </div>
       <div class="links">
-        <router-link to="/">Home</router-link>
-        <router-link to="/login">Login</router-link>
-        <router-link to="/register">Register</router-link>
+        <router-link class="link-nav" to="/">Home</router-link>
+        <router-link class="link-nav" to="/login">Sign In</router-link>
+        <router-link class="link-nav button-signup" to="/register">Sign Up, Its Free</router-link>
       </div>
     </div>
   </div>
@@ -20,7 +20,3 @@
     name: "AppLayoutLinks"
   }
 </script>
-
-<style scoped>
-
-</style>

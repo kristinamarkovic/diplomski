@@ -1,16 +1,21 @@
 <template>
     <div>
-        <div class="wrapper">
+        <div class="wrapper p-t-150">
             <div class="left-side w-40">
-                <h1 class="title">Manage Savings & Budget</h1>
-                <p class="main-text">
-                Do you wish you didn’t have to struggle so much with money?  Much of your financial journey is emotional.
-                It has more to do with your money mindset than numbers.
-                Find out how to change your money mindset to have a more positive relationship with money.
+                <!-- <h1 class="title">Manage Savings & Budget</h1> -->
+                <h1 class="title main-title text-left">Create a Budget and Save More Money</h1>
+                <!-- <p class="main-text">
+                Do you wish you didn’t have to struggle so much with money?
                 Start by determining your take-home pay and your monthly expenses. 
                 Then determine how much of your money you want to allocate to each spending category. 
-                Finally, you can use my templates to track and review your spending. 
-                By using these budget templates, you will get much closer to achieving your financial goals.</p>
+                Finally, you can use my templates to track and review your spending.</p> -->
+
+                <p class="main-text main-text-home">
+                    Once all your numbers are plugged into your spreadsheet, the Monthly Budget template will 
+                    show you the difference between your budgeted spending and your actual spending for the entire month.
+                </p>
+
+                <button @click="scrollToElement" class="button button-start">START</button>
                 <!-- <div class="image-savings-2"></div> -->
             </div>
             <div class="right-side w-60">
@@ -39,6 +44,11 @@
             </div>  -->
         </div>
         <div class="wrapper">
+            <div class="left-side w-40">
+                <h1 class="title wrapper-title">Strategies Saving Money</h1>
+            </div>
+        </div>
+        <div class="wrapper p-t-150" ref="scrollToProgressBar">
             <progress-bar></progress-bar>
         </div>
     </div>
@@ -50,7 +60,16 @@ export default {
   name: "Home",
   components: {
     ProgressBar
-  }
+  },
+  methods: {
+    scrollToElement() {
+        const el = this.$refs.scrollToProgressBar;
+
+        if(el) {
+            el.scrollIntoView({ behavior: 'smooth'});
+        }
+    }
+  },
 }
 </script>
 

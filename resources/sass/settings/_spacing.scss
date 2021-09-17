@@ -1,5 +1,7 @@
 //Style for width, height, padding, margin 
 
+
+//Width helpers
 .w-100 {
     width: 100%;
 }
@@ -20,6 +22,22 @@
 }
 
 //Inner Spacing
+.p-0 {
+    padding: 0 !important;
+}
 .p-t-10 {
     padding-top: 10px;
+}
+.p-t-150 {
+    padding-top: 150px;
+}
+//Outer Spacing
+.m-0 {
+    margin: 0 !important;
+}
+.m-t-40 {
+    margin-top: 40px;
+}
+.m-b-20 {
+    margin-bottom: 20px;
 }

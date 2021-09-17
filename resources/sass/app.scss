@@ -14,10 +14,6 @@
     border: 0;
     font-family: $font-stack;
 }
-label {
-    font-size: 12px !important;
-}
-
 .image-savings {
     background-image: url('../images/picture_1.png');
     background-size: contain;
@@ -26,21 +22,50 @@ label {
     height: 100%;
 }
 .image-savings-2 {
+    background-image: url('../images/picture_4.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 80%;
+    height: 400px;
+    background-position: top;
+    transform: rotate(-7deg);
+}
+.image-savings-4 {
     background-image: url('../images/picture_2.png');
     background-size: contain;
     background-repeat: no-repeat;
-    width: 100%;
+    background-position: bottom;
+    width: 90%;
     height: 400px;
-    background-position: top;
 }
 
 .logo .logo-image {
     background-image: url('../images/logo_savings.png');
-    width: 78px;
+    width: 73px;
     height: 64px;
     background-size: cover;
     display: block;
     position: absolute;
-    top: -18px;
-    left: 127px;
+    top: -26px;
+    left: 86px;
+}
+.input-datepicker {
+    box-sizing: border-box;
+    width: 180px;
+    height: 25px;
+    border-radius: 3px;
+    padding-left: 10px;
+    background-image: url('../images/calendar.png');
+    background-position: 95% 50%;
+    background-repeat: no-repeat;
+    color: $color-violet;
+    font-weight: bold;
+    border: 1px solid $color-table-cell-border;
+    font-size: 16px;
+    &:hover {
+        cursor: pointer;
+    }
+    &:focus-visible {
+        outline: none;
+    }
 }

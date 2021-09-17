@@ -55,6 +55,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProgressBar",
   data: function data() {
@@ -137,11 +170,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Home",
   components: {
     ProgressBar: _common_components_progress_ProgressBar_vue__WEBPACK_IMPORTED_MODULE_0__.default
+  },
+  methods: {
+    scrollToElement: function scrollToElement() {
+      var el = this.$refs.scrollToProgressBar;
+
+      if (el) {
+        el.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    }
   }
 });
 
@@ -164,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".container {\n  display: flex;\n  width: 100%;\n  margin: 50px auto;\n}\n.container .progressbar {\n  padding-left: 15px;\n  counter-reset: step;\n  display: flex;\n  flex-direction: column;\n  height: 800px;\n  width: 40%;\n}\n.container .progressbar-content {\n  width: 60%;\n  padding-top: 15px;\n}\n.container .progressbar-content section {\n  height: 160px;\n}\n.container .progressbar li {\n  list-style-type: none;\n  width: 32px;\n  height: 20%;\n  float: left;\n  font-size: 12px;\n  position: relative;\n  text-align: left;\n  color: #7d7d7d;\n}\n.container .progressbar li span {\n  position: absolute;\n  left: 45px;\n  width: 300px;\n  bottom: 130px;\n  font-size: 18px;\n  font-weight: bold;\n}\n.container .progressbar li:before {\n  width: 30px;\n  height: 30px;\n  content: counter(step);\n  counter-increment: step;\n  line-height: 30px;\n  border: 2px solid #7d7d7d;\n  display: block;\n  text-align: center;\n  margin: 0 auto 10px auto;\n  border-radius: 50%;\n  background-color: white;\n  position: relative;\n  z-index: 2;\n}\n.container .progressbar li:after {\n  width: 2px;\n  height: 100%;\n  content: \"\";\n  position: absolute;\n  background-color: #7d7d7d;\n  top: -126px;\n  left: 50%;\n  z-index: 1;\n}\n.container .progressbar li:first-child:after {\n  content: none;\n}\n.container .progressbar li.active {\n  color: #FFBD49;\n}\n.container .progressbar li.active:before {\n  border-color: #FFBD49;\n}\n.container .progressbar li.active + li:after {\n  background-color: #FFBD49;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".container {\n  display: flex;\n  width: 100%;\n  margin: 0 auto;\n}\n.container .progressbar {\n  padding-left: 20px;\n  counter-reset: step;\n  display: flex;\n  flex-direction: column;\n  height: 100%;\n  width: 5%;\n}\n.container .progressbar-content {\n  width: 35%;\n  padding-top: 15px;\n}\n.container .progressbar-content section {\n  padding: 25px;\n  height: 300px;\n}\n.container .progressbar-content section img {\n  height: 170px;\n  width: 170px;\n  margin: 30px auto;\n}\n.container .progressbar-text {\n  width: 55%;\n}\n.container .progressbar-text section {\n  padding: 25px;\n  margin-bottom: 25px;\n  height: 300px;\n  background-color: #ffffff;\n  border-radius: 7px;\n  overflow: hidden;\n  border-style: none;\n  border-left-width: 4px;\n  border-left-color: #007AB5;\n  margin-right: 0px !important;\n  margin-left: 0px !important;\n  box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);\n}\n.container .progressbar-text section .main-text {\n  color: #474747;\n}\n.container .progressbar li {\n  list-style-type: none;\n  width: 32px;\n  height: 300px;\n  float: left;\n  font-size: 12px;\n  position: relative;\n  text-align: left;\n  color: #7d7d7d;\n}\n.container .progressbar li span {\n  position: absolute;\n  left: 45px;\n  width: 300px;\n  bottom: 275px;\n  font-size: 18px;\n  font-weight: bold;\n}\n.container .progressbar li:before {\n  width: 30px;\n  height: 30px;\n  content: counter(step);\n  counter-increment: step;\n  line-height: 30px;\n  border: 2px solid #7d7d7d;\n  display: block;\n  text-align: center;\n  margin: 0 auto 10px auto;\n  border-radius: 50%;\n  background-color: white;\n  position: relative;\n  z-index: 2;\n}\n.container .progressbar li:after {\n  width: 2px;\n  height: 100%;\n  content: \"\";\n  position: absolute;\n  background-color: #7d7d7d;\n  bottom: 300px;\n  left: 50%;\n  z-index: 1;\n}\n.container .progressbar li:first-child:after {\n  content: none;\n}\n.container .progressbar li.active {\n  color: #FFBD49;\n}\n.container .progressbar li.active:before {\n  border-color: #FFBD49;\n}\n.container .progressbar li.active + li:after {\n  background-color: #FFBD49;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -385,7 +439,7 @@ var render = function() {
         classB: _vm.scrollPosition > 100
       }
     },
-    [_vm._m(0), _vm._v(" "), _vm._m(1)]
+    [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2)]
   )
 }
 var staticRenderFns = [
@@ -421,35 +475,87 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "progressbar-content" }, [
-      _c("section", { attrs: { id: "register" } }, [
-        _c("h3", [_vm._v("City Config")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("…")])
+    return _c("div", { staticClass: "progressbar-content p-t-10" }, [
+      _c("section", { staticClass: "d-flex", attrs: { id: "register" } }, [
+        _c("img", {
+          attrs: { src: "images/account_register.png", alt: "Girl in a jacket" }
+        })
       ]),
       _vm._v(" "),
-      _c("section", { attrs: { id: "login" } }, [
-        _c("h3", [_vm._v("City Config")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("…")])
+      _c("section", { staticClass: "d-flex", attrs: { id: "login" } }, [
+        _c("img", {
+          attrs: { src: "images/account_login.png", alt: "Girl in a jacket" }
+        })
       ]),
       _vm._v(" "),
-      _c("section", { attrs: { id: "yearly_income" } }, [
-        _c("h3", [_vm._v("City Config")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("…")])
+      _c("section", { staticClass: "d-flex", attrs: { id: "yearly_income" } }, [
+        _c("img", {
+          attrs: { src: "images/budget_yearly.png", alt: "Girl in a jacket" }
+        })
       ]),
       _vm._v(" "),
-      _c("section", { attrs: { id: "monthly_expenses" } }, [
-        _c("h3", [_vm._v("City Config")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("…")])
+      _c(
+        "section",
+        { staticClass: "d-flex", attrs: { id: "monthly_expenses" } },
+        [
+          _c("img", {
+            attrs: { src: "images/budget_monthly.png", alt: "Girl in a jacket" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c("section", { staticClass: "d-flex", attrs: { id: "summary" } }, [
+        _c("img", {
+          attrs: { src: "images/business-report.png", alt: "Girl in a jacket" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "progressbar-text" }, [
+      _c("section", { staticClass: "d-flex" }, [
+        _c("p", { staticClass: "main-text" }, [
+          _vm._v(
+            "Dorem ipsum dolor sit amet, consectetur adipiscing elit, \n            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \n            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          )
+        ])
       ]),
       _vm._v(" "),
-      _c("section", { attrs: { id: "summary" } }, [
-        _c("h3", [_vm._v("City Config")]),
-        _vm._v(" "),
-        _c("p", [_vm._v("…")])
+      _c("section", { staticClass: "d-flex" }, [
+        _c("p", { staticClass: "main-text" }, [
+          _vm._v(
+            "Eorem ipsum dolor sit amet, consectetur adipiscing elit, \n            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \n            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "d-flex" }, [
+        _c("p", { staticClass: "main-text" }, [
+          _vm._v(
+            "Borem ipsum dolor sit amet, consectetur adipiscing elit, \n            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \n            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "d-flex" }, [
+        _c("p", { staticClass: "main-text" }, [
+          _vm._v(
+            "Iorem ipsum dolor sit amet, consectetur adipiscing elit, \n            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \n            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "d-flex" }, [
+        _c("p", { staticClass: "main-text" }, [
+          _vm._v(
+            "Corem ipsum dolor sit amet, consectetur adipiscing elit, \n            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, \n            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \n            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est "
+          ),
+          _c("span", { staticClass: "main-text" }, [_vm._v("o")]),
+          _vm._v(".\n            ")
+        ])
       ])
     ])
   }
@@ -477,9 +583,39 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "wrapper p-t-150" }, [
+      _c("div", { staticClass: "left-side w-40" }, [
+        _c("h1", { staticClass: "title main-title text-left" }, [
+          _vm._v("Create a Budget and Save More Money")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "main-text main-text-home" }, [
+          _vm._v(
+            "\n                Once all your numbers are plugged into your spreadsheet, the Monthly Budget template will \n                show you the difference between your budgeted spending and your actual spending for the entire month.\n            "
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "button button-start",
+            on: { click: _vm.scrollToElement }
+          },
+          [_vm._v("START")]
+        )
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ]),
     _vm._v(" "),
-    _c("div", { staticClass: "wrapper" }, [_c("progress-bar")], 1)
+    _vm._m(1),
+    _vm._v(" "),
+    _c(
+      "div",
+      { ref: "scrollToProgressBar", staticClass: "wrapper p-t-150" },
+      [_c("progress-bar")],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -487,19 +623,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "right-side w-60" }, [
+      _c("div", { staticClass: "image-savings-2" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "wrapper" }, [
       _c("div", { staticClass: "left-side w-40" }, [
-        _c("h1", { staticClass: "title" }, [_vm._v("Manage Savings & Budget")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "main-text" }, [
-          _vm._v(
-            "\n            Do you wish you didn’t have to struggle so much with money?  Much of your financial journey is emotional.\n            It has more to do with your money mindset than numbers.\n            Find out how to change your money mindset to have a more positive relationship with money.\n            Start by determining your take-home pay and your monthly expenses. \n            Then determine how much of your money you want to allocate to each spending category. \n            Finally, you can use my templates to track and review your spending. \n            By using these budget templates, you will get much closer to achieving your financial goals."
-          )
+        _c("h1", { staticClass: "title wrapper-title" }, [
+          _vm._v("Strategies Saving Money")
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "right-side w-60" }, [
-        _c("div", { staticClass: "image-savings-2" })
       ])
     ])
   }
