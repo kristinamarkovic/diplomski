@@ -4,22 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Income;
+use App\Models\MonthlyExpenses;
 use Illuminate\Support\Facades\Validator;
 
 class IncomeController extends Controller
 {
 
-
-// GET	/photos	index()	photos.index
-// GET	/photos/create	create()	photos.create
-// POST	/photos	store()	photos.store
-// GET	/photos/{photo}	show()	photos.show
-// GET	/photos/{photo}/edit	edit()	photos.edit
-// PUT/PATCH	/photos/{photo}	update()	photos.update
-// DELETE	/photos/{photo}	destroy()	photos.destroy
-    
-
-    
     public function store(Request $request) {
 
         $validator = Validator::make($request->all(), [
@@ -31,6 +21,7 @@ class IncomeController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
+
         else {
             $user = $request->input('user_id');
             $year = $request->input('year');
@@ -42,13 +33,11 @@ class IncomeController extends Controller
                     'year' => $year,
                     'user_id' => $user
                 ));
-
                 return response()->json([
                     'message' => 'Yearly Income successfully saved.',
                 ]);
             }
             catch(\Exception $ex) {
-                //return response($ex->getMessage(), 500);
                 return response()->json([
                     'message' => $ex->getMessage(),
                     'status' => 500
@@ -61,40 +50,8 @@ class IncomeController extends Controller
     public function getInfo($id) {
         
         try {
-            // if($year != '') {
-            //     $yearly_income = Income::where([
-            //         ['user_id', '=',$user_id],
-            //         ['year', '=' , $year]
-            //     ])->first();
-            // }
-            // else {
-            //     $yearly_income = Income::where([
-            //         ['user_id', '=',$user_id]
-            //     ])->first();
-            // }
-            //$yearly_income = Income::where('user_id','=', $request->id)->first();
-
-            //$yearly_income = Income::where('user_id','=',$request->id)->whereYear('year','=', $request->year)->first();
-
-            
-
-            
-            // return response()->json([
-            //     'user_income' => $user_income
-            // ]);
-            // if($user_income && count($user_income) > 1) {
-            //     // $yearly_income = Income::where([
-            //     //     ['user_id', '=',$user_id],
-            //     //     ['year', '=' , $year]
-            //     // ])->first();
-            // }
-            // else {
-            //     $yearly_income = Income::where([
-            //         ['user_id', '=',$user_id]
-            //     ])->first();
-            // }
-            //get user income for all years
             $user_income = Income::where('user_id', '=', $id)->get();
+            // $expenses = MonthlyExpenses::all();
             //get average monthly income
             if($user_income) {
                 $count = count($user_income);

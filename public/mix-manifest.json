@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/sass/app.css": "/sass/app.css",
     "/images/account_login.png": "/images/account_login.png",
     "/images/account_register.png": "/images/account_register.png",
     "/images/budget_monthly.png": "/images/budget_monthly.png",
@@ -17,9 +18,7 @@
     "/images/picture_3.jpg": "/images/picture_3.jpg",
     "/images/picture_4.png": "/images/picture_4.png",
     "/images/picture_5.jpg": "/images/picture_5.jpg",
-    "/images/summary.png": "/images/summary.png",
-    "/images/user.png": "/images/user.png",
-    "/sass/app.css": "/sass/app.css",
     "/images/picture_6.jpg": "/images/picture_6.jpg",
+    "/images/summary.png": "/images/summary.png",
     "/images/user_account.png": "/images/user_account.png"
 }

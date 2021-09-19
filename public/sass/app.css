@@ -74,6 +74,17 @@
   color: #474747 !important;
   margin-bottom: 5px;
 }
+.form .form-group .form-input-label {
+  height: 30px;
+  padding: 5px;
+  line-height: 18px;
+  font-size: 14px;
+  width: 90%;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1px solid #dedede;
+  text-align: left;
+}
 .form .form-group .form-button {
   font-size: 14px;
   text-align: center;
@@ -151,12 +162,20 @@
   margin: 0 !important;
 }
 
+.m-t-10 {
+  margin-top: 10px;
+}
+
 .m-t-40 {
   margin-top: 40px;
 }
 
 .m-b-20 {
   margin-bottom: 20px;
+}
+
+.m-r-10 {
+  margin-right: 10px;
 }
 
 /* Fonts */
@@ -236,6 +255,11 @@ table {
 .d-flex-column {
   display: flex;
   flex-direction: column;
+}
+
+.d-flex-row {
+  display: flex;
+  flex-direction: row;
 }
 
 .justify-between {
@@ -501,7 +525,14 @@ table {
 }
 
 .main-dashboard {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
   margin-left: 105px;
+}
+.main-dashboard .widget {
+  width: 300px;
+  height: auto;
 }
 .main-dashboard .message-income {
   height: 250px;

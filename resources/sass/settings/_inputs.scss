@@ -44,6 +44,17 @@
             color: $color-dark-grey !important;
             margin-bottom: 5px;
         }
+        .form-input-label {
+            height: 30px;
+            padding: 5px;
+            line-height: 18px;
+            font-size: 14px;
+            width: 90%;
+            border-radius: 5px;
+            box-sizing: border-box;
+            border: 1px solid $color-light-grey;
+            text-align: left;
+        }
         .form-button {
             font-size: 14px;
             text-align: center;

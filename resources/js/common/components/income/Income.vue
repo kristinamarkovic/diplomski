@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="income">
-        <div class="wrapper p-t-150">
-            <div class="left-side w-40">
+        <div class="wrapper">
+            <div class="left-side">
                 <form class="form w-50 m-b-20" v-if="!isCurrentYear">
                 <div class="form-title">
                     <h2>Enter Yearly Income</h2>
@@ -101,7 +101,6 @@ export default {
         },
         yearData: {
             get: function() {
-                console.log(this.getCurrentYear)
                 return this.getCurrentYear
             }
         }

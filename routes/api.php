@@ -22,8 +22,11 @@ Route::group([
     //trebalo bi srediti ovo u AuthController za Register, ima bug neki
     Route::post('/register', 'App\Http\Controllers\TestController@register');
     Route::post('/insert_income', 'App\Http\Controllers\IncomeController@store');
+    Route::post('/insert_monthly_expenses', 'App\Http\Controllers\ExpenseController@store');
+    Route::post('/insert_savings_percent', 'App\Http\Controllers\SavingsController@store');
     // Route::get('/get_income/{user_id}/{year}', 'App\Http\Controllers\IncomeController@show')->where(["id" => "\d+"]);
     Route::get('/get_income_of_user/{id}', 'App\Http\Controllers\IncomeController@getInfo');
+    Route::get('/get_all_categories', 'App\Http\Controllers\CategoryController@getAll');
 //    Route::post('/logout', [AuthController::class, 'logout']);
 //    Route::post('/refresh', [AuthController::class, 'refresh']);
 //    Route::get('/user-profile', [AuthController::class, 'userProfile']);

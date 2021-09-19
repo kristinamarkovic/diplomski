@@ -59,7 +59,15 @@
 
 //Dashboard 
 .main-dashboard {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
     margin-left: 105px;
+
+    .widget {
+        width: 300px;
+        height: auto;
+    }
 
     .message-income {
         height: 250px;

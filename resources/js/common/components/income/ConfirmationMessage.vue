@@ -1,7 +1,7 @@
 <template>
   <div>
       <div class="message-income">
-        <form class="form w-40">
+        <form class="form">
         <div class="form-group p-0">
             <p class="message-income-paragraph">You have been already submitted income for this year.</p>
                 <button @click="changeYear" type="button" class="form-button">Change year</button>
