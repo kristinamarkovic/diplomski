@@ -7,14 +7,18 @@
                 <div class="form-title">
                     <h2>Monthly Expenses</h2>
                 </div>
-                    <!-- expenses to nam je niz objekata koji cemo da punimo i saljemo na BE -->
-                    <div class="form-group d-flex-row justify-between p-0" v-for="expense in expenses" :key="expense.id">
-                        <label class="form-input-label m-t-10 m-r-10 w-40">{{ expense.name }}</label>
-                        <input v-model="expense.expense" class="form-input m-t-10 w-60" placeholder="Input Amount" />
+                <div class="d-flex-row justify-between">
+                    <div class="d-flex-column categories-group form-group p-0">
+                        <label v-for="category in categories" :key="category.name" class="form-input-label m-t-10">{{ category.name }}</label>
                     </div>
-                <div class="form-group">
+                    <div class="d-flex-column form-group p-0">
+                        <input v-for="expense in expenses" :key="expense.id" v-model="expense.expense" class="form-input m-t-10" placeholder="Input Amount" />
+                    </div>
+                </div>
+                <div class="form-group float-right">
                     <button type="button" class="form-button" @click="insert">Insert</button>
                 </div>
+                
                 </form>
             </div>
         </div>
@@ -89,7 +93,8 @@ export default {
                 .then(({ data }) => {
                     console.log(data, 'data');
                     if(data) {
-                        this.getAllCategories();
+                        // this.expenses = data.expenses;
+                        
                     }
                 })
                 .catch(e => {
@@ -141,6 +146,14 @@ export default {
 .monthly-expenses {
     .left-side {
         min-width: 350px;
+        .form-group {
+            &:first-child {
+                width: 60% !important;
+            }
+            &:last-child {
+                width: 40% !important;
+            }
+        }
     }
 }
 </style>

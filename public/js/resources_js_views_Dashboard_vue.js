@@ -63,6 +63,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -143,8 +147,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
           var data = _ref2.data;
           console.log(data, 'data');
 
-          if (data) {
-            _this.getAllCategories();
+          if (data) {// this.expenses = data.expenses;
           }
         })["catch"](function (e) {
           _this.error_msg = e.response.data.message;
@@ -251,6 +254,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -259,8 +263,21 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   name: 'YearPicker',
   data: function data() {
     return {
-      DatePickerFormat: 'yyyy'
+      DatePickerFormat: 'yyyy',
+      year: ''
     };
+  },
+  created: function created() {
+    if (this.getCurrentYear) {
+      this.year = this.formatYear(this.getCurrentYear);
+    } else {
+      this.year = moment(new Date()).format();
+    }
+  },
+  watch: {
+    currentYear: function currentYear(val) {
+      this.year = this.formatYear(this.getCurrentYear);
+    }
   },
   methods: {
     formatDate: function formatDate(date) {
@@ -269,27 +286,21 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     formatYear: function formatYear(year) {
       var formated = year.toString();
       return formated.concat('-01-01');
+    },
+    selectDate: function selectDate(date) {
+      this.year = this.formatDate(date);
+      this.$store.commit('setCurrentYear', this.year);
+      var payload = {
+        year: this.year,
+        user_id: this.user.user.id
+      };
+      this.$store.dispatch('getUserIncomeData', payload);
     }
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['getCurrentYear', 'getInsertedYear'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['getCurrentYear', 'getInsertedYear', 'user'])), {}, {
     currentYear: {
       get: function get() {
         return this.getCurrentYear ? this.formatYear(this.getCurrentYear) : moment(new Date()).format();
-      },
-      set: function set(val) {
-        this.$store.commit('setCurrentYear', this.formatDate(val));
-        this.$store.commit('setUserDataIncome', this.formatDate(val));
-
-        if (this.formatDate(val) == this.getInsertedYear) {
-          this.$store.commit('setIsCurrentYear', true);
-        } else {
-          this.$store.commit('setIsCurrentYear', false);
-        }
-      }
-    },
-    insertedYear: {
-      get: function get() {
-        return this.getInsertedYear;
       }
     }
   }),
@@ -409,34 +420,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -464,12 +447,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   mounted: function mounted() {
     this.getIncomeData();
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)(['user', 'getIsCurrentYear', 'getUserIncome', 'getAllData', 'getCurrentYear'])), {}, {
-    isCurrentYear: {
-      get: function get() {
-        return this.getIsCurrentYear;
-      }
-    },
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)(['user', 'getUserIncome', 'getCurrentYear'])), {}, {
     incomeData: {
       get: function get() {
         return this.getUserIncome;
@@ -483,21 +461,13 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   }),
   methods: {
     validate: function validate() {
-      var _this = this;
-
       var valid = true;
 
       if (this.budget == '' && this.yearData == '') {
         valid = false;
       }
 
-      if (this.getAllData && this.year) {
-        this.validYear = this.getAllData.find(function (el) {
-          if (el.year == _this.yearData) {
-            return el;
-          }
-        });
-
+      if (this.year) {
         if (this.validYear !== undefined) {
           valid = false;
         }
@@ -506,7 +476,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       return valid;
     },
     insert: function insert() {
-      var _this2 = this;
+      var _this = this;
 
       var valid = this.validate();
 
@@ -520,42 +490,47 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
           var data = _ref.data;
           console.log(data, 'data');
 
-          _this2.getIncomeData();
+          _this.getIncomeData();
         })["catch"](function (e) {
-          _this2.error_msg = e.response.data.message;
-          console.log(_this2.error_msg);
+          _this.error_msg = e.response.data.message;
+          console.log(_this.error_msg);
         });
       } else {
         console.log("Nije dobra godina OVO na FE da se hendla kao validaciona poruka.");
       }
     },
     getIncomeData: function getIncomeData() {
-      var _this3 = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var request;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _context.next = 3;
-                return _this3.$store.dispatch('getUserIncomeData', _this3.user.user.id);
+                request = {
+                  user_id: _this2.user.user.id,
+                  year: _this2.yearData
+                };
+                _context.next = 4;
+                return _this2.$store.dispatch('getUserIncomeData', request);
 
-              case 3:
-                _context.next = 8;
+              case 4:
+                _context.next = 9;
                 break;
 
-              case 5:
-                _context.prev = 5;
+              case 6:
+                _context.prev = 6;
                 _context.t0 = _context["catch"](0);
                 console.log(_context.t0);
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 5]]);
+        }, _callee, null, [[0, 6]]);
       }))();
     }
   },
@@ -678,7 +653,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           console.log(_this.error_msg);
         });
       } else {
-        console.log("Neuspesno popuni polja.");
+        console.log("Neuspesno popunnjavanje polja.");
       }
     },
     calculate: function calculate() {
@@ -687,7 +662,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.percent && this.incomeData) {
         this.monthly_savings = parseFloat(this.incomeData.average_monthly_income) * parseFloat(this.percent) / 100;
         this.yearly_savings = parseFloat(this.incomeData.budget) * parseFloat(this.percent) / 100;
-        console.log(this.incomeData, 'incomeSavingsRecommandation');
       }
 
       if (this.monthly_savings && this.yearly_savings) {
@@ -763,7 +737,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".monthly-expenses .left-side {\n  min-width: 350px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".monthly-expenses .left-side {\n  min-width: 350px;\n}\n.monthly-expenses .left-side .form-group:first-child {\n  width: 60% !important;\n}\n.monthly-expenses .left-side .form-group:last-child {\n  width: 40% !important;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2094,65 +2068,71 @@ var render = function() {
     _c("div", { staticClass: "monthly-expenses" }, [
       _c("div", { staticClass: "wrapper p-t-150" }, [
         _c("div", { staticClass: "left-side" }, [
-          _c(
-            "form",
-            { staticClass: "form m-b-20" },
-            [
-              _vm._m(0),
+          _c("form", { staticClass: "form m-b-20" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "d-flex-row justify-between" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "d-flex-column categories-group form-group p-0"
+                },
+                _vm._l(_vm.categories, function(category) {
+                  return _c(
+                    "label",
+                    {
+                      key: category.name,
+                      staticClass: "form-input-label m-t-10"
+                    },
+                    [_vm._v(_vm._s(category.name))]
+                  )
+                }),
+                0
+              ),
               _vm._v(" "),
-              _vm._l(_vm.expenses, function(expense) {
-                return _c(
-                  "div",
-                  {
-                    key: expense.id,
-                    staticClass: "form-group d-flex-row justify-between p-0"
-                  },
-                  [
-                    _c(
-                      "label",
-                      { staticClass: "form-input-label m-t-10 m-r-10 w-40" },
-                      [_vm._v(_vm._s(expense.name))]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: expense.expense,
-                          expression: "expense.expense"
-                        }
-                      ],
-                      staticClass: "form-input m-t-10 w-60",
-                      attrs: { placeholder: "Input Amount" },
-                      domProps: { value: expense.expense },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(expense, "expense", $event.target.value)
-                        }
+              _c(
+                "div",
+                { staticClass: "d-flex-column form-group p-0" },
+                _vm._l(_vm.expenses, function(expense) {
+                  return _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: expense.expense,
+                        expression: "expense.expense"
                       }
-                    })
-                  ]
-                )
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "form-button",
-                    attrs: { type: "button" },
-                    on: { click: _vm.insert }
-                  },
-                  [_vm._v("Insert")]
-                )
-              ])
-            ],
-            2
-          )
+                    ],
+                    key: expense.id,
+                    staticClass: "form-input m-t-10",
+                    attrs: { placeholder: "Input Amount" },
+                    domProps: { value: expense.expense },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(expense, "expense", $event.target.value)
+                      }
+                    }
+                  })
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group float-right" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "form-button",
+                  attrs: { type: "button" },
+                  on: { click: _vm.insert }
+                },
+                [_vm._v("Insert")]
+              )
+            ])
+          ])
         ])
       ])
     ])
@@ -2203,12 +2183,13 @@ var render = function() {
             "calendar-button-icon": "",
             inputClass: "input-datepicker"
           },
+          on: { selected: _vm.selectDate },
           model: {
-            value: _vm.currentYear,
+            value: _vm.year,
             callback: function($$v) {
-              _vm.currentYear = $$v
+              _vm.year = $$v
             },
-            expression: "currentYear"
+            expression: "year"
           }
         })
       ],
@@ -2309,81 +2290,59 @@ var render = function() {
     _c("div", { staticClass: "income" }, [
       _c("div", { staticClass: "wrapper" }, [
         _c("div", { staticClass: "left-side" }, [
-          !_vm.isCurrentYear
-            ? _c("form", { staticClass: "form w-50 m-b-20" }, [
-                _vm._m(0),
+          _c("form", { staticClass: "form w-50 m-b-20" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "form-group d-flex-column" },
+              [
+                _c("label", { staticClass: "form-label" }, [_vm._v("Year")]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "form-group d-flex-column" },
-                  [
-                    _c("label", { staticClass: "form-label" }, [
-                      _vm._v("Year")
-                    ]),
-                    _vm._v(" "),
-                    _c("year-picker")
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group d-flex-column" }, [
-                  _c("label", { staticClass: "form-label" }, [
-                    _vm._v("Amount")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.budget,
-                        expression: "budget"
-                      }
-                    ],
-                    staticClass: "form-input",
-                    attrs: { placeholder: "Input Amount" },
-                    domProps: { value: _vm.budget },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.budget = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "form-button",
-                      attrs: { type: "button" },
-                      on: { click: _vm.insert }
-                    },
-                    [_vm._v("Insert")]
-                  )
-                ])
-              ])
-            : _c(
-                "div",
-                [
-                  _c("confirmation-message"),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Ovo je data koja je dosla od Usera jednog po ovoj godini: "
-                    )
-                  ]),
-                  _vm._v(
-                    "\n                      " +
-                      _vm._s(_vm.incomeData) +
-                      "\n              "
-                  )
+                _c("year-picker")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group d-flex-column" }, [
+              _c("label", { staticClass: "form-label" }, [_vm._v("Amount")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.budget,
+                    expression: "budget"
+                  }
                 ],
-                1
+                staticClass: "form-input",
+                attrs: { placeholder: "Input Amount" },
+                domProps: { value: _vm.budget },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.budget = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "form-button",
+                  attrs: { type: "button" },
+                  on: { click: _vm.insert }
+                },
+                [_vm._v("Insert")]
               )
+            ])
+          ]),
+          _vm._v("\n              " + _vm._s(_vm.incomeData) + "\n          ")
         ])
       ])
     ])

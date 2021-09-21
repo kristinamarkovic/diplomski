@@ -140,6 +140,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
 
@@ -148,8 +149,21 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   name: 'YearPicker',
   data: function data() {
     return {
-      DatePickerFormat: 'yyyy'
+      DatePickerFormat: 'yyyy',
+      year: ''
     };
+  },
+  created: function created() {
+    if (this.getCurrentYear) {
+      this.year = this.formatYear(this.getCurrentYear);
+    } else {
+      this.year = moment(new Date()).format();
+    }
+  },
+  watch: {
+    currentYear: function currentYear(val) {
+      this.year = this.formatYear(this.getCurrentYear);
+    }
   },
   methods: {
     formatDate: function formatDate(date) {
@@ -158,27 +172,21 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
     formatYear: function formatYear(year) {
       var formated = year.toString();
       return formated.concat('-01-01');
+    },
+    selectDate: function selectDate(date) {
+      this.year = this.formatDate(date);
+      this.$store.commit('setCurrentYear', this.year);
+      var payload = {
+        year: this.year,
+        user_id: this.user.user.id
+      };
+      this.$store.dispatch('getUserIncomeData', payload);
     }
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['getCurrentYear', 'getInsertedYear'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['getCurrentYear', 'getInsertedYear', 'user'])), {}, {
     currentYear: {
       get: function get() {
         return this.getCurrentYear ? this.formatYear(this.getCurrentYear) : moment(new Date()).format();
-      },
-      set: function set(val) {
-        this.$store.commit('setCurrentYear', this.formatDate(val));
-        this.$store.commit('setUserDataIncome', this.formatDate(val));
-
-        if (this.formatDate(val) == this.getInsertedYear) {
-          this.$store.commit('setIsCurrentYear', true);
-        } else {
-          this.$store.commit('setIsCurrentYear', false);
-        }
-      }
-    },
-    insertedYear: {
-      get: function get() {
-        return this.getInsertedYear;
       }
     }
   }),
@@ -1366,12 +1374,13 @@ var render = function() {
             "calendar-button-icon": "",
             inputClass: "input-datepicker"
           },
+          on: { selected: _vm.selectDate },
           model: {
-            value: _vm.currentYear,
+            value: _vm.year,
             callback: function($$v) {
-              _vm.currentYear = $$v
+              _vm.year = $$v
             },
-            expression: "currentYear"
+            expression: "year"
           }
         })
       ],

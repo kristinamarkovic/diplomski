@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\MonthlyExpenses;
+use App\Models\TotalExpense;
 
 class ExpenseController extends Controller
 {
@@ -34,16 +35,39 @@ class ExpenseController extends Controller
             // $expense = $request->input('expense');
 
             try {
+
+                $user = array_values($request[0])[3];
+                $year = array_values($request[0])[1];
+
+
+                 //Insert Monthly Expenses
                 MonthlyExpenses::insert($request->all());
-                $expenses = MonthlyExpenses::all();
                 
-
-                //OVDE SAMO INSERT
-
-                //SELECT user_id, year, SUM(expense) as total FROM `monthly_expenses` WHERE user_id = 1 && year = 2021
-
-                //KADA BUDE U VUEX POZVAO SVE ZA USERA OVE INFO AVERAGE I TO ONDA TREBA I DA DOHVATI TOTAL EXPENSES I OVO EXPENSES I DA ISPISE
+                
+                $expenses = MonthlyExpenses::where([
+                    ['user_id', '=', $user],
+                    ['year', '=', $year],
+                ])->get();
+                
                 if($expenses) {
+                    $count = count($expenses);
+                    $sum = 0;
+                        for($i = 0; $i < $count; $i++) {
+                        $sum += $expenses[$i]->expense;
+                    }
+                    
+                    
+                    $total_monthly_sum = floatval($sum);
+                    $total_yearly_sum = floatval($sum*12);
+                    
+                    //Insert Total Expenses
+                    TotalExpense::create(array(
+                        'monthly' => $total_monthly_sum,
+                        'yearly' => $total_yearly_sum,
+                        'year' => $year,
+                        'user_id' => $user
+                    ));
+
                     return response()->json([
                         'message' => 'Monthly expenses successfully saved.',
                         'monthly_expenses' => $expenses

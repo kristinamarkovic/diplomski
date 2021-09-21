@@ -79,7 +79,7 @@
   padding: 5px;
   line-height: 18px;
   font-size: 14px;
-  width: 90%;
+  width: 95%;
   border-radius: 5px;
   box-sizing: border-box;
   border: 1px solid #dedede;
@@ -264,6 +264,14 @@ table {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
 }
 
 .position-absolute {
@@ -531,7 +539,6 @@ table {
   margin-left: 105px;
 }
 .main-dashboard .widget {
-  width: 300px;
   height: auto;
 }
 .main-dashboard .message-income {

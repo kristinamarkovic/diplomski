@@ -2155,118 +2155,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var state = {
-  insertedYear: "",
   currentYear: "",
-  isCurrentYear: "",
-  userIncome: null,
-  allData: null
+  userIncome: null
 };
 var getters = {
-  getInsertedYear: function getInsertedYear(state) {
-    return state.insertedYear;
-  },
   getCurrentYear: function getCurrentYear(state) {
     return state.currentYear;
   },
-  getIsCurrentYear: function getIsCurrentYear(state) {
-    return state.isCurrentYear;
-  },
   getUserIncome: function getUserIncome(state) {
     return state.userIncome;
-  },
-  getAllData: function getAllData(state) {
-    return state.allData;
   }
 };
 var mutations = {
-  setInsertedYear: function setInsertedYear(state, year) {
-    state.insertedYear = year;
-  },
   setCurrentYear: function setCurrentYear(state, year) {
     state.currentYear = year;
   },
-  setIsCurrentYear: function setIsCurrentYear(state, bool) {
-    state.isCurrentYear = bool;
-  },
-  setUserDataIncome: function setUserDataIncome(state, year) {
-    state.userIncome = null;
-    var data = null;
-
-    if (state.allData) {
-      data = state.allData.find(function (element) {
-        if (element.year == year) {
-          return element;
-        }
-      });
-
-      if (data) {
-        state.insertedYear = data.year;
-        state.userIncome = data;
-      }
-    }
-  },
-  setAllData: function setAllData(state, data) {
-    state.allData = data;
+  setUserDataIncome: function setUserDataIncome(state, data) {
+    state.userIncome = data;
   }
-};
+}; // Nema za sta! <3
+
 var actions = {
-  // In practice, we often use ES2015 argument destructuring
-  // to simplify the code a bit (especially when we need to call commit multiple times)
-  //ovde su svi podaci bez filtera
-  getUserIncomeData: function getUserIncomeData(_ref, request) {
-    var _this = this;
-
+  getUserIncomeData: function getUserIncomeData(_ref, payload) {
     var commit = _ref.commit;
-    return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/auth/get_income_of_user/' + request).then(function (_ref2) {
+    console.log(payload, 'request');
+    var url = '/auth/get_income_of_user/' + payload.user_id;
+    if (payload.year) url += '?year=' + payload.year;
+    return axios__WEBPACK_IMPORTED_MODULE_0___default().get(url).then(function (_ref2) {
       var data = _ref2.data;
-      console.log(data.user_income, 'dataUserIncomeDATAAAAAAA'); // OVDE DOHVATAS SVE PODATKE I TREBA DA SETUJES NEKI STATE IZ KOJEG CES DA UZMES KAD STIGNE GODINA
-
-      commit('setAllData', data.user_income);
-
-      if (data.user_income.length > 0) {
-        if (_this.currentYear == "") {
-          commit('setCurrentYear', moment().year());
-        }
-
-        var usersBudget = data.user_income.find(function (element) {
-          if (element.year == moment(_this.currentYear).year()) {
-            return element;
-          }
-        });
-        commit('setInsertedYear', usersBudget.year);
-        commit('setUserDataIncome', usersBudget.year);
-
-        if (_this.currentYear == _this.insertedYear) {
-          commit('setIsCurrentYear', true);
-        } else {
-          commit('setIsCurrentYear', false);
-        }
-      }
+      console.log(data.user_income, 'dataUserIncomeDATAAAAAAA');
+      commit('setUserDataIncome', data.user_income);
     })["catch"](function (e) {
       console.log(e, 'error');
     });
   },
-  setInsertedYear: function setInsertedYear(_ref3, year) {
+  setUserDataIncome: function setUserDataIncome(_ref3, data) {
     var commit = _ref3.commit;
-    commit('setInsertedYear', year);
-  },
-  setUserDataIncome: function setUserDataIncome(_ref4, data) {
-    var commit = _ref4.commit;
     commit('setUserDataIncome', data);
   },
-  setCurrentYear: function setCurrentYear(_ref5) {
-    var commit = _ref5.commit,
-        year = _ref5.year;
+  setCurrentYear: function setCurrentYear(_ref4) {
+    var commit = _ref4.commit,
+        year = _ref4.year;
     commit('setCurrentYear', year);
-  },
-  setIsCurrentYear: function setIsCurrentYear(_ref6) {
-    var commit = _ref6.commit,
-        year = _ref6.year;
-    commit('setIsCurrentYear', year);
-  },
-  setAllData: function setAllData(_ref7, data) {
-    var commit = _ref7.commit;
-    commit('setAllData', data);
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2504,7 +2434,7 @@ var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_g
 var ___CSS_LOADER_URL_REPLACEMENT_3___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_images_logo_savings_png__WEBPACK_IMPORTED_MODULE_5__.default);
 var ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_images_calendar_png__WEBPACK_IMPORTED_MODULE_6__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n.form {\n  padding: 25px;\n  background-color: #ffffff;\n  border-radius: 7px;\n  margin: 0 auto;\n  overflow: hidden;\n  border-style: none;\n  border-left-width: 4px;\n  border-left-color: #007AB5;\n  box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);\n}\n.form .form-title h2 {\n  font-size: 18px;\n  color: #474747;\n  text-align: left;\n  padding-bottom: 15px;\n}\n.form .form-group {\n  width: 100%;\n  padding-top: 15px;\n  padding-bottom: 15px;\n}\n.form .form-group .form-input {\n  height: 30px;\n  padding: 5px;\n  border-radius: 5px;\n  box-sizing: border-box;\n  border: 1px solid #dedede;\n  text-align: left;\n}\n.form .form-group .form-input:hover {\n  border: 1px solid #3a57ee;\n}\n.form .form-group .form-input:focus {\n  outline: none !important;\n  box-shadow: 0px 2px 2px 0px rgba(58, 87, 238, 0.5);\n}\n.form .form-group .form-label {\n  font-size: 14px;\n  color: #474747 !important;\n  margin-bottom: 5px;\n}\n.form .form-group .form-input-label {\n  height: 30px;\n  padding: 5px;\n  line-height: 18px;\n  font-size: 14px;\n  width: 90%;\n  border-radius: 5px;\n  box-sizing: border-box;\n  border: 1px solid #dedede;\n  text-align: left;\n}\n.form .form-group .form-button {\n  font-size: 14px;\n  text-align: center;\n  padding: 5px 15px;\n  border-radius: 5px;\n  float: right;\n  color: #fff;\n  background-color: #3a57ee;\n  font-weight: bold;\n  transition: all 0.3s ease-in;\n}\n.form .form-group .form-button:hover {\n  opacity: 0.9;\n  cursor: pointer;\n}\n.form .form-group .quick-link {\n  color: #3a57ee;\n  font-size: 12px;\n  float: right;\n  text-align: right;\n  padding: 5px;\n  margin-top: 15px;\n}\n.form .form-group .quick-link:hover {\n  cursor: pointer;\n  text-decoration: underline;\n}\n.wrapper {\n  width: 100%;\n}\n@media (min-width: 576px) and (max-width: 899px) and (orientation: landscape) {\n.wrapper {\n    width: 50%;\n}\n}\n.w-100 {\n  width: 100%;\n}\n.w-70 {\n  width: 70%;\n}\n.w-60 {\n  width: 60%;\n}\n.w-50 {\n  width: 50%;\n}\n.w-40 {\n  width: 40%;\n}\n.w-30 {\n  width: 30%;\n}\n.p-0 {\n  padding: 0 !important;\n}\n.p-t-10 {\n  padding-top: 10px;\n}\n.p-t-150 {\n  padding-top: 150px;\n}\n.m-0 {\n  margin: 0 !important;\n}\n.m-t-10 {\n  margin-top: 10px;\n}\n.m-t-40 {\n  margin-top: 40px;\n}\n.m-b-20 {\n  margin-bottom: 20px;\n}\n.m-r-10 {\n  margin-right: 10px;\n}\n\n/* Fonts */\n@font-face {\n  font-family: \"Kanit-Regular\";\n  src: url(\"/fonts/Kanit-Regular.ttf\") format(\"truetype\");\n}\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n/* HTML5 display-role reset for older browsers */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n  box-sizing: border-box;\n}\nbody {\n  line-height: 1;\n  background: #fff;\n}\nol,\nul {\n  list-style: none;\n}\nblockquote,\nq {\n  quotes: none;\n}\nblockquote:before, blockquote:after {\n  content: \"\";\n}\nq:before, q:after {\n  content: \"\";\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n.d-block {\n  display: block;\n}\n.d-flex {\n  display: flex;\n}\n.d-flex-column {\n  display: flex;\n  flex-direction: column;\n}\n.d-flex-row {\n  display: flex;\n  flex-direction: row;\n}\n.justify-between {\n  justify-content: space-between;\n}\n.position-absolute {\n  position: absolute;\n}\n.position-relative {\n  position: relative;\n}\n.vdp-datepicker__calendar {\n  width: 180px !important;\n  height: auto;\n  border-radius: 7px !important;\n  border: 1px solid #DBDBDB !important;\n  box-shadow: 1px 1px 2px #E3E3E3;\n  font-size: 12px;\n  font-weight: normal;\n}\n.vdp-datepicker__calendar header .prev:after {\n  border: 4px solid transparent !important;\n  border-right: 6px solid #3a57ee !important;\n}\n.vdp-datepicker__calendar header .next:after {\n  border: 4px solid transparent !important;\n  border-left: 6px solid #3a57ee !important;\n}\n.vdp-datepicker__calendar .cell {\n  line-height: 30px !important;\n  height: 30px !important;\n}\n.vdp-datepicker__calendar .cell.day {\n  width: 34px;\n  height: 34px;\n  white-space: nowrap;\n}\n.vdp-datepicker__calendar .cell.day:hover {\n  background: #0E62FB !important;\n  color: #fff;\n  border: 1px solid #0E62FB;\n  border-radius: 7px;\n}\n.vdp-datepicker__calendar .cell.day.blank:hover {\n  background: none !important;\n  color: #fff;\n  border: 1px solid #fff;\n  border-radius: 7px;\n}\n.vdp-datepicker__calendar .day-header {\n  padding-top: 5px;\n}\n.vdp-datepicker__calendar .day-header:hover {\n  color: #000;\n  border: 1px solid #fff;\n}\n.vdp-datepicker__calendar .cell.selected {\n  color: #0E62FB;\n  background: none !important;\n}\n.nav {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n}\n.nav a {\n  font-weight: bold;\n  color: #fff;\n  padding-left: 20px;\n  text-decoration: none;\n}\n.nav a.router-link-exact-active {\n  background-color: #3a57ee;\n}\n.nav a.router-link-exact-active:hover {\n  background-color: rgba(58, 87, 238, 0.9);\n  opacity: 1;\n}\n.logo {\n  position: relative;\n  width: 50%;\n}\n.logo .logo-text {\n  color: #fff;\n  font-size: 40px;\n  font-weight: bold;\n}\n.links {\n  display: flex;\n  justify-content: flex-end;\n}\n.links .link-nav {\n  padding: 0 5px;\n  min-width: 112px;\n  height: 32px;\n  line-height: 32px;\n  border-radius: 7px;\n  color: #fff;\n  font-size: 14px;\n  transition: all 0.3s ease-in;\n  font-weight: bold;\n  margin-right: 10px;\n  text-align: center;\n}\n.links .link-nav.button-signup {\n  background-color: #f26d21;\n  padding: 0 16px;\n}\n.links .link-nav.button-signup:hover {\n  background-color: rgba(242, 109, 33, 0.9);\n  opacity: 1;\n}\n.links .link-nav:hover {\n  cursor: pointer;\n  opacity: 0.7;\n}\n.header {\n  padding: 20px;\n}\n.text-center {\n  text-align: center;\n}\n.text-left {\n  text-align: left;\n}\n.text-right {\n  text-align: right;\n}\n.font-bold {\n  font-weight: bold;\n}\n.font-normal {\n  font-weight: normal;\n}\n\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n/* Fonts */\n@font-face {\n  font-family: \"Kanit-Regular\";\n  src: url(\"/fonts/Kanit-Regular.ttf\") format(\"truetype\");\n}\n.layout {\n  width: 100%;\n}\n.layout.layout-dashboard {\n  background-color: #fff;\n}\n.layout.layout-dashboard .header .user-image {\n  width: 50px;\n  height: 50px;\n}\n.layout.layout-home {\n  background-image: linear-gradient(135deg, #6a82ff 42%, #fff 0%) !important;\n  background-repeat: no-repeat;\n}\n.layout .button.button-start {\n  background: #3a57ee;\n  color: #fff;\n  padding: 12px;\n  border-radius: 7px;\n  text-align: center;\n  font-size: 15px;\n  display: block;\n  margin: 30px auto;\n  transition: 0.3s all ease-in;\n}\n.layout .button.button-start:hover {\n  cursor: pointer;\n  background: #576ddd;\n}\n\n/* Fonts */\n@font-face {\n  font-family: \"Kanit-Regular\";\n  src: url(\"/fonts/Kanit-Regular.ttf\") format(\"truetype\");\n}\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n.wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n.wrapper .left-side {\n  display: block;\n  float: left;\n  padding: 20px;\n}\n.title {\n  color: #fff;\n  font-size: 35px;\n  line-height: 1.5em;\n  padding-left: 30px;\n}\n.title.wrapper-title::after {\n  content: \"\";\n  width: 50px;\n  display: block;\n  height: 15px;\n  border-top: 6px solid #ffffff;\n}\n.main-text {\n  color: #fff;\n  padding-top: 25px;\n  line-height: 25px;\n  padding-left: 50px;\n  font-size: 20px;\n}\n.main-text span.main-text {\n  color: #FFBD49;\n  font-weight: bold;\n  font-size: 55px;\n}\n.main-text.main-text-home {\n  padding-left: 70px;\n  font-size: 15px;\n}\n.main-dashboard {\n  display: flex;\n  justify-content: flex-start;\n  align-items: baseline;\n  margin-left: 105px;\n}\n.main-dashboard .widget {\n  width: 300px;\n  height: auto;\n}\n.main-dashboard .message-income {\n  height: 250px;\n}\n.main-dashboard .message-income .form {\n  height: 100%;\n}\n.main-dashboard .message-income .form .form-button {\n  margin-right: 10px;\n  margin-top: 10px;\n}\n.main-dashboard .message-income-paragraph {\n  font-size: 14px;\n  color: #474747;\n}\n*, *::before, *::after {\n  box-sizing: inherit;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-family: \"Kanit\", sans-serif;\n}\n.image-savings {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  width: 80%;\n  height: 100%;\n}\n.image-savings-2 {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  width: 80%;\n  height: 400px;\n  background-position: top;\n  transform: rotate(-7deg);\n}\n.image-savings-4 {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: bottom;\n  width: 90%;\n  height: 400px;\n}\n.logo .logo-image {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n  width: 73px;\n  height: 64px;\n  background-size: cover;\n  display: block;\n  position: absolute;\n  top: -26px;\n  left: 86px;\n}\n.input-datepicker {\n  box-sizing: border-box;\n  width: 180px;\n  height: 25px;\n  border-radius: 3px;\n  padding-left: 10px;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  background-position: 95% 50%;\n  background-repeat: no-repeat;\n  color: #348fd9;\n  font-weight: bold;\n  border: 1px solid #dedede;\n  font-size: 16px;\n}\n.input-datepicker:hover {\n  cursor: pointer;\n}\n.input-datepicker:focus-visible {\n  outline: none;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n.form {\n  padding: 25px;\n  background-color: #ffffff;\n  border-radius: 7px;\n  margin: 0 auto;\n  overflow: hidden;\n  border-style: none;\n  border-left-width: 4px;\n  border-left-color: #007AB5;\n  box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);\n}\n.form .form-title h2 {\n  font-size: 18px;\n  color: #474747;\n  text-align: left;\n  padding-bottom: 15px;\n}\n.form .form-group {\n  width: 100%;\n  padding-top: 15px;\n  padding-bottom: 15px;\n}\n.form .form-group .form-input {\n  height: 30px;\n  padding: 5px;\n  border-radius: 5px;\n  box-sizing: border-box;\n  border: 1px solid #dedede;\n  text-align: left;\n}\n.form .form-group .form-input:hover {\n  border: 1px solid #3a57ee;\n}\n.form .form-group .form-input:focus {\n  outline: none !important;\n  box-shadow: 0px 2px 2px 0px rgba(58, 87, 238, 0.5);\n}\n.form .form-group .form-label {\n  font-size: 14px;\n  color: #474747 !important;\n  margin-bottom: 5px;\n}\n.form .form-group .form-input-label {\n  height: 30px;\n  padding: 5px;\n  line-height: 18px;\n  font-size: 14px;\n  width: 95%;\n  border-radius: 5px;\n  box-sizing: border-box;\n  border: 1px solid #dedede;\n  text-align: left;\n}\n.form .form-group .form-button {\n  font-size: 14px;\n  text-align: center;\n  padding: 5px 15px;\n  border-radius: 5px;\n  float: right;\n  color: #fff;\n  background-color: #3a57ee;\n  font-weight: bold;\n  transition: all 0.3s ease-in;\n}\n.form .form-group .form-button:hover {\n  opacity: 0.9;\n  cursor: pointer;\n}\n.form .form-group .quick-link {\n  color: #3a57ee;\n  font-size: 12px;\n  float: right;\n  text-align: right;\n  padding: 5px;\n  margin-top: 15px;\n}\n.form .form-group .quick-link:hover {\n  cursor: pointer;\n  text-decoration: underline;\n}\n.wrapper {\n  width: 100%;\n}\n@media (min-width: 576px) and (max-width: 899px) and (orientation: landscape) {\n.wrapper {\n    width: 50%;\n}\n}\n.w-100 {\n  width: 100%;\n}\n.w-70 {\n  width: 70%;\n}\n.w-60 {\n  width: 60%;\n}\n.w-50 {\n  width: 50%;\n}\n.w-40 {\n  width: 40%;\n}\n.w-30 {\n  width: 30%;\n}\n.p-0 {\n  padding: 0 !important;\n}\n.p-t-10 {\n  padding-top: 10px;\n}\n.p-t-150 {\n  padding-top: 150px;\n}\n.m-0 {\n  margin: 0 !important;\n}\n.m-t-10 {\n  margin-top: 10px;\n}\n.m-t-40 {\n  margin-top: 40px;\n}\n.m-b-20 {\n  margin-bottom: 20px;\n}\n.m-r-10 {\n  margin-right: 10px;\n}\n\n/* Fonts */\n@font-face {\n  font-family: \"Kanit-Regular\";\n  src: url(\"/fonts/Kanit-Regular.ttf\") format(\"truetype\");\n}\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n/* HTML5 display-role reset for older browsers */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmenu,\nnav,\nsection {\n  display: block;\n  box-sizing: border-box;\n}\nbody {\n  line-height: 1;\n  background: #fff;\n}\nol,\nul {\n  list-style: none;\n}\nblockquote,\nq {\n  quotes: none;\n}\nblockquote:before, blockquote:after {\n  content: \"\";\n}\nq:before, q:after {\n  content: \"\";\n}\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\n.d-block {\n  display: block;\n}\n.d-flex {\n  display: flex;\n}\n.d-flex-column {\n  display: flex;\n  flex-direction: column;\n}\n.d-flex-row {\n  display: flex;\n  flex-direction: row;\n}\n.justify-between {\n  justify-content: space-between;\n}\n.float-right {\n  float: right;\n}\n.float-left {\n  float: left;\n}\n.position-absolute {\n  position: absolute;\n}\n.position-relative {\n  position: relative;\n}\n.vdp-datepicker__calendar {\n  width: 180px !important;\n  height: auto;\n  border-radius: 7px !important;\n  border: 1px solid #DBDBDB !important;\n  box-shadow: 1px 1px 2px #E3E3E3;\n  font-size: 12px;\n  font-weight: normal;\n}\n.vdp-datepicker__calendar header .prev:after {\n  border: 4px solid transparent !important;\n  border-right: 6px solid #3a57ee !important;\n}\n.vdp-datepicker__calendar header .next:after {\n  border: 4px solid transparent !important;\n  border-left: 6px solid #3a57ee !important;\n}\n.vdp-datepicker__calendar .cell {\n  line-height: 30px !important;\n  height: 30px !important;\n}\n.vdp-datepicker__calendar .cell.day {\n  width: 34px;\n  height: 34px;\n  white-space: nowrap;\n}\n.vdp-datepicker__calendar .cell.day:hover {\n  background: #0E62FB !important;\n  color: #fff;\n  border: 1px solid #0E62FB;\n  border-radius: 7px;\n}\n.vdp-datepicker__calendar .cell.day.blank:hover {\n  background: none !important;\n  color: #fff;\n  border: 1px solid #fff;\n  border-radius: 7px;\n}\n.vdp-datepicker__calendar .day-header {\n  padding-top: 5px;\n}\n.vdp-datepicker__calendar .day-header:hover {\n  color: #000;\n  border: 1px solid #fff;\n}\n.vdp-datepicker__calendar .cell.selected {\n  color: #0E62FB;\n  background: none !important;\n}\n.nav {\n  width: 100%;\n  display: flex;\n  justify-content: space-between;\n}\n.nav a {\n  font-weight: bold;\n  color: #fff;\n  padding-left: 20px;\n  text-decoration: none;\n}\n.nav a.router-link-exact-active {\n  background-color: #3a57ee;\n}\n.nav a.router-link-exact-active:hover {\n  background-color: rgba(58, 87, 238, 0.9);\n  opacity: 1;\n}\n.logo {\n  position: relative;\n  width: 50%;\n}\n.logo .logo-text {\n  color: #fff;\n  font-size: 40px;\n  font-weight: bold;\n}\n.links {\n  display: flex;\n  justify-content: flex-end;\n}\n.links .link-nav {\n  padding: 0 5px;\n  min-width: 112px;\n  height: 32px;\n  line-height: 32px;\n  border-radius: 7px;\n  color: #fff;\n  font-size: 14px;\n  transition: all 0.3s ease-in;\n  font-weight: bold;\n  margin-right: 10px;\n  text-align: center;\n}\n.links .link-nav.button-signup {\n  background-color: #f26d21;\n  padding: 0 16px;\n}\n.links .link-nav.button-signup:hover {\n  background-color: rgba(242, 109, 33, 0.9);\n  opacity: 1;\n}\n.links .link-nav:hover {\n  cursor: pointer;\n  opacity: 0.7;\n}\n.header {\n  padding: 20px;\n}\n.text-center {\n  text-align: center;\n}\n.text-left {\n  text-align: left;\n}\n.text-right {\n  text-align: right;\n}\n.font-bold {\n  font-weight: bold;\n}\n.font-normal {\n  font-weight: normal;\n}\n\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n/* Fonts */\n@font-face {\n  font-family: \"Kanit-Regular\";\n  src: url(\"/fonts/Kanit-Regular.ttf\") format(\"truetype\");\n}\n.layout {\n  width: 100%;\n}\n.layout.layout-dashboard {\n  background-color: #fff;\n}\n.layout.layout-dashboard .header .user-image {\n  width: 50px;\n  height: 50px;\n}\n.layout.layout-home {\n  background-image: linear-gradient(135deg, #6a82ff 42%, #fff 0%) !important;\n  background-repeat: no-repeat;\n}\n.layout .button.button-start {\n  background: #3a57ee;\n  color: #fff;\n  padding: 12px;\n  border-radius: 7px;\n  text-align: center;\n  font-size: 15px;\n  display: block;\n  margin: 30px auto;\n  transition: 0.3s all ease-in;\n}\n.layout .button.button-start:hover {\n  cursor: pointer;\n  background: #576ddd;\n}\n\n/* Fonts */\n@font-face {\n  font-family: \"Kanit-Regular\";\n  src: url(\"/fonts/Kanit-Regular.ttf\") format(\"truetype\");\n}\n/* Colors */\n/* Colors Greys */\n/* Specificity */\n/* Icons */\n/* Buttons*/\n/* Shadows*/\n/* BIG Backgrounds */\n/*LoginSystemAdmin , Login*/\n/*sidebar*/\n/*Bp Header*/\n/*AdminDashboard*/\n/*Login*/\n/*Systemadmin1*/\n/*Audit Trail*/\n/*User*/\n/* Message */\n/* Tables */\n.wrapper {\n  display: flex;\n  justify-content: space-between;\n  width: 100%;\n}\n.wrapper .left-side {\n  display: block;\n  float: left;\n  padding: 20px;\n}\n.title {\n  color: #fff;\n  font-size: 35px;\n  line-height: 1.5em;\n  padding-left: 30px;\n}\n.title.wrapper-title::after {\n  content: \"\";\n  width: 50px;\n  display: block;\n  height: 15px;\n  border-top: 6px solid #ffffff;\n}\n.main-text {\n  color: #fff;\n  padding-top: 25px;\n  line-height: 25px;\n  padding-left: 50px;\n  font-size: 20px;\n}\n.main-text span.main-text {\n  color: #FFBD49;\n  font-weight: bold;\n  font-size: 55px;\n}\n.main-text.main-text-home {\n  padding-left: 70px;\n  font-size: 15px;\n}\n.main-dashboard {\n  display: flex;\n  justify-content: flex-start;\n  align-items: baseline;\n  margin-left: 105px;\n}\n.main-dashboard .widget {\n  height: auto;\n}\n.main-dashboard .message-income {\n  height: 250px;\n}\n.main-dashboard .message-income .form {\n  height: 100%;\n}\n.main-dashboard .message-income .form .form-button {\n  margin-right: 10px;\n  margin-top: 10px;\n}\n.main-dashboard .message-income-paragraph {\n  font-size: 14px;\n  color: #474747;\n}\n*, *::before, *::after {\n  box-sizing: inherit;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  font-family: \"Kanit\", sans-serif;\n}\n.image-savings {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  width: 80%;\n  height: 100%;\n}\n.image-savings-2 {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_1___ + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  width: 80%;\n  height: 400px;\n  background-position: top;\n  transform: rotate(-7deg);\n}\n.image-savings-4 {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_2___ + ");\n  background-size: contain;\n  background-repeat: no-repeat;\n  background-position: bottom;\n  width: 90%;\n  height: 400px;\n}\n.logo .logo-image {\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_3___ + ");\n  width: 73px;\n  height: 64px;\n  background-size: cover;\n  display: block;\n  position: absolute;\n  top: -26px;\n  left: 86px;\n}\n.input-datepicker {\n  box-sizing: border-box;\n  width: 180px;\n  height: 25px;\n  border-radius: 3px;\n  padding-left: 10px;\n  background-image: url(" + ___CSS_LOADER_URL_REPLACEMENT_4___ + ");\n  background-position: 95% 50%;\n  background-repeat: no-repeat;\n  color: #348fd9;\n  font-weight: bold;\n  border: 1px solid #dedede;\n  font-size: 16px;\n}\n.input-datepicker:hover {\n  cursor: pointer;\n}\n.input-datepicker:focus-visible {\n  outline: none;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

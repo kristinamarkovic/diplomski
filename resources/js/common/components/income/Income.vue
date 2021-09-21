@@ -3,7 +3,7 @@
     <div class="income">
         <div class="wrapper">
             <div class="left-side">
-                <form class="form w-50 m-b-20" v-if="!isCurrentYear">
+                <form class="form w-50 m-b-20">
                 <div class="form-title">
                     <h2>Enter Yearly Income</h2>
                 </div>
@@ -19,38 +19,10 @@
                 <button type="button" class="form-button" @click="insert">Insert</button>
                 </div>
                 </form>
-                <div v-else>
-                        <confirmation-message></confirmation-message>
-                        <p>Ovo je data koja je dosla od Usera jednog po ovoj godini: </p>
-                        {{ incomeData }}
-                </div>
+                {{ incomeData }}
             </div>
         </div>
-        <!-- <h1>Income Form</h1>
-        <div class="form">
-            <form>
-                <div class="form-group">
-                    <year-picker></year-picker>
-                </div>
-                <div class="form-group">
-                    <label>Amount</label>
-                    <input type="text" placeholder="Input Amount" v-model="budget"/>
-                </div>
-                <div class="form-group">
-                    <button type="button" @click="insert">Insert</button>
-                </div>
-                <div>
-                    <p>Ovo je data koja je dosla od Usera jednog po ovoj godini: </p>
-                    {{ incomeData }}
-                </div>
-            </form>
-        </div> -->
     </div>
-    <!-- <div v-else>
-        <confirmation-message></confirmation-message>
-         <p>Ovo je data koja je dosla od Usera jednog po ovoj godini: </p>
-        {{ incomeData }}
-    </div> -->
   </div>
 </template>
 
@@ -84,16 +56,9 @@ export default {
     computed: {
         ...mapGetters([
             'user',
-            'getIsCurrentYear',
             'getUserIncome',
-            'getAllData',
             'getCurrentYear'
         ]),
-        isCurrentYear: {
-            get: function() {
-               return this.getIsCurrentYear
-            }
-        },
         incomeData: {
             get: function() {
                return this.getUserIncome
@@ -111,12 +76,7 @@ export default {
             if(this.budget == '' && this.yearData == '') {
                 valid = false;
             }
-            if(this.getAllData && this.year) {
-                this.validYear = this.getAllData.find(el => {
-                    if(el.year == this.yearData) {
-                        return el;
-                    }
-                })
+            if(this.year) {
                 if(this.validYear !== undefined) {
                     valid = false;
                 }
@@ -149,7 +109,11 @@ export default {
         },
         async getIncomeData() {
             try {
-                await this.$store.dispatch('getUserIncomeData', this.user.user.id);
+                let request = {
+                    user_id: this.user.user.id,
+                    year: this.yearData
+                }
+                await this.$store.dispatch('getUserIncomeData', request);
             } catch (e) {
                 console.log(e);
             }

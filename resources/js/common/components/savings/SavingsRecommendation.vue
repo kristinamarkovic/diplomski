@@ -93,7 +93,7 @@ export default {
                 })
             }
             else {
-              console.log("Neuspesno popuni polja.")
+              console.log("Neuspesno popunnjavanje polja.")
             }
         },
         calculate() {
@@ -101,7 +101,6 @@ export default {
             if(this.percent && this.incomeData) {
                 this.monthly_savings = (parseFloat(this.incomeData.average_monthly_income) * parseFloat(this.percent)) / 100;
                 this.yearly_savings = (parseFloat(this.incomeData.budget) * parseFloat(this.percent)) / 100;
-                console.log(this.incomeData, 'incomeSavingsRecommandation')
             }
             if(this.monthly_savings && this.yearly_savings) {
                 this.insert();

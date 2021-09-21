@@ -3,11 +3,12 @@
       <div class="year-picker">
         <datepicker
             type="year"
-            v-model="currentYear"
+            v-model="year"
             :format="DatePickerFormat"
             minimum-view="year"
             calendar-button-icon
             inputClass="input-datepicker" 
+            @selected="selectDate"
         >
         </datepicker>
     </div>
@@ -25,6 +26,20 @@ export default {
     data: () => {
         return {
             DatePickerFormat: 'yyyy',
+            year: '',
+        }
+    },
+    created() {
+        if(this.getCurrentYear) {
+            this.year = this.formatYear(this.getCurrentYear)
+        }
+        else {
+            this.year = moment(new Date()).format();
+        }
+    },
+    watch: {
+        currentYear: function(val) {
+            this.year = this.formatYear(this.getCurrentYear)
         }
     },
     methods: {
@@ -34,33 +49,28 @@ export default {
         formatYear(year) {
             let formated = year.toString();
             return formated.concat('-01-01');
+        },
+        selectDate(date) {
+            this.year = this.formatDate(date);
+            this.$store.commit('setCurrentYear', this.year);
+            let payload = {
+                year: this.year,
+                user_id: this.user.user.id
+            }
+            this.$store.dispatch('getUserIncomeData', payload);
         }
     },
     computed: {
         ...mapGetters([
             'getCurrentYear',
             'getInsertedYear',
+            'user',
         ]),
         currentYear: {
             get() {
                 return this.getCurrentYear ? this.formatYear(this.getCurrentYear) : moment(new Date()).format()
             },
-            set(val) {
-                this.$store.commit('setCurrentYear', this.formatDate(val))
-                this.$store.commit('setUserDataIncome', this.formatDate(val));
-                if(this.formatDate(val) == this.getInsertedYear) {
-                    this.$store.commit('setIsCurrentYear', true)
-                }
-                else {
-                    this.$store.commit('setIsCurrentYear', false)
-                }
-            }
         },
-        insertedYear: {
-            get() {
-                return this.getInsertedYear
-            }
-        }
     },
     components: {
         Datepicker
