@@ -92,6 +92,15 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   created: function created() {
     this.getAllCategories();
   },
+  watch: {
+    monthlyExpenses: function monthlyExpenses(value) {
+      if (value.monthly_expenses.length) {
+        this.expenses = value.monthly_expenses;
+      } else {
+        this.filterExpenses(this.categories);
+      }
+    }
+  },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['user', 'getUserIncome'])), {}, {
     yearData: {
       get: function get() {
@@ -102,6 +111,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       get: function get() {
         return this.user.user.id;
       }
+    },
+    monthlyExpenses: {
+      get: function get() {
+        return this.getUserIncome;
+      }
     }
   }),
   methods: {
@@ -110,6 +124,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       if (this.yearData.year == '') {
         valid = false;
+        this.error_msg = "Fill the yearly income form.";
       }
 
       var emptyExpenses = this.expenses.find(function (el) {
@@ -118,6 +133,7 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       if (emptyExpenses) {
         valid = false;
+        this.error_msg = "Inputs are required fields.Only numbers allowed.";
       }
 
       if (valid) {
@@ -274,6 +290,13 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       this.year = moment(new Date()).format();
     }
   },
+  mounted: function mounted() {
+    if (this.getCurrentYear) {
+      this.year = this.formatYear(this.getCurrentYear);
+    } else {
+      this.year = moment(new Date()).format();
+    }
+  },
   watch: {
     currentYear: function currentYear(val) {
       this.year = this.formatYear(this.getCurrentYear);
@@ -420,6 +443,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -447,6 +471,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
   mounted: function mounted() {
     this.getIncomeData();
   },
+  watch: {
+    incomeYearly: function incomeYearly(value) {
+      this.budget = value.budget ? value.budget : '';
+    }
+  },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapGetters)(['user', 'getUserIncome', 'getCurrentYear'])), {}, {
     incomeData: {
       get: function get() {
@@ -457,6 +486,11 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
       get: function get() {
         return this.getCurrentYear;
       }
+    },
+    incomeYearly: {
+      get: function get() {
+        return this.getUserIncome;
+      }
     }
   }),
   methods: {
@@ -465,12 +499,23 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
 
       if (this.budget == '' && this.yearData == '') {
         valid = false;
+        this.error_msg = "Amount is a required field.Only numbers allowed.";
       }
 
       if (this.year) {
         if (this.validYear !== undefined) {
           valid = false;
         }
+      }
+
+      if (isNaN(parseFloat(this.budget))) {
+        valid = false;
+        this.error_msg = "Amount is a required field.Only numbers allowed.";
+      }
+
+      if (this.incomeYearly || this.incomeYearly != parseFloat(this.budget)) {
+        valid = false;
+        console.error("Mora update");
       }
 
       return valid;
@@ -488,7 +533,6 @@ var moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"
         };
         axios__WEBPACK_IMPORTED_MODULE_2___default().post('/auth/insert_income', incomeForm).then(function (_ref) {
           var data = _ref.data;
-          console.log(data, 'data');
 
           _this.getIncomeData();
         })["catch"](function (e) {
@@ -586,6 +630,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -600,6 +645,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       yearly_savings: '',
       percent: ''
     };
+  },
+  watch: {
+    percentSavings: function percentSavings(value) {
+      this.percent = value.savings_percent ? value.savings_percent.percent : '';
+    }
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)(['user', 'getCurrentYear', 'getUserIncome'])), {}, {
     yearData: {
@@ -616,6 +666,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       get: function get() {
         return this.getUserIncome;
       }
+    },
+    percentSavings: {
+      get: function get() {
+        return this.getUserIncome;
+      }
     }
   }),
   methods: {
@@ -624,10 +679,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (this.incomeData.year == '') {
         valid = false;
+        this.error_msg = "Fill the yearly income form.";
+      }
+
+      if (this.percentSavings || this.percentSavings != parseFloat(this.percent)) {
+        valid = false;
+        console.error("Mora update");
       }
 
       if (isNaN(parseFloat(this.percent))) {
         valid = false;
+        this.error_msg = "Percent is a required field.Only numbers allowed.";
       }
 
       return valid;
@@ -639,7 +701,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (valid) {
         var formData = {
-          'user_id': this.incomeData.id,
+          'user_id': this.user.user.id,
           'monthly': this.monthly_savings,
           'yearly': this.yearly_savings,
           'year': this.incomeData.year,
@@ -2121,6 +2183,22 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
+            _c(
+              "label",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.error_msg,
+                    expression: "error_msg"
+                  }
+                ],
+                staticClass: "form-label form-label-error"
+              },
+              [_vm._v(_vm._s(_vm.error_msg))]
+            ),
+            _vm._v(" "),
             _c("div", { staticClass: "form-group float-right" }, [
               _c(
                 "button",
@@ -2316,7 +2394,9 @@ var render = function() {
                     expression: "budget"
                   }
                 ],
-                staticClass: "form-input",
+                class: [
+                  _vm.error_msg ? "form-input error-input" : "form-input"
+                ],
                 attrs: { placeholder: "Input Amount" },
                 domProps: { value: _vm.budget },
                 on: {
@@ -2327,7 +2407,23 @@ var render = function() {
                     _vm.budget = $event.target.value
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.error_msg,
+                      expression: "error_msg"
+                    }
+                  ],
+                  staticClass: "form-label form-label-error"
+                },
+                [_vm._v(_vm._s(_vm.error_msg))]
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -2354,7 +2450,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-title" }, [
-      _c("h2", [_vm._v("Enter Yearly Income")])
+      _c("h2", [_vm._v("Yearly Income")])
     ])
   }
 ]
@@ -2399,7 +2495,9 @@ var render = function() {
                     expression: "percent"
                   }
                 ],
-                staticClass: "form-input",
+                class: [
+                  _vm.error_msg ? "form-input error-input" : "form-input"
+                ],
                 attrs: { placeholder: "Input Percent" },
                 domProps: { value: _vm.percent },
                 on: {
@@ -2410,7 +2508,23 @@ var render = function() {
                     _vm.percent = $event.target.value
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.error_msg,
+                      expression: "error_msg"
+                    }
+                  ],
+                  staticClass: "form-label form-label-error"
+                },
+                [_vm._v(_vm._s(_vm.error_msg))]
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [

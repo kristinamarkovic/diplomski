@@ -4,20 +4,21 @@
         <div class="wrapper">
             <div class="left-side">
                 <form class="form w-50 m-b-20">
-                <div class="form-title">
-                    <h2>Enter Yearly Income</h2>
-                </div>
-                <div class="form-group d-flex-column">
-                    <label class="form-label">Year</label>
-                    <year-picker></year-picker>
-                </div>
-                <div class="form-group d-flex-column">
-                    <label class="form-label">Amount</label>
-                    <input v-model="budget" class="form-input" placeholder="Input Amount" />
-                </div>
-                <div class="form-group">
-                <button type="button" class="form-button" @click="insert">Insert</button>
-                </div>
+                    <div class="form-title">
+                        <h2>Yearly Income</h2>
+                    </div>
+                    <div class="form-group d-flex-column">
+                        <label class="form-label">Year</label>
+                        <year-picker></year-picker>
+                    </div>
+                    <div class="form-group d-flex-column">
+                        <label class="form-label">Amount</label>
+                        <input v-model="budget" :class="[error_msg ? 'form-input error-input' : 'form-input']"  placeholder="Input Amount" />
+                        <label class="form-label form-label-error" v-show="error_msg">{{error_msg}}</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="form-button" @click="insert">Insert</button>
+                    </div>
                 </form>
                 {{ incomeData }}
             </div>
@@ -53,6 +54,11 @@ export default {
     mounted() {
         this.getIncomeData();
     },
+    watch: {
+        incomeYearly: function(value)  {
+            this.budget = value.budget ? value.budget : '';
+        }
+    },
     computed: {
         ...mapGetters([
             'user',
@@ -68,13 +74,20 @@ export default {
             get: function() {
                 return this.getCurrentYear
             }
+        },
+        incomeYearly: {
+            get: function() {
+                return this.getUserIncome
+            }
         }
     },
     methods: {
         validate() {
             let valid = true;
+
             if(this.budget == '' && this.yearData == '') {
                 valid = false;
+                this.error_msg = "Amount is a required field.Only numbers allowed."
             }
             if(this.year) {
                 if(this.validYear !== undefined) {
@@ -82,6 +95,15 @@ export default {
                 }
             }
 
+            if(isNaN(parseFloat(this.budget))) {
+                valid = false;
+                this.error_msg = "Amount is a required field.Only numbers allowed."
+            }
+
+            if(this.incomeYearly || this.incomeYearly != parseFloat(this.budget)) {
+                valid = false;
+                console.error("Mora update")
+            }
             return valid;
         },
         insert() {
@@ -95,7 +117,6 @@ export default {
                 axios
                 .post('/auth/insert_income', incomeForm)
                 .then(({ data }) => {
-                    console.log(data, 'data');
                     this.getIncomeData();
                 })
                 .catch(e => {

@@ -53,17 +53,8 @@ class IncomeController extends Controller
     public function getInfo($id) {
         // dd($_GET['year']);
         $year = $_GET["year"] ?? date('Y');
-
-        // if ($request->missing('year')) {
-        //     $year = date("Y");
-        // }
-        // else {
-        //     $year = $_GET['year'];
-        // }
         try {
             
-            // $user_income = Income::where('user_id', '=', $id)->get();
-
             $user_income = Income::where([
                 ['user_id', '=', $id],
                 ['year', '=', $year]
@@ -72,7 +63,7 @@ class IncomeController extends Controller
             $monthly_expenses = MonthlyExpenses::where([
                 ['user_id', '=', $id],
                 ['year', '=', $year]
-            ])->first();
+            ])->get();
 
             $total_expenses = TotalExpense::where([
                 ['user_id', '=', $id],
@@ -86,16 +77,6 @@ class IncomeController extends Controller
 
         
             if($user_income) {
-                // $count = count($user_income);
-                // for($i = 0; $i < $count; $i++) {
-                //     $user_income[$i]['average_monthly_income'] = $this->getMonthlyIncome($user_income[$i]->budget);
-                //     $user_income[$i]['monthly_expenses'] = $monthly_expenses;
-                //     $user_income[$i]['total_expenses'] = $total_expenses;
-                //     $user_income[$i]['savings_percent'] = $savings_percent;
-                // }
-
-
-
                 $user_income['average_monthly_income'] = $this->getMonthlyIncome($user_income->budget);
                 $user_income['monthly_expenses'] = $monthly_expenses;
                 $user_income['total_expenses'] = $total_expenses;

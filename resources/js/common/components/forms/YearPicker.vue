@@ -37,6 +37,14 @@ export default {
             this.year = moment(new Date()).format();
         }
     },
+    mounted() {
+        if(this.getCurrentYear) {
+            this.year = this.formatYear(this.getCurrentYear)
+        }
+        else {
+            this.year = moment(new Date()).format();
+        }
+    },
     watch: {
         currentYear: function(val) {
             this.year = this.formatYear(this.getCurrentYear)

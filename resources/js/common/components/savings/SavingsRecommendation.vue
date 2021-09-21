@@ -4,16 +4,17 @@
         <div class="wrapper">
             <div class="left-side">
                 <form class="form m-b-20">
-                <div class="form-title">
-                    <h2>Savings Recommendation</h2>
-                </div>
-                <div class="form-group d-flex-column">
-                    <label class="form-label">Percent</label>
-                    <input v-model="percent" class="form-input" placeholder="Input Percent" />
-                </div>
-                <div class="form-group">
-                    <button type="button" class="form-button" @click="calculate()">Insert</button>
-                </div>
+                    <div class="form-title">
+                        <h2>Savings Recommendation</h2>
+                    </div>
+                    <div class="form-group d-flex-column">
+                        <label class="form-label">Percent</label>
+                        <input v-model="percent" :class="[error_msg ? 'form-input error-input' : 'form-input']" placeholder="Input Percent" />
+                        <label class="form-label form-label-error" v-show="error_msg">{{error_msg}}</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="form-button" @click="calculate()">Insert</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -37,6 +38,11 @@ export default {
             percent: '',
         }
     },
+    watch: {
+        percentSavings: function(value)  {
+            this.percent = value.savings_percent ? value.savings_percent.percent : '';
+        }
+    },
     computed: {
         ...mapGetters([
             'user',
@@ -45,7 +51,7 @@ export default {
         ]),
         yearData: {
             get: function() {
-            return this.getCurrentYear
+                return this.getCurrentYear
             }
         },
         currentUser: {
@@ -57,6 +63,11 @@ export default {
             get: function() {
                 return this.getUserIncome
             }
+        },
+        percentSavings: {
+            get: function() {
+                return this.getUserIncome
+            }
         }
     },
     methods: {
@@ -65,10 +76,17 @@ export default {
 
             if(this.incomeData.year == '') {
                 valid = false;
+                this.error_msg = "Fill the yearly income form."
+            }
+
+            if(this.percentSavings || this.percentSavings != parseFloat(this.percent)) {
+                valid = false;
+                console.error("Mora update")
             }
 
             if(isNaN(parseFloat(this.percent))) {
                 valid = false;
+                this.error_msg = "Percent is a required field.Only numbers allowed."
             }
             return valid;
         },
@@ -76,7 +94,7 @@ export default {
             let valid = this.validate();
             if(valid) {
                 let formData = {
-                    'user_id': this.incomeData.id,
+                    'user_id': this.user.user.id,
                     'monthly': this.monthly_savings,
                     'yearly': this.yearly_savings,
                     'year': this.incomeData.year,

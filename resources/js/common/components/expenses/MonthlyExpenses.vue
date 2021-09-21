@@ -4,21 +4,21 @@
         <div class="wrapper p-t-150">
             <div class="left-side">
                 <form class="form m-b-20">
-                <div class="form-title">
-                    <h2>Monthly Expenses</h2>
-                </div>
-                <div class="d-flex-row justify-between">
-                    <div class="d-flex-column categories-group form-group p-0">
-                        <label v-for="category in categories" :key="category.name" class="form-input-label m-t-10">{{ category.name }}</label>
+                    <div class="form-title">
+                        <h2>Monthly Expenses</h2>
                     </div>
-                    <div class="d-flex-column form-group p-0">
-                        <input v-for="expense in expenses" :key="expense.id" v-model="expense.expense" class="form-input m-t-10" placeholder="Input Amount" />
+                    <div class="d-flex-row justify-between">
+                        <div class="d-flex-column categories-group form-group p-0">
+                            <label v-for="category in categories" :key="category.name" class="form-input-label m-t-10">{{ category.name }}</label>
+                        </div>
+                        <div class="d-flex-column form-group p-0">
+                            <input v-for="expense in expenses" :key="expense.id" v-model="expense.expense" class="form-input m-t-10" placeholder="Input Amount" />
+                        </div>
                     </div>
-                </div>
-                <div class="form-group float-right">
-                    <button type="button" class="form-button" @click="insert">Insert</button>
-                </div>
-                
+                    <label class="form-label form-label-error" v-show="error_msg">{{error_msg}}</label>
+                    <div class="form-group float-right">
+                        <button type="button" class="form-button" @click="insert">Insert</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -51,6 +51,16 @@ export default {
     created() {
         this.getAllCategories();
     },
+    watch: {
+        monthlyExpenses: function(value)  {
+            if(value.monthly_expenses.length) {
+                this.expenses = value.monthly_expenses;
+            }
+            else {
+                this.filterExpenses(this.categories);
+            }
+        }
+    },
     computed: {
         ...mapGetters([
           'user',
@@ -65,6 +75,11 @@ export default {
             get: function() {
                 return this.user.user.id;
             }
+        },
+        monthlyExpenses: {
+            get: function() {
+                return this.getUserIncome
+            }
         }
     },
     methods: {
@@ -73,11 +88,13 @@ export default {
 
             if(this.yearData.year == '') {
                 valid = false;
+                this.error_msg = "Fill the yearly income form."
             }
             
             let emptyExpenses = this.expenses.find(el => isNaN(parseFloat(el.expense)));
             if(emptyExpenses) {
                 valid = false;
+                this.error_msg = "Inputs are required fields.Only numbers allowed."
             }
 
             if(valid) {

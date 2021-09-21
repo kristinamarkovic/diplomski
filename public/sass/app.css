@@ -69,10 +69,19 @@
   outline: none !important;
   box-shadow: 0px 2px 2px 0px rgba(58, 87, 238, 0.5);
 }
+.form .form-group .form-input.error-input {
+  border: 1px solid #FF0000;
+  box-shadow: 0px 2px 4px 2px rgba(255, 59, 34, 0.44);
+}
 .form .form-group .form-label {
   font-size: 14px;
   color: #474747 !important;
   margin-bottom: 5px;
+}
+.form .form-group .form-label.form-label-error {
+  color: #FF0000 !important;
+  font-size: 12px;
+  padding-top: 5px;
 }
 .form .form-group .form-input-label {
   height: 30px;

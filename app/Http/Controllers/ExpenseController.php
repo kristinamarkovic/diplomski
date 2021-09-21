@@ -18,29 +18,12 @@ class ExpenseController extends Controller
 // DELETE	/photos/{photo}	destroy()	photos.destroy
 
     public function store(Request $request) {
-
-        // $validator = Validator::make($request->all(), [[
-        //     'user_id' => 'required|exists:users,id|numeric',
-        //     'category_id' => 'required|exists:categories,id|numeric',
-        //     'expense' => 'required',
-        //     'year' => 'required'
-        // ]]);
-
-        // if ($validator->fails()) {
-        //     return response()->json($validator->errors(), 422);
-        // }
-            // $user = $request->input('user_id');
-            // $category = $request->input('category_id');
-            // $year = $request->input('year');
-            // $expense = $request->input('expense');
-
             try {
 
                 $user = array_values($request[0])[3];
                 $year = array_values($request[0])[1];
 
-
-                 //Insert Monthly Expenses
+                //Insert Monthly Expenses
                 MonthlyExpenses::insert($request->all());
                 
                 
