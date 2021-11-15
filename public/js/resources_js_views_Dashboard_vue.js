@@ -768,11 +768,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Dashboard',
+  data: function data() {
+    return {
+      tabs: [{
+        id: 1,
+        name: 'Yearly Savings',
+        active: true
+      }, {
+        id: 2,
+        name: 'Monthly Savings',
+        active: false
+      }]
+    };
+  },
   components: {
     Income: _common_components_income_Income_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     MonthlyExpenses: _common_components_expenses_MonthlyExpenses_vue__WEBPACK_IMPORTED_MODULE_0__.default,
@@ -2582,11 +2615,61 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "main-dashboard" }, [
-      _c("div", { staticClass: "widget" }, [_c("income")], 1),
+      _c(
+        "ul",
+        { staticClass: "nav-tabs", attrs: { id: "nav-tab", role: "tablist" } },
+        _vm._l(_vm.tabs, function(tab) {
+          return _c(
+            "li",
+            {
+              key: tab.id,
+              staticClass: "nav-item",
+              class: [tab.active ? "active" : ""]
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link",
+                  class: [tab.active ? "active" : ""],
+                  attrs: {
+                    role: "tab",
+                    "data-toggle": "tab",
+                    href: "#yearlySavings "
+                  }
+                },
+                [_vm._v(_vm._s(tab.name))]
+              )
+            ]
+          )
+        }),
+        0
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "widget" }, [_c("monthly-expenses")], 1),
+      _c("div", { staticClass: "tab-content" }, [
+        _c(
+          "div",
+          { staticClass: " tab-pane active", attrs: { id: "yearlySavings" } },
+          [_c("div", { staticClass: "widget" }, [_c("income")], 1)]
+        )
+      ]),
       _vm._v(" "),
-      _c("div", { staticClass: "widget" }, [_c("savings-recommendation")], 1)
+      _c("div", { staticClass: "tab-content" }, [
+        _c(
+          "div",
+          { staticClass: " tab-pane active", attrs: { id: "monthlySavings" } },
+          [
+            _c("div", { staticClass: "widget" }, [_c("monthly-expenses")], 1),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "widget" },
+              [_c("savings-recommendation")],
+              1
+            )
+          ]
+        )
+      ])
     ])
   ])
 }

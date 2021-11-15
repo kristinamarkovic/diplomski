@@ -364,11 +364,12 @@ table {
 
 .logo {
   position: relative;
+  top: 13px;
   width: 50%;
 }
 .logo .logo-text {
   color: #fff;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -542,10 +543,7 @@ table {
 }
 
 .main-dashboard {
-  display: flex;
-  justify-content: flex-start;
-  align-items: baseline;
-  margin-left: 105px;
+  background-color: #F8FAFB;
 }
 .main-dashboard .widget {
   height: auto;
@@ -559,6 +557,33 @@ table {
 .main-dashboard .message-income .form .form-button {
   margin-right: 10px;
   margin-top: 10px;
+}
+.main-dashboard .nav-tabs {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+  height: 30px;
+  background-color: #fff;
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+}
+.main-dashboard .nav-tabs .nav-item {
+  text-align: center;
+  padding: 5px;
+  width: 150px;
+}
+.main-dashboard .nav-tabs .nav-item.active {
+  background-color: #1ab1de;
+}
+.main-dashboard .nav-tabs .nav-item .nav-link {
+  color: #474747;
+  text-decoration: none;
+  font-size: 14px;
+}
+.main-dashboard .nav-tabs .nav-item .nav-link.active {
+  color: #fff;
 }
 .main-dashboard .message-income-paragraph {
   font-size: 14px;
@@ -600,15 +625,42 @@ table {
   height: 400px;
 }
 
+.image-analytics {
+  background-image: url(/images/analytics.png?641705669fe5667a2b6a9c9461801caf);
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.image-forms {
+  background-image: url(/images/google-forms.png?e7e13170cc147c3c5e2bb817cb44a3e1);
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.image-summary {
+  background-image: url(/images/monthly_calendar.png?c3f00afdd6197b8ef2011c96a82dd47c);
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .logo .logo-image {
   background-image: url(/images/logo_savings.png?d798d90a4b25e1701703654995fadda8);
-  width: 73px;
-  height: 64px;
+  width: 62px;
+  height: 57px;
   background-size: cover;
   display: block;
   position: absolute;
   top: -26px;
-  left: 86px;
+  left: 60px;
 }
 
 .input-datepicker {
@@ -623,7 +675,7 @@ table {
   color: #348fd9;
   font-weight: bold;
   border: 1px solid #dedede;
-  font-size: 16px;
+  font-size: 14px;
 }
 .input-datepicker:hover {
   cursor: pointer;

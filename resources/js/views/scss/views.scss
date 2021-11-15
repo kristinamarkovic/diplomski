@@ -59,10 +59,11 @@
 
 //Dashboard 
 .main-dashboard {
-    display: flex;
-    justify-content: flex-start;
-    align-items: baseline;
-    margin-left: 105px;
+    // display: flex;
+    // justify-content: flex-start;
+    // align-items: baseline;
+    background-color: #F8FAFB;
+    
 
     .widget {
         height: auto;
@@ -76,6 +77,35 @@
             .form-button {
                 margin-right: 10px;
                 margin-top: 10px;
+            }
+        }
+    }
+
+    .nav-tabs {
+        display: block;
+        margin: 0 auto;
+        width: 300px;
+        height: 30px;
+        background-color: $color-white;
+        border: 1px solid #dedede;
+        border-radius: 3px;
+        display: flex;
+        justify-content: space-between;
+
+        .nav-item {
+            text-align: center;
+            padding: 5px;
+            width: 150px;
+            &.active {
+                background-color: #1ab1de;
+            }
+            .nav-link {
+                color: $color-dark-grey;
+                text-decoration: none;
+                font-size: 14px;
+                &.active {
+                    color: $color-white;
+                }
             }
         }
     }

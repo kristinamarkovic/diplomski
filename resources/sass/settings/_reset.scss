@@ -163,6 +163,7 @@ table {
 }
 .logo {
     position: relative;
+    top: 13px;
     .logo-text {
         // background: #1e5799; /* Old browsers */
         // background: #fefcea; /* Old browsers */
@@ -175,7 +176,7 @@ table {
         // -webkit-background-clip: text;
         // -webkit-text-fill-color: transparent;
         color: $color-white;
-        font-size: 40px;
+        font-size: 30px;
         font-weight: bold;
     }
     width: 50%;
